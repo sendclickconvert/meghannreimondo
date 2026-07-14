@@ -38,12 +38,16 @@ const electionLabel = electionDate.toLocaleDateString('en-US', {
   <div class="bg-white border-b border-slate-200 shadow-sm">
     <div class="container-wide">
       <nav class="flex items-center justify-between h-16 lg:h-20" aria-label="Primary navigation">
-        <!-- Logo (brand logo asset is TODO — text logo for now) -->
+        <!-- Logo: official circular badge when set (render-if-set), else text wordmark -->
         <a href="/" class="flex items-center gap-3 shrink-0" aria-label={`${site.candidate.name} — Home`} title={`${site.candidate.name} — Home`}>
-          <span class="font-display font-extrabold text-lg lg:text-2xl text-navy leading-none">
-            {site.candidate.name}
-            <span class="block text-[10px] lg:text-xs font-semibold text-red uppercase tracking-widest mt-0.5">{site.brand.tagline}</span>
-          </span>
+          {site.brand.logo && site.brand.logo !== "TODO" ? (
+            <img src={site.brand.logo} alt={`${site.candidate.name} — Write-In for ${site.candidate.office}`} class="h-14 lg:h-16 w-auto" />
+          ) : (
+            <span class="font-display font-extrabold text-lg lg:text-2xl text-navy leading-none">
+              {site.candidate.name}
+              <span class="block text-[10px] lg:text-xs font-semibold text-red uppercase tracking-widest mt-0.5">{site.brand.tagline}</span>
+            </span>
+          )}
         </a>
 
         <!-- Desktop nav -->

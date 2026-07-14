@@ -21,8 +21,8 @@ export const site = {
     navy: "#012566",
     red: "#D60F29",
     tagline: "Leading with Heart",
-    logo: "TODO",
-    favicon: "TODO",
+    logo: "/images/logo.webp",        // official circular badge (transparent corners)
+    favicon: "/images/favicon-32.png", // derived from the badge
   },
   media: { heroVideo: "TODO" },
   url: "https://meghannreimondo.com",
