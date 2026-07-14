@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /
+
+# Campaign stays noindex until launch (DEMO_MODE). Re-enable indexing at go-live.
+Sitemap: https://meghannreimondo.com/sitemap-index.xml

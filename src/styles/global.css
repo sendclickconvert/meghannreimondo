@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   CIVIC THEME TOKENS — single source of truth for the palette.
+   Navy / red / white. Values are RGB channel triplets so Tailwind
+   opacity modifiers work. Brand hexes live in site.ts brand.*.
+   ============================================================ */
+:root {
+  --color-primary: 1 37 102;      /* navy  #012566 */
+  --color-secondary: 214 15 41;   /* red   #D60F29 */
+  --color-accent: 214 15 41;      /* red   #D60F29 */
+  --color-ink: 15 23 42;          /* slate-900 text #0F172A */
+  --color-cream: 248 250 252;     /* near-white page bg #F8FAFC */
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply font-body text-ink bg-white;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display font-bold text-navy;
+  }
+
+  ::selection {
+    @apply bg-navy text-white;
+  }
+}
+
+@layer components {
+  .container-wide {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .container-narrow {
+    @apply max-w-4xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* ---- Buttons ---- */
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-7 py-3
+           bg-navy text-white font-heading font-bold text-sm rounded-md
+           transition-all duration-200 shadow-soft
+           hover:brightness-110 hover:-translate-y-0.5
+           focus:outline-none focus:ring-2 focus:ring-navy focus:ring-offset-2
+           active:translate-y-0;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-7 py-3
+           border-2 border-navy text-navy font-heading font-bold text-sm rounded-md
+           transition-all duration-200
+           hover:bg-navy hover:text-white
+           focus:outline-none focus:ring-2 focus:ring-navy focus:ring-offset-2;
+  }
+
+  .btn-accent {
+    @apply inline-flex items-center justify-center px-7 py-3
+           bg-red text-white font-heading font-extrabold text-sm rounded-md
+           transition-all duration-200 shadow-soft
+           hover:brightness-110 hover:-translate-y-0.5
+           focus:outline-none focus:ring-2 focus:ring-red focus:ring-offset-2;
+  }
+
+  /* ---- Cards ---- */
+  .card {
+    @apply bg-white rounded-xl border border-slate-200 p-6 shadow-soft
+           transition-all duration-200
+           hover:-translate-y-1 hover:shadow-[0_18px_40px_-14px_rgba(1,37,102,0.28)];
+  }
+
+  .section-divider {
+    @apply w-14 h-1.5 bg-red rounded-full;
+  }
+
+  .section-white { @apply bg-white; }
+  .section-tint  { @apply bg-cream; }
+  .section-navy  { @apply bg-navy text-white; }
+
+  /* Scroll-triggered animations */
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  .animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

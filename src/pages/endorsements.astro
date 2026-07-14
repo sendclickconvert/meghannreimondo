@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WriteInBlock from '../components/WriteInBlock.astro';
+import { site } from '../data/site';
+import { webPage, breadcrumb } from '../lib/schema';
+
+const path = '/endorsements';
+// WebPage ONLY — deliberately no review or rating schema of any kind.
+const schema = webPage({
+  name: 'Endorsements',
+  description: `Endorsements for ${site.candidate.name}, write-in candidate for ${site.candidate.office}.`,
+  path,
+  extraNodes: [
+    breadcrumb([
+      { name: 'Home', path: '/' },
+      { name: 'Endorsements', path },
+    ]),
+  ],
+});
+---
+
+<BaseLayout title="Endorsements" description={`Endorsements for ${site.candidate.name}.`} schema={schema}>
+  <section class="bg-navy text-white">
+    <div class="container-narrow py-14 lg:py-20 text-center">
+      <p class="text-xs font-heading font-bold uppercase tracking-widest text-red mb-3">Who's backing Meghann</p>
+      <h1 class="text-4xl lg:text-5xl font-display font-extrabold text-white">Endorsements</h1>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="container-narrow py-14 lg:py-20">
+      <div class="card border-dashed border-2 border-red/40 text-center">
+        <p class="font-display font-bold text-lg text-navy">[TODO — endorsers, permission-confirmed before publish]</p>
+        <p class="mt-2 text-ink/70">Endorsements will be listed only after each endorser has confirmed permission. No endorsements are shown until then.</p>
+      </div>
+    </div>
+  </section>
+
+  <WriteInBlock tone="light" />
+</BaseLayout>

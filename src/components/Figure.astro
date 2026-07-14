@@ -1,0 +1,41 @@
+---
+// Image slot with a MANDATORY alt. Renders a real <img> when `src` is set,
+// otherwise a labeled placeholder box. A missing/empty alt throws at build time,
+// so no image slot can ever ship without a name.
+export interface Props {
+  src?: string;
+  alt: string;
+  ratio?: string;   // e.g. "4/3", "16/9", "21/9", "1/1"
+  label?: string;   // dimension label shown in the placeholder
+  shape?: string;   // shape classes, e.g. "rounded-3xl", "scallop-frame"
+  tone?: string;    // placeholder bg/text classes
+  class?: string;
+  loading?: 'lazy' | 'eager';
+}
+const {
+  src,
+  alt,
+  ratio = '4/3',
+  label,
+  shape = 'rounded-2xl',
+  tone = 'bg-secondary/15 text-secondary',
+  class: cls = '',
+  loading = 'lazy',
+} = Astro.props;
+
+if (alt === undefined || alt === null || String(alt).trim() === '') {
+  throw new Error(`<Figure> requires a non-empty alt prop (slot: ${label ?? src ?? 'unknown'})`);
+}
+---
+{src ? (
+  <img src={src} alt={alt} loading={loading} class:list={['object-cover w-full h-full', shape, cls]} />
+) : (
+  <div
+    role="img"
+    aria-label={alt}
+    style={`aspect-ratio:${ratio}`}
+    class:list={['w-full flex items-center justify-center text-xs font-heading font-semibold text-center px-2', shape, tone, cls]}
+  >
+    {label ?? alt}
+  </div>
+)}

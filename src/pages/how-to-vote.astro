@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WriteInBlock from '../components/WriteInBlock.astro';
+import { site } from '../data/site';
+import { graph, howTo, faqPage, breadcrumb } from '../lib/schema';
+
+const path = '/how-to-vote';
+
+// ---- HowTo steps: generic NY paper / optical-scan write-in mechanics (factual, non-promotional) ----
+const steps = [
+  {
+    name: 'Find the write-in line for Town Supervisor',
+    text: `Locate the ${site.candidate.office} race on your ballot and find its write-in area — the blank line reserved for candidates whose names are not printed.`,
+  },
+  {
+    name: 'Write "Meghann Reimondo" — spelled exactly',
+    text: 'On that write-in line, write the name Meghann Reimondo, spelled exactly: "Meghann" with a double n, then "Reimondo". A misspelled name can keep your vote from counting.',
+  },
+  {
+    name: 'Fill in the mark so the scanner counts it',
+    text: 'Next to the write-in line, fill in the oval or complete the mark for the write-in position so the optical scanner registers your write-in vote.',
+  },
+];
+
+// ---- FAQ: answers are VERBATIM-matched to the schema (same strings rendered on-page) ----
+const faqs = [
+  {
+    q: "Is Meghann Reimondo's name printed on the ballot?",
+    a: 'No. Meghann is a write-in candidate, so her name is not pre-printed on the ballot. To vote for her, you add her name yourself in the write-in area for the Town Supervisor race.',
+  },
+  {
+    q: 'How do I spell her name correctly?',
+    a: 'Meghann Reimondo — "Meghann" is spelled with a double n (M-E-G-H-A-N-N) and "Reimondo" is spelled R-E-I-M-O-N-D-O. A misspelled name can cause your vote not to count, so spell it exactly.',
+  },
+  {
+    q: 'Do I have to fill in a bubble or oval too?',
+    a: "On New York's optical-scan ballots you generally must both write the name on the write-in line and fill in the oval or mark for the write-in position so the scanner registers it. [VERIFY — confirm Woodstock/Ulster County ballot design]",
+  },
+  {
+    q: 'Where is the write-in line on the ballot?',
+    a: 'It is in the same section as the Town Supervisor race, generally below the printed candidates for that office. [VERIFY — confirm Woodstock/Ulster County ballot design: exact layout and label]',
+  },
+  {
+    q: 'Does my handwriting need to be perfect?',
+    a: 'Write clearly enough that an election official can read the name — printing it is fine. As long as the intended candidate is clear and the name is spelled correctly, the write-in can be counted.',
+  },
+  {
+    q: 'Can I write her in on an early, absentee, or mail ballot?',
+    a: 'Write-in rules apply the same way on early, absentee, and mail ballots — you write her name in the Town Supervisor write-in area and complete the mark. [VERIFY — confirm Ulster County procedures for early and absentee write-ins]',
+  },
+];
+
+const schema = graph([
+  howTo({
+    name: `How to write in ${site.candidate.name} for ${site.candidate.office}`,
+    description: `Step-by-step instructions for casting a valid write-in vote for ${site.candidate.name} in the ${site.candidate.office} race.`,
+    path,
+    steps,
+  }),
+  faqPage(faqs),
+  breadcrumb([
+    { name: 'Home', path: '/' },
+    { name: 'How to Write In', path },
+  ]),
+]);
+---
+
+<BaseLayout
+  title="How to Write In Meghann Reimondo"
+  description={`How to cast a valid write-in vote for ${site.candidate.name} for ${site.candidate.office} — spell her name exactly and complete the mark.`}
+  schema={schema}
+>
+  <!-- Page header -->
+  <section class="bg-navy text-white">
+    <div class="container-narrow py-14 lg:py-20 text-center">
+      <p class="text-xs font-heading font-bold uppercase tracking-widest text-red mb-3">Make your vote count</p>
+      <h1 class="text-4xl lg:text-5xl font-display font-extrabold text-white text-balance">
+        How to write in Meghann Reimondo
+      </h1>
+      <p class="mt-4 text-lg text-white/70 max-w-2xl mx-auto">
+        Her name is not on the ballot. A write-in vote only counts when the name is written in the right place, spelled correctly, and marked. Here is exactly how.
+      </p>
+    </div>
+  </section>
+
+  <!-- Correct-spelling callout (unmissable) -->
+  <section class="bg-cream">
+    <div class="container-narrow py-10 text-center">
+      <p class="text-sm font-heading font-bold uppercase tracking-widest text-red mb-2">Spell it exactly</p>
+      <p class="font-display font-extrabold text-3xl lg:text-4xl text-navy tracking-tight">Meghann Reimondo</p>
+      <p class="mt-3 text-ink/70">
+        <strong class="text-navy">M-E-G-H-A-N-N</strong> — double n — <strong class="text-navy">R-E-I-M-O-N-D-O</strong>.
+      </p>
+    </div>
+  </section>
+
+  <!-- HowTo steps -->
+  <section class="bg-white">
+    <div class="container-narrow py-14 lg:py-20">
+      <h2 class="text-2xl lg:text-3xl font-display font-extrabold text-navy mb-8">Three steps to a valid write-in vote</h2>
+      <ol class="space-y-6">
+        {steps.map((step, i) => (
+          <li class="flex gap-5">
+            <span class="shrink-0 w-11 h-11 rounded-full bg-navy text-white font-display font-extrabold text-lg flex items-center justify-center">{i + 1}</span>
+            <div>
+              <h3 class="font-display font-bold text-lg text-navy">{step.name}</h3>
+              <p class="mt-1 text-ink/75">{step.text}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <p class="mt-8 text-sm text-ink/60 border-l-4 border-red pl-4">
+        Note: the exact ballot layout and whether a mark is required alongside the write-in line are
+        <strong class="text-navy"> [VERIFY — confirm Woodstock/Ulster County ballot design]</strong>. This page describes standard New York optical-scan write-in mechanics and will be finalized against the official Woodstock ballot.
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ (static expanded HTML, verbatim-matched to FAQPage schema) -->
+  <section class="bg-cream">
+    <div class="container-narrow py-14 lg:py-20">
+      <h2 class="text-2xl lg:text-3xl font-display font-extrabold text-navy mb-8">Write-in questions, answered</h2>
+      <div class="space-y-6">
+        {faqs.map((f) => (
+          <div class="card">
+            <h3 class="font-display font-bold text-lg text-navy">{f.q}</h3>
+            <p class="mt-2 text-ink/75">{f.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <WriteInBlock tone="navy" />
+</BaseLayout>

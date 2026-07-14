@@ -1,0 +1,67 @@
+---
+// Campaign hero — split layout adapted from the sibling project's index hero
+// (copy on one side, rounded aspect-video media card on the other).
+// The source project's card was a Vimeo iframe; here the source is site.media.heroVideo.
+// While heroVideo is "TODO", render a labeled placeholder card — embed nothing.
+import { site, isTodo } from '../data/site';
+import Figure from './Figure.astro';
+
+const hasVideo = !isTodo(site.media.heroVideo);
+const electionDate = new Date(site.candidate.electionDate + 'T00:00:00');
+const electionLabel = electionDate.toLocaleDateString('en-US', {
+  month: 'long', day: 'numeric', year: 'numeric',
+});
+---
+
+<section class="relative overflow-hidden bg-white">
+  <div class="container-wide py-14 lg:py-20">
+    <div class="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+      <!-- Left: eyebrow + title + text + CTAs -->
+      <div>
+        <p class="inline-flex items-center gap-2 text-xs font-heading font-bold uppercase tracking-wider text-red bg-red/10 rounded-full px-3 py-1 mb-5">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          Write-In · General Election {electionLabel}
+        </p>
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-display font-extrabold text-navy leading-tight text-balance">
+          {site.candidate.name} for {site.candidate.office}
+        </h1>
+        <p class="mt-4 text-lg font-semibold text-red">{site.brand.tagline}</p>
+        <p class="mt-5 text-lg text-ink/70 max-w-xl">
+          Meghann is a <strong class="text-navy">write-in candidate</strong> — her name is not printed on the ballot.
+          To vote for her, you write <strong class="text-navy">Meghann Reimondo</strong> in yourself, spelled exactly right.
+          Here is how to make your vote count.
+        </p>
+        <div class="mt-8 flex flex-wrap items-center gap-4">
+          <a href="/how-to-vote" class="btn-accent" title="How to write in Meghann Reimondo">How to Write In Meghann</a>
+          <a href="#" class="inline-flex items-center gap-2 font-heading font-bold text-navy hover:text-red transition-colors underline" title="Printable wallet card">
+            Download the wallet card [TODO]
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: media card (video when set; labeled placeholder while TODO) -->
+      <div>
+        {hasVideo ? (
+          <div class="relative aspect-video rounded-2xl overflow-hidden shadow-soft border border-slate-200 bg-navy">
+            <iframe
+              src={site.media.heroVideo}
+              class="absolute inset-0 w-full h-full"
+              style="border:0"
+              title={`${site.candidate.name} — campaign video`}
+              allow="autoplay; fullscreen; picture-in-picture"
+              loading="eager"
+            ></iframe>
+          </div>
+        ) : (
+          <Figure
+            alt="[TODO — hero campaign video awaiting Meghann's materials]"
+            ratio="16/9"
+            label="[HERO VIDEO — TODO: awaiting Meghann's campaign video]"
+            shape="rounded-2xl"
+            tone="bg-navy text-white/70"
+          />
+        )}
+      </div>
+    </div>
+  </div>
+</section>

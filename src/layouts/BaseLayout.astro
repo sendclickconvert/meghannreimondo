@@ -1,0 +1,106 @@
+---
+import { site, DEMO_MODE } from '../data/site';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+export interface Props {
+  title: string;
+  description?: string;
+  canonical?: string;
+  ogImage?: string;
+  schema?: object;
+  noIndex?: boolean;
+}
+
+const {
+  title,
+  description = `${site.candidate.name} — write-in candidate for ${site.candidate.office}.`,
+  canonical,
+  ogImage = '/images/og-default.jpg',
+  schema,
+  noIndex = false,
+} = Astro.props;
+
+const fullTitle =
+  title === 'Home'
+    ? `${site.candidate.name} — Write-In for ${site.candidate.office}`
+    : `${title} | ${site.candidate.name}`;
+
+// All canonicals resolve through BaseLayout (centralized).
+const canonicalUrl = canonical || new URL(Astro.url.pathname, site.url).href;
+
+// DEMO_MODE keeps the whole campaign noindex until launch (ported from the sibling project).
+const robotsNoIndex = noIndex || DEMO_MODE;
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="generator" content={Astro.generator} />
+
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalUrl} />
+
+  {robotsNoIndex && <meta name="robots" content="noindex,nofollow" />}
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:image" content={`${site.url}${ogImage}`} />
+  <meta property="og:site_name" content={site.candidate.name} />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={fullTitle} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={`${site.url}${ogImage}`} />
+
+  <!-- Google Fonts — Inter (clean civic sans). Preconnect, then non-blocking stylesheet. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+
+  <!-- Favicon — brand favicon is TODO (awaiting Meghann's logo assets); generic placeholder for now -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/images/favicon-192.png" />
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+
+  <!-- Schema Markup — one centralized graph per page (src/lib/schema.ts) -->
+  {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
+
+  <slot name="head" />
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+  <Header />
+
+  <main class="flex-1">
+    <slot />
+  </main>
+
+  <Footer />
+
+  <!-- Scroll animation observer -->
+  <script>
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>

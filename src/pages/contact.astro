@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WriteInBlock from '../components/WriteInBlock.astro';
+import { site, isTodo } from '../data/site';
+import { webPage, breadcrumb } from '../lib/schema';
+
+const path = '/contact';
+const schema = webPage({
+  name: 'Contact',
+  description: `Contact ${site.candidate.name}'s write-in campaign for ${site.candidate.office}.`,
+  path,
+  extraNodes: [breadcrumb([{ name: 'Home', path: '/' }, { name: 'Contact', path }])],
+});
+
+const email = isTodo(site.contact.email) ? null : site.contact.email;
+const phone = isTodo(site.contact.phone) ? null : site.contact.phone;
+---
+
+<BaseLayout title="Contact" description={`Contact ${site.candidate.name}'s campaign.`} schema={schema}>
+  <section class="bg-navy text-white">
+    <div class="container-narrow py-14 lg:py-20 text-center">
+      <p class="text-xs font-heading font-bold uppercase tracking-widest text-red mb-3">Get in touch</p>
+      <h1 class="text-4xl lg:text-5xl font-display font-extrabold text-white">Contact</h1>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="container-narrow py-14 lg:py-20 max-w-xl">
+      <div class="card mb-6 text-center">
+        {email || phone ? (
+          <div class="space-y-1">
+            {email && <a href={`mailto:${email}`} class="block font-heading font-semibold text-navy hover:text-red">{email}</a>}
+            {phone && <a href={`tel:${phone.replace(/[^0-9]/g, '')}`} class="block font-heading font-semibold text-navy hover:text-red">{phone}</a>}
+          </div>
+        ) : (
+          <p class="font-display font-bold text-navy">[TODO — campaign email &amp; phone]</p>
+        )}
+      </div>
+
+      <div class="card">
+        <p class="text-sm text-ink/60 mb-5 border-l-4 border-red pl-3">[TODO — wire this form + email opt-in to the campaign CRM]</p>
+        <form class="space-y-4" onsubmit="return false;">
+          <div>
+            <label class="block text-sm font-heading font-semibold text-navy mb-1">Name</label>
+            <input type="text" class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm" placeholder="Your name" />
+          </div>
+          <div>
+            <label class="block text-sm font-heading font-semibold text-navy mb-1">Email</label>
+            <input type="email" class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm" placeholder="you@example.com" />
+          </div>
+          <div>
+            <label class="block text-sm font-heading font-semibold text-navy mb-1">Message</label>
+            <textarea rows="3" class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm" placeholder="How can we help?"></textarea>
+          </div>
+          <label class="flex items-start gap-2 text-sm text-ink/70">
+            <input type="checkbox" class="mt-1" />
+            <span>Keep me updated about the campaign.</span>
+          </label>
+          <button type="submit" class="btn-primary w-full" disabled title="[TODO — CRM not connected]">Send [TODO]</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <WriteInBlock tone="light" />
+</BaseLayout>

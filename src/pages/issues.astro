@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WriteInBlock from '../components/WriteInBlock.astro';
+import { site } from '../data/site';
+import { webPage, breadcrumb } from '../lib/schema';
+
+const path = '/issues';
+const schema = webPage({
+  name: 'Issues & Platform',
+  description: `Where ${site.candidate.name} stands on the issues facing ${site.candidate.office}.`,
+  path,
+  author: true,
+  extraNodes: [
+    breadcrumb([
+      { name: 'Home', path: '/' },
+      { name: 'Issues', path },
+    ]),
+  ],
+});
+---
+
+<BaseLayout title="Issues" description={`Where ${site.candidate.name} stands on the issues facing Woodstock.`} schema={schema}>
+  <section class="bg-navy text-white">
+    <div class="container-narrow py-14 lg:py-20 text-center">
+      <p class="text-xs font-heading font-bold uppercase tracking-widest text-red mb-3">Where she stands</p>
+      <h1 class="text-4xl lg:text-5xl font-display font-extrabold text-white">Issues &amp; Platform</h1>
+      <p class="mt-4 text-lg text-white/70">In her own words.</p>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="container-narrow py-14 lg:py-20">
+      <div class="card border-dashed border-2 border-red/40 text-center">
+        <p class="font-display font-bold text-lg text-navy">[TODO — platform in her words]</p>
+        <p class="mt-2 text-ink/70">Meghann's priorities and positions for {site.candidate.office} will be published here from her own statements. No issue positions are invented.</p>
+      </div>
+    </div>
+  </section>
+
+  <WriteInBlock tone="light" />
+</BaseLayout>

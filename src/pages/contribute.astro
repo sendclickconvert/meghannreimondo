@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WriteInBlock from '../components/WriteInBlock.astro';
+import { site } from '../data/site';
+import { webPage, breadcrumb } from '../lib/schema';
+
+const path = '/contribute';
+const schema = webPage({
+  name: 'Contribute',
+  description: `Contribute to ${site.candidate.name}'s write-in campaign for ${site.candidate.office}.`,
+  path,
+  extraNodes: [breadcrumb([{ name: 'Home', path: '/' }, { name: 'Contribute', path }])],
+});
+---
+
+<BaseLayout title="Contribute" description={`Contribute to ${site.candidate.name}'s campaign.`} schema={schema}>
+  <section class="bg-navy text-white">
+    <div class="container-narrow py-14 lg:py-20 text-center">
+      <p class="text-xs font-heading font-bold uppercase tracking-widest text-red mb-3">Power the campaign</p>
+      <h1 class="text-4xl lg:text-5xl font-display font-extrabold text-white">Contribute</h1>
+      <p class="mt-4 text-lg text-white/70">Chip in to help reach every voter before Election Day.</p>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="container-narrow py-14 lg:py-20 max-w-xl">
+      <div class="card text-center">
+        <p class="text-sm text-ink/60 mb-5 border-l-4 border-red pl-3 text-left">[TODO — connect the compliant donation processor; contribution limits &amp; disclaimers pending]</p>
+        <p class="font-display font-bold text-lg text-navy mb-4">Support Meghann's write-in campaign</p>
+        <div class="grid grid-cols-3 gap-3 mb-5">
+          {['$25', '$50', '$100'].map((amt) => (
+            <span class="rounded-md border border-slate-300 py-3 font-heading font-bold text-navy">{amt}</span>
+          ))}
+        </div>
+        <a href="#" class="btn-accent w-full" title="[TODO — donation processor not connected]">Contribute [TODO — processor]</a>
+      </div>
+    </div>
+  </section>
+
+  <WriteInBlock tone="light" />
+</BaseLayout>

@@ -1,0 +1,81 @@
+---
+import { site, NAV_ITEMS, isTodo } from '../data/site';
+const currentYear = new Date().getFullYear();
+
+// Footer nav (exclude Home; the name is the logo link).
+const footerLinks = NAV_ITEMS.filter((item) => item.href !== '/');
+
+// LEGAL: "Paid for by <committee>" must render site-wide on EVERY page.
+// While paidForBy is TODO, show it VISIBLY as an obvious placeholder (do not hide it).
+const paidForBy = isTodo(site.legal.paidForBy)
+  ? '[COMMITTEE NAME — TODO]'
+  : site.legal.paidForBy;
+
+const email = isTodo(site.contact.email) ? null : site.contact.email;
+const phone = isTodo(site.contact.phone) ? null : site.contact.phone;
+---
+
+<footer class="bg-navy text-white/80 relative">
+  <div class="container-wide py-14 lg:py-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-8">
+
+      <!-- Campaign identity -->
+      <div>
+        <a href="/" title={`${site.candidate.name} — Home`} class="inline-block mb-3">
+          <span class="font-display text-xl text-white font-extrabold">{site.candidate.name}</span>
+        </a>
+        <p class="text-sm font-semibold text-red mb-3 uppercase tracking-wide">{site.brand.tagline}</p>
+        <p class="text-sm leading-relaxed text-white/60">
+          Write-in candidate for {site.candidate.office}.
+        </p>
+        <div class="mt-4 space-y-1.5 text-sm">
+          {email && (
+            <a href={`mailto:${email}`} class="block hover:text-white transition-colors">{email}</a>
+          )}
+          {phone && (
+            <a href={`tel:${phone.replace(/[^0-9]/g, '')}`} class="block hover:text-white transition-colors">{phone}</a>
+          )}
+          {!email && !phone && (
+            <p class="text-xs text-white/40">[TODO — campaign contact details]</p>
+          )}
+        </div>
+      </div>
+
+      <!-- Explore -->
+      <div>
+        <h3 class="text-white font-heading font-semibold text-sm uppercase tracking-wider mb-4">Campaign</h3>
+        <ul class="space-y-2">
+          {footerLinks.map((item) => (
+            <li>
+              <a href={item.href} title={item.label} class="text-sm hover:text-white transition-colors">
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Write-in CTA + wallet card -->
+      <div>
+        <div class="bg-white/5 rounded-xl p-5 border border-white/10">
+          <p class="text-white font-heading font-semibold text-sm mb-1">Write in Meghann Reimondo</p>
+          <p class="text-xs text-white/60 mb-3">Spell it exactly — the double-n "Meghann" — in the Town Supervisor write-in line.</p>
+          <a href="/how-to-vote" title="How to Write In" class="btn-accent w-full text-center text-xs py-2 mb-2">
+            How to Write In
+          </a>
+          <a href="#" title="Printable wallet card" class="block text-center text-xs text-white/70 hover:text-white transition-colors underline">
+            Download the wallet card [TODO — wallet card asset]
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom bar: legal disclaimer (site-wide, every page) -->
+  <div class="border-t border-white/10">
+    <div class="container-wide flex flex-col sm:flex-row items-center justify-between py-5 gap-3 text-xs text-white/50">
+      <p class="font-semibold text-white/70">Paid for by {paidForBy}</p>
+      <p>&copy; {currentYear} {site.candidate.name}. All rights reserved.</p>
+    </div>
+  </div>
+</footer>

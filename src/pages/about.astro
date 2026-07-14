@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WriteInBlock from '../components/WriteInBlock.astro';
+import { site } from '../data/site';
+import { graph, profilePage, breadcrumb } from '../lib/schema';
+
+const path = '/about';
+const schema = graph([
+  profilePage({
+    name: `Meet ${site.candidate.name}`,
+    description: `About ${site.candidate.name}, write-in candidate for ${site.candidate.office}.`,
+    path,
+  }),
+  breadcrumb([
+    { name: 'Home', path: '/' },
+    { name: 'Meet Meghann', path },
+  ]),
+]);
+---
+
+<BaseLayout title="Meet Meghann" description={`About ${site.candidate.name}, write-in candidate for ${site.candidate.office}.`} schema={schema}>
+  <section class="bg-navy text-white">
+    <div class="container-narrow py-14 lg:py-20 text-center">
+      <p class="text-xs font-heading font-bold uppercase tracking-widest text-red mb-3">Who she is</p>
+      <h1 class="text-4xl lg:text-5xl font-display font-extrabold text-white">Meet {site.candidate.name}</h1>
+      <p class="mt-4 text-lg text-white/70">Write-in candidate for {site.candidate.office}.</p>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="container-narrow py-14 lg:py-20">
+      <div class="card border-dashed border-2 border-red/40 text-center">
+        <p class="font-display font-bold text-lg text-navy">[TODO — bio awaiting Meghann's materials]</p>
+        <p class="mt-2 text-ink/70">Her biography, background, and reasons for running will be added here from her own materials. Nothing about Meghann is written until she provides it.</p>
+      </div>
+    </div>
+  </section>
+
+  <WriteInBlock tone="light" />
+</BaseLayout>
