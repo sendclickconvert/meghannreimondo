@@ -1,6 +1,6 @@
 run = "npm run dev"
 entrypoint = "src/pages/index.astro"
-modules = ["nodejs-20", "web", "python-3.11"]
+modules = ["nodejs-20", "web"]
 
 [nix]
 channel = "stable-25_05"
