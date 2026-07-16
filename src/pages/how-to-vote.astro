@@ -1,52 +1,65 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import WriteInBlock from '../components/WriteInBlock.astro';
 import { site } from '../data/site';
 import { graph, howTo, faqPage, breadcrumb } from '../lib/schema';
 
 const path = '/how-to-vote';
 
-// ---- HowTo steps: generic NY paper / optical-scan write-in mechanics (factual, non-promotional) ----
+// ---- HowTo steps: content pack §2 — voting in person on a paper ballot (verbatim copy) ----
+// Schema `text` is the plain-text sentence; the on-page list adds bold emphasis for readability.
 const steps = [
   {
-    name: 'Find the write-in line for Town Supervisor',
-    text: `Locate the ${site.candidate.office} race on your ballot and find its write-in area — the blank line reserved for candidates whose names are not printed.`,
+    name: 'Sign in and get your paper ballot',
+    text: 'Sign in and get your paper ballot from the poll worker, like normal.',
   },
   {
-    name: 'Write "Meghann Reimondo" — spelled exactly',
-    text: 'On that write-in line, write the name Meghann Reimondo, spelled exactly: "Meghann" with a double n, then "Reimondo". A misspelled name can keep your vote from counting.',
+    name: 'Go to the privacy booth',
+    text: 'Take your ballot to the privacy booth. Vote the other races however you like.',
   },
   {
-    name: 'Fill in the mark so the scanner counts it',
-    text: 'Next to the write-in line, fill in the oval or complete the mark for the write-in position so the optical scanner registers your write-in vote.',
+    name: 'Find the Town Supervisor write-in space',
+    text: 'Find the Town Supervisor contest. Beneath the printed candidate name(s) there is a write-in space with its own oval.',
+  },
+  {
+    name: 'Write Meghann Reimondo on the write-in line',
+    text: 'On the write-in line, write Meghann Reimondo — spelled exactly: M-E-G-H-A-N-N R-E-I-M-O-N-D-O.',
+  },
+  {
+    name: 'Fill in the oval',
+    text: 'Fill in the oval for that write-in line completely, using the pen provided. Both parts matter — the written name and the filled oval.',
+  },
+  {
+    name: 'Avoid marks that spoil the ballot',
+    text: "Don't use an X or a checkmark, don't circle the oval, don't sign your name anywhere on the ballot, and don't fold it.",
+  },
+  {
+    name: 'Scan your ballot',
+    text: 'Carry your ballot to the scanner and insert it to cast your vote. The scanner will confirm it was counted.',
   },
 ];
 
-// ---- FAQ: answers are VERBATIM-matched to the schema (same strings rendered on-page) ----
+// ---- FAQ: content pack §2 (verbatim). Answer strings are rendered as the visible
+// static HTML AND passed to FAQPage schema, so the two match exactly. No accordions. ----
 const faqs = [
   {
-    q: "Is Meghann Reimondo's name printed on the ballot?",
-    a: 'No. Meghann is a write-in candidate, so her name is not pre-printed on the ballot. To vote for her, you add her name yourself in the write-in area for the Town Supervisor race.',
+    q: 'Is Meghann on the ballot?',
+    a: "No. She's a write-in for Town Supervisor, so you have to write her name in for your vote to count.",
   },
   {
-    q: 'How do I spell her name correctly?',
-    a: 'Meghann Reimondo — "Meghann" is spelled with a double n (M-E-G-H-A-N-N) and "Reimondo" is spelled R-E-I-M-O-N-D-O. A misspelled name can cause your vote not to count, so spell it exactly.',
+    q: 'What exactly do I write?',
+    a: 'Meghann Reimondo — and spell it exactly right: M-E-G-H-A-N-N R-E-I-M-O-N-D-O.',
   },
   {
-    q: 'Do I have to fill in a bubble or oval too?',
-    a: "On New York's optical-scan ballots you generally must both write the name on the write-in line and fill in the oval or mark for the write-in position so the scanner registers it. [VERIFY — confirm Woodstock/Ulster County ballot design]",
+    q: 'Do I have to fill in the oval too?',
+    a: 'Yes. To be safe, always do both: write the name on the line and fill in the oval next to it.',
   },
   {
-    q: 'Where is the write-in line on the ballot?',
-    a: 'It is in the same section as the Town Supervisor race, generally below the printed candidates for that office. [VERIFY — confirm Woodstock/Ulster County ballot design: exact layout and label]',
+    q: 'Where is the write-in line?',
+    a: 'In the Town Supervisor contest, below the printed candidate(s).',
   },
   {
-    q: 'Does my handwriting need to be perfect?',
-    a: 'Write clearly enough that an election official can read the name — printing it is fine. As long as the intended candidate is clear and the name is spelled correctly, the write-in can be counted.',
-  },
-  {
-    q: 'Can I write her in on an early, absentee, or mail ballot?',
-    a: 'Write-in rules apply the same way on early, absentee, and mail ballots — you write her name in the Town Supervisor write-in area and complete the mark. [VERIFY — confirm Ulster County procedures for early and absentee write-ins]',
+    q: 'Can I still vote in every other race?',
+    a: "Yes — writing Meghann in for supervisor doesn't affect any of your other selections.",
   },
 ];
 
@@ -64,10 +77,18 @@ const schema = graph([
   ]),
 ]);
 ---
+<!--
+  ⚠️ BUILD NOTE — verify before publish (do not invent): The steps on this page reflect
+  New York's standard optical-scan write-in procedure and are accurate statewide. Confirm two
+  Ulster-specific details against the OFFICIAL Ulster County BOE sample ballot for Woodstock
+  once it's published: (1) the exact placement/label of the write-in line in the Town Supervisor
+  contest, and (2) that Ulster's scanner counts the write-in with the oval filled as described.
+  Until confirmed, keep the "Where is the write-in line" answer general as written.
+-->
 
 <BaseLayout
   title="How to Write In Meghann Reimondo"
-  description={`How to cast a valid write-in vote for ${site.candidate.name} for ${site.candidate.office} — spell her name exactly and complete the mark.`}
+  description={`How to cast a valid write-in vote for ${site.candidate.name} for ${site.candidate.office} — spell her name exactly and fill the oval.`}
   schema={schema}
 >
   <!-- Page header -->
@@ -75,10 +96,10 @@ const schema = graph([
     <div class="container-narrow py-14 lg:py-20 text-center">
       <p class="text-xs font-heading font-bold uppercase tracking-widest text-red mb-3">Make your vote count</p>
       <h1 class="text-4xl lg:text-5xl font-display font-extrabold text-white text-balance">
-        How to write in Meghann Reimondo
+        How to Write In Meghann
       </h1>
-      <p class="mt-4 text-lg text-white/70 max-w-2xl mx-auto">
-        Her name is not on the ballot. A write-in vote only counts when the name is written in the right place, spelled correctly, and marked. Here is exactly how.
+      <p class="mt-4 text-lg text-white/80 max-w-2xl mx-auto">
+        Because Meghann is a write-in candidate, her name will <strong class="text-white">not</strong> be printed on the ballot. The only way your vote for her counts is if you write her in yourself. It takes about ten extra seconds — here's exactly how, step by step.
       </p>
     </div>
   </section>
@@ -89,34 +110,69 @@ const schema = graph([
       <p class="text-sm font-heading font-bold uppercase tracking-widest text-red mb-2">Spell it exactly</p>
       <p class="font-display font-extrabold text-3xl lg:text-4xl text-navy tracking-tight">Meghann Reimondo</p>
       <p class="mt-3 text-ink/70">
-        <strong class="text-navy">M-E-G-H-A-N-N</strong> — double n — <strong class="text-navy">R-E-I-M-O-N-D-O</strong>.
+        <strong class="text-navy">M-E-G-H-A-N-N</strong> &nbsp; <strong class="text-navy">R-E-I-M-O-N-D-O</strong>
       </p>
     </div>
   </section>
 
-  <!-- HowTo steps -->
+  <!-- HowTo steps: voting in person on a paper ballot -->
   <section class="bg-white">
     <div class="container-narrow py-14 lg:py-20">
-      <h2 class="text-2xl lg:text-3xl font-display font-extrabold text-navy mb-8">Three steps to a valid write-in vote</h2>
+      <h2 class="text-2xl lg:text-3xl font-display font-extrabold text-navy mb-8">Voting in person on a paper ballot</h2>
       <ol class="space-y-6">
-        {steps.map((step, i) => (
-          <li class="flex gap-5">
-            <span class="shrink-0 w-11 h-11 rounded-full bg-navy text-white font-display font-extrabold text-lg flex items-center justify-center">{i + 1}</span>
-            <div>
-              <h3 class="font-display font-bold text-lg text-navy">{step.name}</h3>
-              <p class="mt-1 text-ink/75">{step.text}</p>
-            </div>
-          </li>
-        ))}
+        <li class="flex gap-5">
+          <span class="shrink-0 w-11 h-11 rounded-full bg-navy text-white font-display font-extrabold text-lg flex items-center justify-center">1</span>
+          <div><p class="text-ink/80 text-lg">Sign in and get your paper ballot from the poll worker, like normal.</p></div>
+        </li>
+        <li class="flex gap-5">
+          <span class="shrink-0 w-11 h-11 rounded-full bg-navy text-white font-display font-extrabold text-lg flex items-center justify-center">2</span>
+          <div><p class="text-ink/80 text-lg">Take your ballot to the privacy booth. Vote the other races however you like.</p></div>
+        </li>
+        <li class="flex gap-5">
+          <span class="shrink-0 w-11 h-11 rounded-full bg-navy text-white font-display font-extrabold text-lg flex items-center justify-center">3</span>
+          <div><p class="text-ink/80 text-lg">Find the <strong class="text-navy">Town Supervisor</strong> contest. Beneath the printed candidate name(s) there is a <strong class="text-navy">write-in space with its own oval</strong>.</p></div>
+        </li>
+        <li class="flex gap-5">
+          <span class="shrink-0 w-11 h-11 rounded-full bg-navy text-white font-display font-extrabold text-lg flex items-center justify-center">4</span>
+          <div><p class="text-ink/80 text-lg">On the write-in line, write <strong class="text-navy">Meghann Reimondo</strong> — spelled exactly: <strong class="text-navy">M-E-G-H-A-N-N&nbsp;&nbsp;R-E-I-M-O-N-D-O</strong>.</p></div>
+        </li>
+        <li class="flex gap-5">
+          <span class="shrink-0 w-11 h-11 rounded-full bg-navy text-white font-display font-extrabold text-lg flex items-center justify-center">5</span>
+          <div><p class="text-ink/80 text-lg"><strong class="text-navy">Fill in the oval</strong> for that write-in line completely, using the pen provided. Both parts matter — the written name <em>and</em> the filled oval.</p></div>
+        </li>
+        <li class="flex gap-5">
+          <span class="shrink-0 w-11 h-11 rounded-full bg-navy text-white font-display font-extrabold text-lg flex items-center justify-center">6</span>
+          <div><p class="text-ink/80 text-lg">Don't use an X or a checkmark, don't circle the oval, don't sign your name anywhere on the ballot, and don't fold it.</p></div>
+        </li>
+        <li class="flex gap-5">
+          <span class="shrink-0 w-11 h-11 rounded-full bg-navy text-white font-display font-extrabold text-lg flex items-center justify-center">7</span>
+          <div><p class="text-ink/80 text-lg">Carry your ballot to the scanner and insert it to cast your vote. The scanner will confirm it was counted.</p></div>
+        </li>
       </ol>
-      <p class="mt-8 text-sm text-ink/60 border-l-4 border-red pl-4">
-        Note: the exact ballot layout and whether a mark is required alongside the write-in line are
-        <strong class="text-navy"> [VERIFY — confirm Woodstock/Ulster County ballot design]</strong>. This page describes standard New York optical-scan write-in mechanics and will be finalized against the official Woodstock ballot.
+    </div>
+  </section>
+
+  <!-- BMD version -->
+  <section class="bg-cream">
+    <div class="container-narrow py-12 lg:py-16">
+      <h2 class="text-2xl lg:text-3xl font-display font-extrabold text-navy mb-4">Using the accessible Ballot Marking Device (BMD)</h2>
+      <p class="text-ink/80 text-lg max-w-2xl">
+        On the Town Supervisor screen, select <strong class="text-navy">Write-In</strong>, type <strong class="text-navy">Meghann Reimondo</strong> on the keypad, confirm the name at the top of the screen, and continue voting. A poll worker can walk you through it if you ask.
       </p>
     </div>
   </section>
 
-  <!-- FAQ (static expanded HTML, verbatim-matched to FAQPage schema) -->
+  <!-- Early voting & mail-in / absentee -->
+  <section class="bg-white">
+    <div class="container-narrow py-12 lg:py-16">
+      <h2 class="text-2xl lg:text-3xl font-display font-extrabold text-navy mb-4">Early voting &amp; mail-in / absentee ballots</h2>
+      <p class="text-ink/80 text-lg max-w-2xl">
+        Same idea — in the Town Supervisor section, write <strong class="text-navy">Meghann Reimondo</strong> on the write-in line and fill the oval, then follow the return instructions printed on your ballot envelope.
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ (static expanded HTML, verbatim-matched to FAQPage schema — no accordions) -->
   <section class="bg-cream">
     <div class="container-narrow py-14 lg:py-20">
       <h2 class="text-2xl lg:text-3xl font-display font-extrabold text-navy mb-8">Write-in questions, answered</h2>
@@ -130,6 +186,4 @@ const schema = graph([
       </div>
     </div>
   </section>
-
-  <WriteInBlock tone="navy" />
 </BaseLayout>
