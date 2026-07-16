@@ -4,38 +4,36 @@ Campaign website for write-in candidate Meghann Reimondo (General Election, Nove
 
 ## Stack
 
-- **Framework**: Astro (hybrid SSR + static prerendering) with React islands
+- **Framework**: Astro (fully static output — `output: 'static'`) with React islands
 - **Styling**: Tailwind CSS
-- **Server**: Express.js wrapping the Astro SSR handler
-- **Spam protection**: Cloudflare Turnstile (optional — forms degrade gracefully without it)
-- **Payments**: Stripe dependency present (contribute page)
+- **Deployment**: Static — build with `npm run build`, publish the `dist/` directory
+- **Forms**: No server API. Configure an external endpoint via `INTEGRATIONS.formWebhook` in `src/data/site.ts` if forms need a backend.
 
 ## How to run
 
-The configured workflow builds then serves the app:
+The configured workflow builds then serves the static site locally:
 
 ```
-npm run build && HOST=0.0.0.0 PORT=5000 node server.mjs
+npm run build && npm run preview -- --port 5000
 ```
 
-For dev (hot-reload, no build step needed):
+For dev (hot-reload): `npm run dev`
 
-```
-npm run dev
-```
+## Static deployment settings
 
-## Environment variables
-
-| Variable | Required | Purpose |
-|---|---|---|
-| `TURNSTILE_SECRET_KEY` | Optional | Cloudflare Turnstile server-side verification for contact/volunteer forms. Forms work without it (verification is skipped). |
+- **Build command**: `npm run build`
+- **Public/output directory**: `dist`
 
 ## Key files
 
 - `src/data/site.ts` — site-wide content, candidate info, integrations config
-- `src/lib/redirects.mjs` — URL redirect rules (shared by middleware and production server)
+- `src/lib/redirects.mjs` — legacy-URL redirect map (applied by `src/middleware.ts` in dev only; on static hosting, configure redirects at the host or via Astro's `redirects` config)
 - `src/pages/` — all pages (index, about, issues, events, endorsements, volunteer, contribute, contact)
-- `server.mjs` — production Express server
 - `astro.config.mjs` — Astro configuration
+
+## Notes
+
+- Removed for static conversion (July 16, 2026): `server.mjs` (Express SSR server), `src/pages/api/submit-form.ts` (server form endpoint — no form was wired to it), `@astrojs/node` adapter usage.
+- `TURNSTILE_SECRET_KEY` is no longer used (it belonged to the removed server form endpoint).
 
 ## User preferences

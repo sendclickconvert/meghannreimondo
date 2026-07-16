@@ -36,9 +36,9 @@ export const DEMO_MODE = site.DEMO_MODE;
 export const isTodo = (v: string | undefined | null): boolean =>
   v === undefined || v === null || v.trim() === '' || v.trim().toUpperCase() === 'TODO';
 
-// Vendor-neutral integration plumbing (used by /api/submit-form). Empty until wired.
+// Vendor-neutral integration plumbing. Empty until wired to an external form service.
 export const INTEGRATIONS = {
-  formWebhook: '', // native fallback endpoint target for /api/submit-form
+  formWebhook: '', // external form endpoint (e.g. Formspree) — site is static, no server API
 } as const;
 
 // Primary navigation — flat, 9 pages. Write-In page is the strategic spine (built first + fullest).

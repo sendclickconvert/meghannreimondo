@@ -1,8 +1,8 @@
 // ============================================================
 // SINGLE SOURCE OF TRUTH FOR URL REDIRECTS.
-// Consumed by src/middleware.ts (dev / SSR) AND server.mjs (prod static),
-// so behavior is identical in every runtime. Do NOT define redirects
-// anywhere else (not in astro.config, not inline in pages).
+// Consumed by src/middleware.ts (dev only — the deployed site is static).
+// For production, mirror these redirects at the hosting layer or via
+// Astro's `redirects` config. Do NOT define redirects inline in pages.
 // ============================================================
 
 // Legacy-URL map. Add real old URLs here at build time (e.g. from the legacy
