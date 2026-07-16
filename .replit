@@ -35,8 +35,9 @@ externalPort = 80
 
 [deployment]
 run = ["node", "server.mjs"]
-deploymentTarget = "vm"
+deploymentTarget = "static"
 build = ["npm", "run", "build"]
+publicDir = "dist"
 
 [agent]
 expertMode = true
