@@ -1,0 +1,105 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+import { webPage, breadcrumb } from '../lib/schema';
+
+const path = '/join';
+const schema = webPage({
+  name: 'Join Us',
+  description: `Volunteer for ${site.candidate.name}'s write-in campaign for ${site.candidate.office}.`,
+  path,
+  extraNodes: [breadcrumb([{ name: 'Home', path: '/' }, { name: 'Volunteer', path }])],
+});
+
+// "How I can help" multi-select options (content pack §3, verbatim).
+const helpOptions = [
+  'I can take a lawn sign',
+  'I can go door-to-door',
+  'I can attend an event',
+  'I can host an event',
+  'Keep me on the email list',
+];
+---
+
+<BaseLayout title="Join Us" description={`Volunteer for ${site.candidate.name}'s campaign.`} schema={schema}>
+  <section class="bg-navy text-white">
+    <div class="container-narrow py-14 lg:py-20 text-center">
+      <p class="text-xs font-heading font-bold uppercase tracking-widest text-red mb-3">Lend a hand</p>
+      <h1 class="text-4xl lg:text-5xl font-display font-extrabold text-white">Join Us</h1>
+      <p class="mt-4 text-lg text-white/80 max-w-2xl mx-auto">
+        Meghann's write-in campaign runs on neighbors showing up. Tell us how you can help.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="container-narrow py-14 lg:py-20 max-w-xl">
+      <div class="card">
+        <!-- The live form is served by a GoHighLevel (GHL) embed; the embed id is not yet known. -->
+        <p class="text-sm text-ink/60 mb-6 border-l-4 border-red pl-3">
+          [TODO — GHL form embed id] &mdash; replace the fields below with the GoHighLevel form embed once the embed id is provided. Fields below mirror the intended GHL form.
+        </p>
+
+        <form class="space-y-5" onsubmit="return false;">
+          <!-- Name (first / last) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-heading font-semibold text-navy mb-1" for="first-name">First name</label>
+              <input id="first-name" name="first_name" type="text" class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm" placeholder="First name" />
+            </div>
+            <div>
+              <label class="block text-sm font-heading font-semibold text-navy mb-1" for="last-name">Last name</label>
+              <input id="last-name" name="last_name" type="text" class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm" placeholder="Last name" />
+            </div>
+          </div>
+
+          <!-- Email (opt-in) -->
+          <div>
+            <label class="block text-sm font-heading font-semibold text-navy mb-1" for="email">Email</label>
+            <input id="email" name="email" type="email" class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm" placeholder="you@example.com" />
+          </div>
+
+          <!-- Mobile -->
+          <div>
+            <label class="block text-sm font-heading font-semibold text-navy mb-1" for="mobile">Mobile <span class="font-normal text-ink/50">(optional)</span></label>
+            <input id="mobile" name="mobile" type="tel" class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm" placeholder="(555) 555-5555" />
+          </div>
+
+          <!-- SEPARATE SMS-consent checkbox — NOT required to submit (A2P compliance). -->
+          <label class="flex items-start gap-2 text-sm text-ink/70">
+            <input type="checkbox" name="sms_consent" class="mt-1" />
+            <span>
+              Text me campaign updates and volunteer reminders at the mobile number above. Message and data rates may apply; reply STOP to opt out.
+              <span class="block text-xs text-ink/50 mt-1">Optional — you do not have to check this to submit. We will only text people who opt in here.</span>
+            </span>
+          </label>
+
+          <!-- ZIP / election district -->
+          <div>
+            <label class="block text-sm font-heading font-semibold text-navy mb-1" for="zip">ZIP / election district</label>
+            <input id="zip" name="zip_or_district" type="text" class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm" placeholder="ZIP code or election district" />
+          </div>
+
+          <!-- How I can help (multi-select) -->
+          <fieldset>
+            <legend class="block text-sm font-heading font-semibold text-navy mb-2">How I can help</legend>
+            <div class="space-y-2">
+              {helpOptions.map((opt) => (
+                <label class="flex items-start gap-2 text-sm text-ink/75">
+                  <input type="checkbox" name="how_i_can_help" value={opt} class="mt-1" />
+                  <span>{opt}</span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
+          <button type="submit" class="btn-primary w-full" disabled title="[TODO — GHL form embed not connected]">Count Me In [TODO — GHL]</button>
+        </form>
+      </div>
+
+      <p class="mt-4 text-xs text-ink/50">
+        Note: the SMS-consent box is separate from everything else and is not required to submit. Only people who check it will ever be texted.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
