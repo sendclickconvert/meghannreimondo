@@ -1,11 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import WriteInBlock from '../components/WriteInBlock.astro';
 import { site } from '../data/site';
 import { webPage, breadcrumb } from '../lib/schema';
 
 const path = '/endorsements';
-// WebPage ONLY — deliberately no review or rating schema of any kind.
+// WebPage ONLY — deliberately no endorsement-rating markup of any kind.
 const schema = webPage({
   name: 'Endorsements',
   description: `Endorsements for ${site.candidate.name}, write-in candidate for ${site.candidate.office}.`,
@@ -36,5 +35,4 @@ const schema = webPage({
     </div>
   </section>
 
-  <WriteInBlock tone="light" />
 </BaseLayout>

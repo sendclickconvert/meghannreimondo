@@ -2,6 +2,7 @@
 import { site, DEMO_MODE } from '../data/site';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import WriteInBlock from '../components/WriteInBlock.astro';
 import '../styles/global.css';
 
 export interface Props {
@@ -82,6 +83,9 @@ const robotsNoIndex = noIndex || DEMO_MODE;
   <main class="flex-1">
     <slot />
   </main>
+
+  <!-- Site-wide write-in CTA (content pack §1) — repeats on EVERY page, above the footer. -->
+  <WriteInBlock tone="navy" />
 
   <Footer />
 

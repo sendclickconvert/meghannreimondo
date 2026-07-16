@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import WriteInBlock from '../components/WriteInBlock.astro';
 import { site, isTodo } from '../data/site';
 import { webPage, breadcrumb } from '../lib/schema';
 
@@ -61,6 +60,4 @@ const phone = isTodo(site.contact.phone) ? null : site.contact.phone;
       </div>
     </div>
   </section>
-
-  <WriteInBlock tone="light" />
 </BaseLayout>

@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
-import WriteInBlock from '../components/WriteInBlock.astro';
 import { site } from '../data/site';
 import { homeGraph } from '../lib/schema';
 
@@ -14,7 +13,7 @@ const links = [
   { label: 'Issues', href: '/issues', desc: 'Where she stands, in her own words.' },
   { label: 'Endorsements', href: '/endorsements', desc: 'Who is backing the campaign.' },
   { label: 'Events', href: '/events', desc: 'Meet the campaign in person.' },
-  { label: 'Volunteer', href: '/volunteer', desc: 'Lend a hand between now and Election Day.' },
+  { label: 'Volunteer', href: '/join', desc: 'Lend a hand between now and Election Day.' },
   { label: 'Contribute', href: '/contribute', desc: 'Chip in to power the campaign.' },
   { label: 'Contact', href: '/contact', desc: 'Get in touch or join the list.' },
 ];
@@ -26,9 +25,6 @@ const links = [
   schema={schema}
 >
   <Hero />
-
-  <!-- Primary write-in teaching block (the site's #1 job) -->
-  <WriteInBlock tone="navy" />
 
   <!-- Page directory -->
   <section class="bg-white">
