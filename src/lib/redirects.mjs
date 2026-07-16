@@ -12,6 +12,7 @@
 //   '/old-path': '/new-path',
 export const REDIRECTS = {
   // '/legacy-path': '/new-path',
+  '/volunteer': '/join', // scaffold stub → content-pack Join Us page (single hop)
 };
 
 /**
