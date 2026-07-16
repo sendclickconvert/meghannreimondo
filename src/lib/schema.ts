@@ -1,8 +1,8 @@
 // ============================================================
 // CENTRALIZED JSON-LD BUILDERS — one validated graph per page.
 // A political CAMPAIGN, not a company: no storefront schema, no
-// ratings, no reviews, no service-area schema. Nothing here
-// fabricates data — unconfirmed values stay honest placeholders.
+// rating markup, no testimonial markup, no service-area schema. Nothing
+// here fabricates data — unconfirmed values stay honest placeholders.
 // ============================================================
 
 import { site, isTodo } from '../data/site';
