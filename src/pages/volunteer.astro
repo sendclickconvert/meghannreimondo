@@ -16,9 +16,32 @@ const schema = webPage({
 <BaseLayout title="Volunteer" description={`Volunteer for ${site.candidate.name}'s campaign.`} schema={schema}>
   <section class="bg-navy text-white">
     <div class="container-narrow py-14 lg:py-20 text-center">
-      <p class="text-xs font-heading font-bold uppercase tracking-widest text-red mb-3">Lend a hand</p>
-      <h1 class="text-4xl lg:text-5xl font-display font-extrabold text-white">Volunteer</h1>
-      <p class="mt-4 text-lg text-white/70">Help teach Woodstock how to write in Meghann Reimondo.</p>
+      <p class="text-xs font-heading font-bold uppercase tracking-widest text-red mb-3">Get involved</p>
+      <h1 class="text-4xl lg:text-5xl font-display font-extrabold text-white text-balance">Help Write the Next Chapter for Woodstock</h1>
+      <p class="mt-4 text-lg text-white/70 max-w-2xl mx-auto">
+        A write-in campaign is won neighbor by neighbor — and that's exactly how it should be. Whether you
+        can knock on doors, make calls, host a lawn sign, or simply tell three friends how to write me in,
+        you're part of this.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-cream">
+    <div class="container-wide py-14 lg:py-16">
+      <div class="grid sm:grid-cols-3 gap-5">
+        <div class="card">
+          <h3 class="font-display font-bold text-lg text-navy">Volunteer</h3>
+          <p class="mt-2 text-sm text-ink/70">Canvassing, calls, events, and more.</p>
+        </div>
+        <div class="card">
+          <h3 class="font-display font-bold text-lg text-navy">Host a sign</h3>
+          <p class="mt-2 text-sm text-ink/70">Show your support where neighbors will see it.</p>
+        </div>
+        <div class="card">
+          <h3 class="font-display font-bold text-lg text-navy">Spread the word</h3>
+          <p class="mt-2 text-sm text-ink/70">The single most valuable thing you can do is teach someone how to write me in.</p>
+        </div>
+      </div>
     </div>
   </section>
 

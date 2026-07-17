@@ -8,7 +8,7 @@ const footerLinks = NAV_ITEMS.filter((item) => item.href !== '/');
 // LEGAL: "Paid for by <committee>" must render site-wide on EVERY page.
 // While paidForBy is TODO, show it VISIBLY as an obvious placeholder (do not hide it).
 const paidForBy = isTodo(site.legal.paidForBy)
-  ? '[COMMITTEE NAME — TODO]'
+  ? '[STAGING — exact registered committee name from filing paperwork]'
   : site.legal.paidForBy;
 
 const email = isTodo(site.contact.email) ? null : site.contact.email;

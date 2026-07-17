@@ -23,18 +23,20 @@ const electionLabel = electionDate.toLocaleDateString('en-US', {
           Write-In · General Election {electionLabel}
         </p>
         <h1 class="text-4xl sm:text-5xl lg:text-6xl font-display font-extrabold text-navy leading-tight text-balance">
-          {site.candidate.name} for {site.candidate.office}
+          {site.brand.tagline}.
         </h1>
-        <p class="mt-4 text-lg font-semibold text-red">{site.brand.tagline}</p>
+        <p class="mt-4 text-2xl lg:text-3xl font-display font-bold text-red text-balance">
+          Write in {site.candidate.name} for {site.candidate.office}.
+        </p>
         <p class="mt-5 text-lg text-ink/70 max-w-xl">
-          Meghann is a <strong class="text-navy">write-in candidate</strong> — her name is not printed on the ballot.
-          To vote for her, you write <strong class="text-navy">Meghann Reimondo</strong> in yourself, spelled exactly right.
-          Here is how to make your vote count.
+          Woodstock deserves leadership that shows up — an open door, answered calls, and decisions made
+          in the light. I'm running as a <strong class="text-navy">write-in candidate</strong> for Town Supervisor
+          because I believe this town is worth caring for the way it cares for us.
         </p>
         <div class="mt-8 flex flex-wrap items-center gap-4">
-          <a href="/how-to-vote" class="btn-accent" title="How to write in Meghann Reimondo">How to Write In Meghann</a>
-          <a href="#" class="inline-flex items-center gap-2 font-heading font-bold text-navy hover:text-red transition-colors underline" title="Printable wallet card">
-            Download the wallet card [TODO]
+          <a href="/how-to-vote" class="btn-accent" title="How to write in Meghann Reimondo">How to Write Me In &rarr;</a>
+          <a href="/about" class="inline-flex items-center gap-2 font-heading font-bold text-navy hover:text-red transition-colors underline" title="Meet Meghann">
+            Meet Meghann &rarr;
           </a>
         </div>
       </div>

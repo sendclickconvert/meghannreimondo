@@ -14,7 +14,8 @@ export const site = {
   },
   committee: { registeredName: "TODO", treasurer: "TODO" },
   legal: { paidForBy: "TODO" }, // renders "Paid for by <registeredName>"; footer day one
-  contact: { email: "TODO", phone: "TODO" },
+  // [STAGING] campaign inbox placeholder per staged copy v1 — set up this inbox before launch; never her business email.
+  contact: { email: "meghann@meghannreimondo.com", phone: "TODO" },
   domains: { primary: "meghannreimondo.com", legacy: "megforwoodstock.com" },
   social: { facebook: "TODO", instagram: "TODO" }, // sameAs targets
   brand: {

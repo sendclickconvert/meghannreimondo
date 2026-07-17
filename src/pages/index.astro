@@ -7,16 +7,11 @@ import { homeGraph } from '../lib/schema';
 
 const schema = homeGraph();
 
-// Quick links to the core pages (funnels toward the write-in teaching job).
+// Three-up teasers to key pages (per staged copy v1).
 const links = [
-  { label: 'How to Write In', href: '/how-to-vote', desc: 'Step-by-step: write in her name so your vote counts.' },
-  { label: 'Meet Meghann', href: '/about', desc: 'Who she is and why she is running.' },
-  { label: 'Issues', href: '/issues', desc: 'Where she stands, in her own words.' },
-  { label: 'Endorsements', href: '/endorsements', desc: 'Who is backing the campaign.' },
-  { label: 'Events', href: '/events', desc: 'Meet the campaign in person.' },
-  { label: 'Volunteer', href: '/volunteer', desc: 'Lend a hand between now and Election Day.' },
-  { label: 'Contribute', href: '/contribute', desc: 'Chip in to power the campaign.' },
-  { label: 'Contact', href: '/contact', desc: 'Get in touch or join the list.' },
+  { label: "Why I'm Running", href: '/issues', desc: 'Accessible, transparent leadership that listens first.', cta: 'See where I stand →' },
+  { label: 'How to Write Me In', href: '/how-to-vote', desc: "My name won't be on the ballot. Here's exactly how to make your vote count.", cta: 'Show me →' },
+  { label: 'Get Involved', href: '/volunteer', desc: 'Volunteer, contribute, or bring a friend. This is won neighbor by neighbor.', cta: 'Join us →' },
 ];
 ---
 
@@ -30,21 +25,29 @@ const links = [
   <!-- Primary write-in teaching block (the site's #1 job) -->
   <WriteInBlock tone="navy" />
 
-  <!-- Page directory -->
+  <!-- Short intro -->
   <section class="bg-white">
+    <div class="container-narrow py-14 lg:py-20">
+      <div class="section-divider mb-5"></div>
+      <p class="text-lg lg:text-xl text-ink/80 leading-relaxed max-w-3xl">
+        For nineteen years, Woodstock has been my home — where my husband Mike and I are raising our two
+        children, and where I've built a career, served on the school board, and worked every day inside
+        town government. I know how this town runs, and I know it can run with more openness, more
+        collaboration, and more heart.
+      </p>
+      <a href="/about" class="inline-block mt-5 font-heading font-bold text-navy hover:text-red transition-colors underline" title="Meet Meghann">Read my story &rarr;</a>
+    </div>
+  </section>
+
+  <!-- Three-up teasers -->
+  <section class="bg-cream">
     <div class="container-wide py-14 lg:py-20">
-      <div class="max-w-2xl mb-10">
-        <div class="section-divider mb-5"></div>
-        <h2 class="text-3xl lg:text-4xl font-display font-extrabold text-navy">The campaign at a glance</h2>
-        <p class="mt-3 text-ink/70">
-          Everything you need to support {site.candidate.name}'s write-in campaign for {site.candidate.office}.
-        </p>
-      </div>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {links.map((l) => (
           <a href={l.href} class="card group" title={l.label}>
             <h3 class="font-display font-bold text-lg text-navy group-hover:text-red transition-colors">{l.label}</h3>
             <p class="mt-2 text-sm text-ink/70">{l.desc}</p>
+            <p class="mt-3 text-sm font-heading font-bold text-red">{l.cta}</p>
           </a>
         ))}
       </div>

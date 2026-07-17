@@ -9,16 +9,24 @@ const path = '/how-to-vote';
 // ---- HowTo steps: generic NY paper / optical-scan write-in mechanics (factual, non-promotional) ----
 const steps = [
   {
-    name: 'Find the write-in line for Town Supervisor',
-    text: `Locate the ${site.candidate.office} race on your ballot and find its write-in area — the blank line reserved for candidates whose names are not printed.`,
+    name: 'Find the race for Town Supervisor',
+    text: `On your ballot, find the race for ${site.candidate.office}.`,
   },
   {
-    name: 'Write "Meghann Reimondo" — spelled exactly',
+    name: 'Locate the write-in area for that race',
+    text: 'Find the write-in area — the blank line reserved for candidates whose names are not printed.',
+  },
+  {
+    name: 'Write in: MEGHANN REIMONDO',
     text: 'On that write-in line, write the name Meghann Reimondo, spelled exactly: "Meghann" with a double n, then "Reimondo". A misspelled name can keep your vote from counting.',
   },
   {
-    name: 'Fill in the mark so the scanner counts it',
-    text: 'Next to the write-in line, fill in the oval or complete the mark for the write-in position so the optical scanner registers your write-in vote.',
+    name: 'Fill in the mark next to the write-in line',
+    text: 'Fill in / complete the mark next to the write-in line so your vote is counted. [VERIFY-BOE: confirm whether Ulster County requires filling an oval/box to register the write-in]',
+  },
+  {
+    name: 'Finish and submit your ballot',
+    text: 'Finish the rest of your ballot and submit it as usual.',
   },
 ];
 
@@ -78,7 +86,8 @@ const schema = graph([
         How to write in Meghann Reimondo
       </h1>
       <p class="mt-4 text-lg text-white/70 max-w-2xl mx-auto">
-        Her name is not on the ballot. A write-in vote only counts when the name is written in the right place, spelled correctly, and marked. Here is exactly how.
+        My name will not be printed on the ballot this November. That means voting for me takes one extra
+        step — and it's easy once you know how. Here's exactly what to do.
       </p>
     </div>
   </section>
@@ -97,7 +106,7 @@ const schema = graph([
   <!-- HowTo steps -->
   <section class="bg-white">
     <div class="container-narrow py-14 lg:py-20">
-      <h2 class="text-2xl lg:text-3xl font-display font-extrabold text-navy mb-8">Three steps to a valid write-in vote</h2>
+      <h2 class="text-2xl lg:text-3xl font-display font-extrabold text-navy mb-8">The steps</h2>
       <ol class="space-y-6">
         {steps.map((step, i) => (
           <li class="flex gap-5">
@@ -111,8 +120,16 @@ const schema = graph([
       </ol>
       <p class="mt-8 text-sm text-ink/60 border-l-4 border-red pl-4">
         Note: the exact ballot layout and whether a mark is required alongside the write-in line are
-        <strong class="text-navy"> [VERIFY — confirm Woodstock/Ulster County ballot design]</strong>. This page describes standard New York optical-scan write-in mechanics and will be finalized against the official Woodstock ballot.
+        <strong class="text-navy"> [VERIFY-BOE — confirm each step against Ulster County's actual ballot before publishing]</strong>. This page describes standard New York optical-scan write-in mechanics and will be finalized against the official Woodstock ballot.
       </p>
+      <div class="mt-8 card bg-cream border-0">
+        <h3 class="font-display font-bold text-lg text-navy">Take it with you</h3>
+        <p class="mt-1 text-ink/75">
+          Download a printable <strong class="text-navy">wallet card</strong> with the spelling and steps, and
+          bring it to the polls.
+          <span class="block text-xs text-red font-semibold mt-1">[Asset to be created once steps are BOE-confirmed]</span>
+        </p>
+      </div>
     </div>
   </section>
 

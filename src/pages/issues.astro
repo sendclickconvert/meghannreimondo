@@ -22,17 +22,78 @@ const schema = webPage({
 <BaseLayout title="Issues" description={`Where ${site.candidate.name} stands on the issues facing Woodstock.`} schema={schema}>
   <section class="bg-navy text-white">
     <div class="container-narrow py-14 lg:py-20 text-center">
-      <p class="text-xs font-heading font-bold uppercase tracking-widest text-red mb-3">Where she stands</p>
-      <h1 class="text-4xl lg:text-5xl font-display font-extrabold text-white">Issues &amp; Platform</h1>
-      <p class="mt-4 text-lg text-white/70">In her own words.</p>
+      <p class="text-xs font-heading font-bold uppercase tracking-widest text-red mb-3">Where I stand</p>
+      <h1 class="text-4xl lg:text-5xl font-display font-extrabold text-white text-balance">Why I'm Running for {site.candidate.office}</h1>
+      <p class="mt-4 text-lg text-white/70">In my own words.</p>
     </div>
   </section>
 
   <section class="bg-white">
-    <div class="container-narrow py-14 lg:py-20">
-      <div class="card border-dashed border-2 border-red/40 text-center">
-        <p class="font-display font-bold text-lg text-navy">[TODO — platform in her words]</p>
-        <p class="mt-2 text-ink/70">Meghann's priorities and positions for {site.candidate.office} will be published here from her own statements. No issue positions are invented.</p>
+    <div class="container-narrow py-14 lg:py-20 space-y-10 text-lg text-ink/80 leading-relaxed">
+      <div>
+        <p>
+          When I didn't win the June primary, that experience gave me something I didn't expect: clarity.
+          I've spent the past several months carrying out the full duties of the Town Clerk's office, and
+          every day in that work has deepened my conviction that Woodstock deserves leadership that is
+          present, honest, and genuinely accessible. That's why I'm running as a write-in candidate for
+          Town Supervisor.
+        </p>
+        <p class="mt-4">
+          I don't come to this with an agenda for one group or one side. I come to it with a love for this
+          whole community and a belief that the world gets a little better when we show up honestly, trust
+          our own voice, and do the work.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl lg:text-3xl font-display font-extrabold text-navy mb-4">Accessible Leadership</h2>
+        <p>
+          Leadership should be reachable. To me that means an open door, answered phone calls, and thoughtful
+          responses — not eventually, but as a matter of course. Residents shouldn't have to fight to be heard
+          by their own town government. As Supervisor, I want the people of Woodstock to know that when they
+          reach out, someone is actually listening, and that access to their local government is the norm,
+          not the exception.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl lg:text-3xl font-display font-extrabold text-navy mb-4">Open, Transparent Decisions</h2>
+        <p>
+          Trust is earned by governing in the open. I believe in leadership that communicates openly, explains
+          its decisions, welcomes questions, and includes others in the decisions that affect them. Good
+          government listens before it speaks and studies before it decides — and it never forgets that every
+          decision touches someone's family, livelihood, or future. I'll bring that habit of explaining the
+          "why," inviting scrutiny, and making the reasoning behind town decisions something residents can see
+          and understand.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl lg:text-3xl font-display font-extrabold text-navy mb-4">Supporting the People Who Serve Woodstock</h2>
+        <p>
+          I believe our town employees are one of Woodstock's greatest strengths. Over the past several months
+          working inside town government, I've watched departments collaborate, community organizations step
+          forward, and volunteers give far more than anyone asked — not because they were told to, but because
+          they care. When we trust good people, support them, and encourage collaboration, they do
+          extraordinary things for our neighbors. As Supervisor, I'll lead in a way that empowers the people
+          who keep this town running.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl lg:text-3xl font-display font-extrabold text-navy mb-4">Practical, Whole-Community Government</h2>
+        <p>
+          Caring is where it starts, but competence is how it gets done. For more than two decades I've worked
+          in administration, business management, and bookkeeping, and I run a business that helps other
+          organizations build budgets and the kind of clear, sustainable systems that let them operate
+          smoothly. That's exactly the skill set a town needs in its Supervisor — someone who understands
+          operations and budgets, and who can turn good intentions into government that actually works, for
+          the whole community and not one corner of it.
+        </p>
+        <p class="mt-4 font-display font-bold text-navy">
+          I believe the greatest responsibility any of us can accept is caring for a place that is caring for
+          us. For me, that place is Woodstock. That's why I'm asking you to write me in.
+        </p>
       </div>
     </div>
   </section>
