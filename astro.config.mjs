@@ -11,7 +11,10 @@ export default defineConfig({
   site: 'https://meghannreimondo.com',
   output: 'static',
   trailingSlash: 'never',
-  vite: { server: { allowedHosts: true } },
+  vite: {
+    server: { allowedHosts: true },  // dev (`astro dev`)
+    preview: { allowedHosts: ['.replit.dev', '.replit.app', 'localhost', '127.0.0.1'] }, // preview (`astro preview`) — Replit's rotating *.replit.dev hosts
+  },
   integrations: [
     tailwind(),
     react(),

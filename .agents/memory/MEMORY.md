@@ -1,0 +1,1 @@
+- [Astro preview host blocking](astro-preview-hosts.md) — `astro preview` ignores vite preview.allowedHosts on Replit; serve `dist/` with `npx serve` instead.
