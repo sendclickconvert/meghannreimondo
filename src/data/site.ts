@@ -19,7 +19,13 @@ export const site = {
   // [STAGING] campaign inbox placeholder per staged copy v1 — set up this inbox before launch; never her business email.
   contact: { email: "meghann@meghannreimondo.com", phone: "TODO" },
   domains: { primary: "meghannreimondo.com", legacy: "megforwoodstock.com" },
-  social: { facebook: "TODO", instagram: "TODO" }, // sameAs targets
+  social: {
+    facebook: "https://www.facebook.com/profile.php?id=61588301973280",
+    instagram: "https://www.instagram.com/megfortownsupervisor/",
+    nextdoor: "TODO", // client: icon only for now, link to follow
+    bluesky: "TODO", // client: icon only for now, link to follow
+    linkedin: "https://www.linkedin.com/in/meghann-reimondo-993b35a0/",
+  }, // sameAs targets
   brand: {
     navy: "#012566",
     red: "#D60F29",
