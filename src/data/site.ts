@@ -28,7 +28,7 @@ export const site = {
     favicon: "/images/favicon-32.png", // derived from the badge
   },
   media: {
-    heroVideo: "TODO", // she's working on the outreach video
+    heroVideo: "TODO", // vimeo.com/1212384603 is unlisted/private — needs the ?h= hash or a privacy change before it can embed
     headshot: "/images/meghann-reimondo-headshot", // .webp/.jpg — bio portrait + OG card; NOT a full-width hero
     communityPhoto: "/images/woodstock-cleanup-volunteers", // .webp/.jpg — homepage community band
     groupPhoto: "/images/community-lunch-volunteers", // .webp/.jpg — smaller inline placement (bio)

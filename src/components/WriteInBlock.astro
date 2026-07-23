@@ -21,6 +21,9 @@ const isNavy = tone === 'navy';
       Write in
       <span class={`block mt-2 ${isNavy ? 'text-red' : 'text-red'} tracking-tight`}>Meghann Reimondo</span>
     </h2>
+    <p class={`mt-2 font-display font-bold ${compact ? 'text-base' : 'text-lg lg:text-xl'} ${isNavy ? 'text-white/90' : 'text-navy'}`}>
+      The &ldquo;write&rdquo; choice for {site.candidate.office.replace('Woodstock ', '')}.
+    </p>
     <p class={`mt-3 text-sm ${isNavy ? 'text-white/70' : 'text-ink/70'} max-w-xl mx-auto`}>
       Spell it exactly — <strong class={isNavy ? 'text-white' : 'text-navy'}>M-E-G-H-A-N-N</strong> (double&#8209;n) <strong class={isNavy ? 'text-white' : 'text-navy'}>R-E-I-M-O-N-D-O</strong> — on the {site.candidate.office} write-in line, then fill in the mark so the scanner counts it.
     </p>
