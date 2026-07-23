@@ -28,54 +28,56 @@ const schema = graph([
   </section>
 
   <section class="bg-white">
-    <div class="container-narrow py-14 lg:py-20 space-y-10 text-lg text-ink/80 leading-relaxed">
-      <p>
-        Woodstock has been my home for nineteen years
-        <span class="text-sm font-semibold text-red">[Meghann: confirm — nineteen per your announcement, or twenty?]</span>.
-        It's where my husband Mike and I have made our life and are raising our two children. It's where
-        I've built a business, served our schools, and spent every working day helping the people who walk
-        through the doors of town government. My roots here are deep, and so is my faith in this community.
-      </p>
-
-      <div>
-        <h2 class="text-2xl lg:text-3xl font-display font-extrabold text-navy mb-4">Service to the community</h2>
-        <p>
-          I served on the Onteora Board of Education, because I believe the people closest to a community
-          should have a real voice in shaping it. Today I serve as Woodstock's First Deputy Town Clerk, where
-          I've been entrusted with carrying out the full duties of the Town Clerk's office. Over the past ten
-          months <span class="text-sm font-semibold text-red">[Meghann: confirm timeframe]</span>, I've had a
-          front-row seat to how our town actually works: how departments collaborate, where things get stuck,
-          and how much quiet, dedicated effort it takes to serve residents well.
-        </p>
+    <div class="container-narrow py-14 lg:py-20">
+      <div class="grid md:grid-cols-[280px,1fr] gap-10 items-start">
+        <picture class="md:sticky md:top-28">
+          <source srcset={`${site.media.headshot}.webp`} type="image/webp" />
+          <img
+            src={`${site.media.headshot}.jpg`}
+            alt="Meghann Reimondo, candidate for Woodstock Town Supervisor"
+            class="rounded-2xl shadow-soft w-full h-auto"
+            width="900" height="1337"
+            loading="eager"
+          />
+        </picture>
+        <div class="space-y-8 text-lg text-ink/80 leading-relaxed">
+          <p>
+            Woodstock has been my home for nineteen years. It's where my husband Mike and I are raising our
+            two children, where I've built a career, and where I've spent the last year serving inside town
+            government as First Deputy Town Clerk — carrying out the full duties of that office.
+          </p>
+          <p>
+            Before and alongside that work, I've spent more than twenty-five years in administration, human
+            resources, business management, and bookkeeping. I founded a business that helps other
+            organizations get organized: building budgets, setting up clear bookkeeping, and creating
+            sustainable systems so they can run smoothly instead of lurching from crisis to crisis. I've also
+            served on the Onteora Board of Education, because I believe the people closest to a community
+            should help shape it.
+          </p>
+          <p>
+            That combination — hands-on experience inside Town Hall, and a professional life spent building
+            budgets and systems — is exactly what I'd bring to the Supervisor's office.
+          </p>
+          <p class="text-sm font-semibold text-red">
+            [MEGHANN: add anything on education, awards, or community involvement you'd like included — and
+            confirm this reads like you.]
+          </p>
+        </div>
       </div>
 
-      <div>
-        <h2 class="text-2xl lg:text-3xl font-display font-extrabold text-navy mb-4">The professional background behind the candidate</h2>
-        <p>
-          Before and alongside my public service, I've spent more than twenty-five years
-          <span class="text-sm font-semibold text-red">[Meghann: confirm]</span> in administration, human
-          resources, business management, bookkeeping, and organization — across public health, retail, the
-          restaurant industry, and the arts.
-        </p>
-        <p class="mt-4">
-          I'm also the founder of a business that helps other businesses get organized: building budgets,
-          setting up bookkeeping, and creating the kind of clear, sustainable systems that let an organization
-          run smoothly instead of lurching from crisis to crisis. That's not a talking point — it's what I do
-          for a living. And it's exactly the skill set a town needs in its Supervisor: someone who understands
-          budgets, operations, and how to build systems that serve people reliably.
-        </p>
-      </div>
-
-      <div>
-        <h2 class="text-2xl lg:text-3xl font-display font-extrabold text-navy mb-4">Why heart matters</h2>
-        <p>
-          I believe the greatest responsibility any of us can accept is caring for a place that is caring for
-          us. For me, that place is Woodstock. This is a town where community still matters — where neighbors
-          show up for one another, where volunteers give more than anyone asks, and where public servants work
-          every day because they care. I want to lead in a way that honors that.
-        </p>
-        <p class="mt-4 font-display font-bold text-navy">That's why I'm asking you to write me in.</p>
-      </div>
+      <figure class="mt-14 max-w-2xl mx-auto">
+        <picture>
+          <source srcset={`${site.media.groupPhoto}.webp`} type="image/webp" />
+          <img
+            src={`${site.media.groupPhoto}.jpg`}
+            alt="Meghann Reimondo with volunteers serving a community lunch in Woodstock"
+            class="rounded-2xl shadow-soft w-full h-auto"
+            width="1200" height="844"
+            loading="lazy"
+          />
+        </picture>
+        <figcaption class="mt-2 text-sm text-ink/60 text-center">Serving a community lunch with Woodstock volunteers.</figcaption>
+      </figure>
     </div>
   </section>
 

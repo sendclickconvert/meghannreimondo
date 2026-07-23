@@ -23,20 +23,20 @@ const electionLabel = electionDate.toLocaleDateString('en-US', {
           Write-In · General Election {electionLabel}
         </p>
         <h1 class="text-4xl sm:text-5xl lg:text-6xl font-display font-extrabold text-navy leading-tight text-balance">
-          {site.brand.tagline}.
+          You Love Woodstock. So&nbsp;Do&nbsp;I.
         </h1>
-        <p class="mt-4 text-2xl lg:text-3xl font-display font-bold text-red text-balance">
-          Write in {site.candidate.name} for {site.candidate.office}.
+        <p class="mt-4 text-xl lg:text-2xl text-ink/75 italic text-balance">
+          Together we can build a stronger foundation for today and for generations to come.
         </p>
-        <p class="mt-5 text-lg text-ink/70 max-w-xl">
-          Woodstock deserves leadership that shows up — an open door, answered calls, and decisions made
-          in the light. I'm running as a <strong class="text-navy">write-in candidate</strong> for Town Supervisor
-          because I believe this town is worth caring for the way it cares for us.
+        <p class="mt-5 text-lg text-ink/80 max-w-xl">
+          <strong class="text-navy">{site.candidate.name} — the “write” choice for Town Supervisor.</strong><br />
+          This November, my name won't be printed on the ballot. You'll need to
+          <strong class="text-red">write it in</strong>.
         </p>
         <div class="mt-8 flex flex-wrap items-center gap-4">
           <a href="/how-to-vote" class="btn-accent" title="How to write in Meghann Reimondo">How to Write Me In &rarr;</a>
-          <a href="/about" class="inline-flex items-center gap-2 font-heading font-bold text-navy hover:text-red transition-colors underline" title="Meet Meghann">
-            Meet Meghann &rarr;
+          <a href="/survey" class="inline-flex items-center gap-2 font-heading font-bold text-navy hover:text-red transition-colors underline" title="Take the Community Survey">
+            Take the Community Survey &rarr;
           </a>
         </div>
       </div>

@@ -12,8 +12,10 @@ export const site = {
     raceType: "write-in",
     electionDate: "2026-11-03",
   },
-  committee: { registeredName: "TODO", treasurer: "TODO" },
-  legal: { paidForBy: "TODO" }, // renders "Paid for by <registeredName>"; footer day one
+  // Confirmed 7/22/26 (content pack v2): committee filed with NYS.
+  committee: { registeredName: "Friends of Meghann Reimondo", treasurer: "TODO" },
+  legal: { paidForBy: "Friends of Meghann Reimondo" },
+  slogan: `The "write" choice for Town Supervisor`, // her pick — warm + teaches the mechanic
   // [STAGING] campaign inbox placeholder per staged copy v1 — set up this inbox before launch; never her business email.
   contact: { email: "meghann@meghannreimondo.com", phone: "TODO" },
   domains: { primary: "meghannreimondo.com", legacy: "megforwoodstock.com" },
@@ -25,7 +27,13 @@ export const site = {
     logo: "/images/logo.webp",        // official circular badge (transparent corners)
     favicon: "/images/favicon-32.png", // derived from the badge
   },
-  media: { heroVideo: "TODO" },
+  media: {
+    heroVideo: "TODO", // she's working on the outreach video
+    headshot: "/images/meghann-reimondo-headshot", // .webp/.jpg — bio portrait + OG card; NOT a full-width hero
+    communityPhoto: "/images/woodstock-cleanup-volunteers", // .webp/.jpg — homepage community band
+    groupPhoto: "/images/community-lunch-volunteers", // .webp/.jpg — smaller inline placement (bio)
+  },
+  donateUrl: "TODO", // [STAGING] Stripe Payment Link — account confirmed, link pending
   url: "https://meghannreimondo.com",
   DEMO_MODE: true,
 } as const;
@@ -47,7 +55,8 @@ export const NAV_ITEMS = [
   { label: 'Home', href: '/' },
   { label: 'How to Write In', href: '/how-to-vote' },
   { label: 'Meet Meghann', href: '/about' },
-  { label: 'Issues', href: '/issues' },
+  { label: 'Priorities', href: '/issues' },
+  { label: 'Community Survey', href: '/survey' },
   { label: 'Endorsements', href: '/endorsements' },
   { label: 'Events', href: '/events' },
   { label: 'Volunteer', href: '/volunteer' },

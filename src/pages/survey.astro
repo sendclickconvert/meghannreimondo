@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WriteInBlock from '../components/WriteInBlock.astro';
+import { site, INTEGRATIONS } from '../data/site';
+import { webPage, breadcrumb } from '../lib/schema';
+
+const path = '/survey';
+const schema = webPage({
+  name: 'Community Survey',
+  description: `Help shape Woodstock's future — share what matters most to you with ${site.candidate.name}'s campaign.`,
+  path,
+  extraNodes: [breadcrumb([{ name: 'Home', path: '/' }, { name: 'Community Survey', path }])],
+});
+
+// Q2 options (content pack v2).
+const priorityOptions = [
+  'Fiscal Responsibility', 'Staffing', 'Infrastructure', 'Water Quality', 'Housing',
+  'Roads', 'Public Safety', 'Economic Development', 'Environmental Protection', 'Other',
+];
+
+// Open-text questions (Q1, Q3–Q6).
+const openQuestions = [
+  { id: 'q1', label: 'What are the three most important issues facing Woodstock today?' },
+  { id: 'q3', label: 'What do you love most about Woodstock?' },
+  { id: 'q4', label: "What concerns you most about Woodstock's future?" },
+  { id: 'q5', label: 'If you could improve one thing over the next four years, what would it be?' },
+  { id: 'q6', label: 'Is there something Town government could do better?' },
+];
+
+const formReady = INTEGRATIONS.formWebhook !== '';
+---
+
+<BaseLayout title="Community Survey" description="Help shape Woodstock's future — tell Meghann what matters most to you." schema={schema}>
+  <section class="bg-navy text-white">
+    <div class="container-narrow py-14 lg:py-20 text-center">
+      <p class="text-xs font-heading font-bold uppercase tracking-widest text-red mb-3">Listening first</p>
+      <h1 class="text-4xl lg:text-5xl font-display font-extrabold text-white text-balance">Help Shape Woodstock's Future</h1>
+      <p class="mt-4 text-lg text-white/70 max-w-2xl mx-auto">
+        This campaign isn't about assuming we know every answer. It's about listening. Before decisions are
+        made, I want to understand what matters most to the people who call Woodstock home. Your voice will
+        help guide this campaign and, if elected, my priorities in office.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="container-narrow py-14 lg:py-20 max-w-2xl">
+      <div class="card">
+        {!formReady && (
+          <p class="text-sm text-ink/60 mb-5 border-l-4 border-red pl-3">[STAGING — responses are not stored yet; wire INTEGRATIONS.formWebhook to the campaign CRM before launch. The full flow (including the thank-you message) is previewable below.]</p>
+        )}
+        <form id="survey-form" class="space-y-6" data-webhook={INTEGRATIONS.formWebhook}>
+          <!-- Q1 -->
+          <div>
+            <label for="q1" class="block text-sm font-heading font-semibold text-navy mb-1">1. {openQuestions[0].label}</label>
+            <textarea id="q1" name="q1" rows="3" class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"></textarea>
+          </div>
+
+          <!-- Q2 select -->
+          <div>
+            <label for="q2" class="block text-sm font-heading font-semibold text-navy mb-1">2. Which deserves the most immediate attention?</label>
+            <select id="q2" name="q2" class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm bg-white">
+              <option value="">Select one…</option>
+              {priorityOptions.map((o) => <option value={o}>{o}</option>)}
+            </select>
+          </div>
+
+          {openQuestions.slice(1).map((q, i) => (
+            <div>
+              <label for={q.id} class="block text-sm font-heading font-semibold text-navy mb-1">{i + 3}. {q.label}</label>
+              <textarea id={q.id} name={q.id} rows="3" class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"></textarea>
+            </div>
+          ))}
+
+          <!-- Q7: optional contact + separate opt-in -->
+          <div class="pt-4 border-t border-slate-200">
+            <p class="text-sm font-heading font-semibold text-navy mb-1">7. Would you like updates from the campaign? <span class="font-normal text-ink/50">(optional — you can submit this survey anonymously)</span></p>
+            <div class="grid sm:grid-cols-2 gap-3 mt-2">
+              <input type="text" name="name" placeholder="Name (optional)" class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm" />
+              <input type="email" name="email" placeholder="Email (optional)" class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm" />
+            </div>
+            <!-- Email capture is OPT-IN ONLY: submitting the survey is never consent to be emailed. -->
+            <label class="mt-3 flex items-start gap-2 text-sm text-ink/75">
+              <input type="checkbox" name="updatesOptIn" class="mt-0.5" />
+              <span>Yes, send me campaign updates by email. <span class="text-ink/50">(Leaving this unchecked means your email is used only if we need to follow up on your response.)</span></span>
+            </label>
+          </div>
+
+          <button type="submit" class="btn-primary w-full" title={formReady ? 'Submit your survey' : 'Submit (staging preview — response not stored yet)'}>
+            {formReady ? 'Submit Survey' : 'Submit Survey [STAGING preview]'}
+          </button>
+        </form>
+
+        <!-- Thank-you message (shown after successful submit once the CRM is wired) -->
+        <div id="survey-thanks" class="hidden mt-6 rounded-xl bg-cream p-5 text-ink/80">
+          <p class="font-display font-bold text-navy mb-2">Thank you!</p>
+          <p>
+            Thank you for taking the time to share your thoughts. Whether or not we agree on every issue,
+            every response helps me better understand our community. Listening is where good leadership begins.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <WriteInBlock tone="light" />
+
+  <script>
+    // Survey submit: anonymous completion is always possible (name/email optional).
+    // Posts to the CRM webhook when configured; in staging (no webhook) the flow still
+    // completes locally so the thank-you experience is reviewable end-to-end.
+    const form = document.getElementById('survey-form') as HTMLFormElement | null;
+    const thanks = document.getElementById('survey-thanks');
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const webhook = form.dataset.webhook;
+      const data = Object.fromEntries(new FormData(form).entries());
+      if (webhook) {
+        try {
+          await fetch(webhook, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ form: 'community-survey', ...data }),
+          });
+        } catch {
+          alert('Something went wrong sending your response. Please try again.');
+          return;
+        }
+      }
+      form.classList.add('hidden');
+      thanks?.classList.remove('hidden');
+      thanks?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  </script>
+</BaseLayout>

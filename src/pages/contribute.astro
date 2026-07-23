@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import WriteInBlock from '../components/WriteInBlock.astro';
-import { site } from '../data/site';
+import { site, isTodo } from '../data/site';
 import { webPage, breadcrumb } from '../lib/schema';
 
 const path = '/contribute';
@@ -29,14 +29,20 @@ const schema = webPage({
   <section class="bg-white">
     <div class="container-narrow py-14 lg:py-20 max-w-xl">
       <div class="card text-center">
-        <p class="text-sm text-ink/60 mb-5 border-l-4 border-red pl-3 text-left">[STAGING — wire to the committee's real donation processor before launch; treasurer to supply link + any NY contribution-limit language required by law]</p>
+        {isTodo(site.donateUrl) && (
+          <p class="text-sm text-ink/60 mb-5 border-l-4 border-red pl-3 text-left">[STAGING — Stripe account confirmed 7/22; paste the Stripe Payment Link into site.donateUrl to activate this button. Treasurer to confirm any NY contribution-limit language.]</p>
+        )}
         <p class="font-display font-bold text-lg text-navy mb-4">Support Meghann's write-in campaign</p>
         <div class="grid grid-cols-3 gap-3 mb-5">
           {['$25', '$50', '$100'].map((amt) => (
             <span class="rounded-md border border-slate-300 py-3 font-heading font-bold text-navy">{amt}</span>
           ))}
         </div>
-        <a href="#" class="btn-accent w-full" title="[TODO — donation processor not connected]">Contribute [TODO — processor]</a>
+        {isTodo(site.donateUrl) ? (
+          <span class="btn-accent w-full opacity-60 cursor-not-allowed inline-block" title="[STAGING — Stripe Payment Link pending]">Contribute via Stripe [STAGING]</span>
+        ) : (
+          <a href={site.donateUrl} target="_blank" rel="noopener noreferrer" class="btn-accent w-full" title="Contribute securely via Stripe">Contribute via Stripe &rarr;</a>
+        )}
       </div>
     </div>
   </section>

@@ -7,12 +7,15 @@ import { homeGraph } from '../lib/schema';
 
 const schema = homeGraph();
 
-// Three-up teasers to key pages (per staged copy v1).
-const links = [
-  { label: "Why I'm Running", href: '/issues', desc: 'Accessible, transparent leadership that listens first.', cta: 'See where I stand →' },
-  { label: 'How to Write Me In', href: '/how-to-vote', desc: "My name won't be on the ballot. Here's exactly how to make your vote count.", cta: 'Show me →' },
-  { label: 'Get Involved', href: '/volunteer', desc: 'Volunteer, contribute, or bring a friend. This is won neighbor by neighbor.', cta: 'Join us →' },
+// Three questions — her structure (content pack v2).
+const questions = [
+  { q: 'Who is Meghann?', a: "A neighbor who's already serving Woodstock — and who understands how local government actually works.", href: '/about', cta: 'Meet Meghann →' },
+  { q: 'Why is she running?', a: 'Because Woodstock deserves leadership that listens, plans responsibly, supports its employees, and prepares the town for the future.', href: '/issues', cta: 'See her priorities →' },
+  { q: 'How can I help?', a: 'Volunteer, contribute, endorse, take the community survey — or just learn more.', href: '/volunteer', cta: 'Get involved →' },
 ];
+
+// The five pillars (foundation graphic).
+const pillars = ['Fiscal Responsibility', 'Supporting Our Staff', 'Communication & Transparency', 'Infrastructure', 'Water'];
 ---
 
 <BaseLayout
@@ -25,32 +28,82 @@ const links = [
   <!-- Primary write-in teaching block (the site's #1 job) -->
   <WriteInBlock tone="navy" />
 
-  <!-- Short intro -->
+  <!-- Three questions (her structure) -->
   <section class="bg-white">
-    <div class="container-narrow py-14 lg:py-20">
-      <div class="section-divider mb-5"></div>
-      <p class="text-lg lg:text-xl text-ink/80 leading-relaxed max-w-3xl">
-        For nineteen years, Woodstock has been my home — where my husband Mike and I are raising our two
-        children, and where I've built a career, served on the school board, and worked every day inside
-        town government. I know how this town runs, and I know it can run with more openness, more
-        collaboration, and more heart.
-      </p>
-      <a href="/about" class="inline-block mt-5 font-heading font-bold text-navy hover:text-red transition-colors underline" title="Meet Meghann">Read my story &rarr;</a>
-    </div>
-  </section>
-
-  <!-- Three-up teasers -->
-  <section class="bg-cream">
     <div class="container-wide py-14 lg:py-20">
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {links.map((l) => (
-          <a href={l.href} class="card group" title={l.label}>
-            <h3 class="font-display font-bold text-lg text-navy group-hover:text-red transition-colors">{l.label}</h3>
-            <p class="mt-2 text-sm text-ink/70">{l.desc}</p>
+        {questions.map((l) => (
+          <a href={l.href} class="card group" title={l.q}>
+            <h3 class="font-display font-bold text-lg text-navy group-hover:text-red transition-colors">{l.q}</h3>
+            <p class="mt-2 text-sm text-ink/70">{l.a}</p>
             <p class="mt-3 text-sm font-heading font-bold text-red">{l.cta}</p>
           </a>
         ))}
       </div>
+    </div>
+  </section>
+
+  <!-- The Foundation -->
+  <section class="bg-cream">
+    <div class="container-narrow py-14 lg:py-20 text-center">
+      <div class="section-divider mx-auto mb-5"></div>
+      <h2 class="text-3xl lg:text-4xl font-display font-extrabold text-navy text-balance">A strong community begins with a strong foundation.</h2>
+      <p class="mt-4 text-lg text-ink/75 max-w-2xl mx-auto">
+        This campaign doesn't begin with a list of promises. It begins with a commitment to building a
+        strong foundation — because everything else grows from there.
+      </p>
+      <!-- Foundation graphic: five pillars on a base -->
+      <div class="mt-10 max-w-3xl mx-auto">
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 items-end">
+          {pillars.map((p) => (
+            <div class="flex flex-col items-center">
+              <div class="w-full bg-navy text-white rounded-t-lg px-2 py-6 sm:py-10 flex items-center justify-center">
+                <span class="text-xs sm:text-sm font-heading font-bold leading-snug text-balance">{p}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div class="h-4 bg-red rounded-b-lg"></div>
+        <p class="mt-3 text-xs font-heading font-semibold uppercase tracking-widest text-ink/50">The Foundation</p>
+      </div>
+      <a href="/issues" class="btn-primary mt-8 inline-block" title="Five Core Priorities">Explore the Five Priorities &rarr;</a>
+    </div>
+  </section>
+
+  <!-- Community band — service photo -->
+  <section class="bg-white">
+    <div class="container-wide py-14 lg:py-20">
+      <div class="grid lg:grid-cols-2 gap-10 items-center">
+        <picture>
+          <source srcset={`${site.media.communityPhoto}.webp`} type="image/webp" />
+          <img
+            src={`${site.media.communityPhoto}.jpg`}
+            alt="Meghann Reimondo with volunteers at a Woodstock community cleanup day"
+            class="rounded-2xl shadow-soft w-full h-auto"
+            loading="lazy"
+            width="1600" height="1200"
+          />
+        </picture>
+        <div>
+          <div class="section-divider mb-5"></div>
+          <h2 class="text-3xl lg:text-4xl font-display font-extrabold text-navy text-balance">Already showing up for Woodstock</h2>
+          <p class="mt-4 text-lg text-ink/75">
+            For nineteen years, Woodstock has been my home — where my husband Mike and I are raising our
+            two children, and where I've built a career, served on the school board, and worked every day
+            inside town government. This isn't a campaign against anyone. We're running <em>for</em> Woodstock.
+          </p>
+          <a href="/about" class="inline-block mt-5 font-heading font-bold text-navy hover:text-red transition-colors underline" title="Meet Meghann">Read my story &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Survey invitation -->
+  <section class="bg-navy text-white">
+    <div class="container-narrow py-14 lg:py-16 text-center">
+      <h2 class="text-2xl lg:text-3xl font-display font-extrabold text-balance">This campaign starts by listening.</h2>
+      <p class="mt-3 text-white/70 max-w-xl mx-auto">Tell me what matters most to you — the Community Survey takes just a few minutes, and you can respond anonymously.</p>
+      <a href="/survey" class="btn-accent mt-6 inline-block" title="Take the Community Survey">Take the Community Survey &rarr;</a>
     </div>
   </section>
 </BaseLayout>
