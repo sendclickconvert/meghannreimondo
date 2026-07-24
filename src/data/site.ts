@@ -52,6 +52,24 @@ export const isTodo = (v: string | undefined | null): boolean =>
   v === undefined || v === null || v.trim() === '' || v.trim().toUpperCase() === 'TODO';
 
 // Vendor-neutral integration plumbing. Empty until wired to an external form service.
+// Endorsements — listed only after the endorser has confirmed permission.
+export const ENDORSEMENTS = [
+  {
+    name: 'Camellia Lee',
+    role: 'Woodstock Resident & Small Business Owner',
+    date: 'July 23, 2026',
+    pullQuote:
+      'For all these reasons — her competence, her integrity, her warmth, and her proven ability to bring people together — I wholeheartedly endorse Meghann Reimondo for Woodstock Town Supervisor.',
+    letter: [
+      'My name is Camellia Lee, and as a Woodstock resident, I have come to know Meghann professionally as a fellow small business owner and as the bookkeeper for my businesses. Having worked with her for at least two years now, I wholeheartedly respect and trust her competency, efficiency, and kind professionalism. She listens and organizes with such care and presence, and has the ability to multitask, organize, and prioritize what is needed to get the job done in the most efficient manner.',
+      'Personally, she is warm, caring, both empathic and compassionate, and listens fully with an open ear and heart. She is deeply approachable and welcoming, the kind of person people feel instantly comfortable turning to, and her caring nature comes through in every interaction, big or small.',
+      "Beyond her interpersonal warmth, Meghann is a quick thinker and a genuinely great problem solver. In my experience working alongside her, she doesn't just manage details — she anticipates them, and she brings a clear, organized mind to situations that otherwise feel challenging and overwhelming.",
+      "As a Woodstock resident, transparency matters deeply to me, and it's one of the reasons I trust Meghann for this role. She believes, as I do, that a Town Supervisor should be an advocate for the town. The leadership I want to see in Woodstock is strong, but also collaborative — a true community builder and bridger.",
+      'For all these reasons — her competence, her integrity, her warmth, and her proven ability to bring people together — I wholeheartedly endorse Meghann Reimondo for Woodstock Town Supervisor.',
+    ],
+  },
+] as const;
+
 export const INTEGRATIONS = {
   formWebhook: '', // external form endpoint (e.g. Formspree) — site is static, no server API
 } as const;
