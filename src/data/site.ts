@@ -60,12 +60,50 @@ export const ENDORSEMENTS = [
     date: 'July 23, 2026',
     pullQuote:
       'For all these reasons — her competence, her integrity, her warmth, and her proven ability to bring people together — I wholeheartedly endorse Meghann Reimondo for Woodstock Town Supervisor.',
+    signoff: 'Sincerely,',
+    signature: ['Camellia Lee', 'Woodstock Resident'],
     letter: [
       'My name is Camellia Lee, and as a Woodstock resident, I have come to know Meghann professionally as a fellow small business owner and as the bookkeeper for my businesses. Having worked with her for at least two years now, I wholeheartedly respect and trust her competency, efficiency, and kind professionalism. She listens and organizes with such care and presence, and has the ability to multitask, organize, and prioritize what is needed to get the job done in the most efficient manner.',
       'Personally, she is warm, caring, both empathic and compassionate, and listens fully with an open ear and heart. She is deeply approachable and welcoming, the kind of person people feel instantly comfortable turning to, and her caring nature comes through in every interaction, big or small.',
       "Beyond her interpersonal warmth, Meghann is a quick thinker and a genuinely great problem solver. In my experience working alongside her, she doesn't just manage details — she anticipates them, and she brings a clear, organized mind to situations that otherwise feel challenging and overwhelming.",
       "As a Woodstock resident, transparency matters deeply to me, and it's one of the reasons I trust Meghann for this role. She believes, as I do, that a Town Supervisor should be an advocate for the town. The leadership I want to see in Woodstock is strong, but also collaborative — a true community builder and bridger.",
       'For all these reasons — her competence, her integrity, her warmth, and her proven ability to bring people together — I wholeheartedly endorse Meghann Reimondo for Woodstock Town Supervisor.',
+    ],
+  },
+  {
+    name: 'Howie Lipson',
+    role: 'Former Chairman, Woodstock Recreation Committee',
+    date: '',
+    pullQuote:
+      'I will be proudly writing in Meghann Reimondo for Woodstock Town Supervisor, and I encourage others to do the same.',
+    signoff: 'Sincerely,',
+    signature: [
+      'Howie Lipson',
+      'Former Chairman, Woodstock Recreation Committee',
+      'Former Director, Woodstock Summer Camp',
+      'Former President, Woodstock Youth Baseball',
+      'Founder and President, Woodstock Youth Basketball',
+    ],
+    letter: [
+      'Dear Friends,',
+      'I would be honored to recommend Meghann Reimondo as a write-in candidate for the office of Woodstock Town Supervisor.',
+      'I have been a Woodstocker since 1974 and have held many positions serving the Town of Woodstock. Throughout those years, I have had the opportunity to work with many dedicated public servants. In her role as Town Clerk, Meghann Reimondo proudly follows in the esteemed legacy of Kathy Anderson and Jackie Earley.',
+      'Meghann is knowledgeable, competent, and an exceptionally hard worker. She has demonstrated that she not only pays close attention to detail but is also a quick learner who approaches every task with professionalism and dedication. She has earned the respect of those who know her through her commitment to serving the people of Woodstock.',
+      'I will be proudly writing in Meghann Reimondo for Woodstock Town Supervisor, and I encourage others to do the same.',
+    ],
+  },
+  {
+    name: 'Leigh & Greg Vande Bogart',
+    role: 'Woodstock Residents',
+    date: '',
+    pullQuote:
+      'Meghann Reimondo is the right choice for Woodstock Town Supervisor. She is an experienced, hardworking leader who combines strong management skills with a genuine commitment to serving the community.',
+    signoff: 'In service,',
+    signature: ['Leigh & Greg Vande Bogart'],
+    letter: [
+      'Meghann Reimondo is the right choice for Woodstock Town Supervisor. She is an experienced, hardworking leader who combines strong management skills with a genuine commitment to serving the community. During her time with the Town of Woodstock, she has helped make local government more welcoming, efficient, accountable, and nonpartisan.',
+      "With a deep respect for Woodstock's history and a clear vision for its future, Meghann is ready to lead with integrity, humility, and dedication.",
+      'On November 3rd, join us by writing in Meghann Reimondo for Woodstock Town Supervisor in the write-in section of your ballot.',
     ],
   },
 ] as const;
