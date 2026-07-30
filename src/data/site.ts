@@ -22,8 +22,8 @@ export const site = {
   social: {
     facebook: "https://www.facebook.com/profile.php?id=61588301973280",
     instagram: "https://www.instagram.com/megfortownsupervisor/",
-    nextdoor: "TODO", // client: icon only for now, link to follow
-    bluesky: "TODO", // client: icon only for now, link to follow
+    nextdoor: "https://nextdoor.com/profile/01DcKkhRQjTmBCzZL/",
+    bluesky: "https://bsky.app/profile/meghannreimondo.bsky.social",
     linkedin: "https://www.linkedin.com/in/meghann-reimondo-993b35a0/",
   }, // sameAs targets
   brand: {

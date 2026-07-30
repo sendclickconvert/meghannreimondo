@@ -20,7 +20,13 @@ export function abs(path: string): string {
 
 // sameAs targets from social — included ONLY when a real URL is set (never while "TODO").
 function sameAs(): string[] {
-  return [site.social.facebook, site.social.instagram, site.social.linkedin].filter(
+  return [
+    site.social.instagram,
+    site.social.linkedin, // NB: personal profile, not a campaign page — flagged to client, confirm she's OK with it
+    site.social.facebook,
+    site.social.bluesky,
+    site.social.nextdoor,
+  ].filter(
     (v) => !isTodo(v),
   ) as string[];
 }
