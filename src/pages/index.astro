@@ -1,4 +1,6 @@
 ---
+// The five pillars (foundation graphic).
+const pillars = ['Fiscal Responsibility', 'Supporting Our Staff', 'Communication & Transparency', 'Infrastructure', 'Water'];
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import WriteInBlock from '../components/WriteInBlock.astro';
@@ -50,18 +52,19 @@ const questions = [
         This campaign doesn't begin with a list of promises. It begins with a commitment to building a
         strong foundation — because everything else grows from there.
       </p>
-      <!-- Foundation graphic: client-provided pyramid infographic (native 1198px wide — never upscaled past that) -->
-      <div class="mt-10 mx-auto w-full max-w-[1198px]">
-        <picture>
-          <source srcset="/images/foundation-pyramid.webp" type="image/webp" />
-          <img
-            src="/images/foundation-pyramid.png"
-            alt="Pyramid diagram titled 'A Strong Foundation Builds Everything That Matters.' From the base up: Our Infrastructure — the foundation (roads, buildings, staff, systems and equipment, culture); Our People and Culture — support for dedicated staff and a respectful work culture; Open Door Leadership — accessible, listening leadership; Opportunity and Growth — responsible economic development, local businesses, recreation, and the arts; and at the top, Thriving Community — a safe, vibrant, connected community where everyone can live, work, and belong. Tagline: Strong Foundations. Smart Decisions. A Better Community for All."
-            class="w-full h-auto rounded-2xl shadow-soft"
-            loading="lazy"
-            width="1198" height="1313"
-          />
-        </picture>
+      <!-- Foundation graphic: five pillars on a base -->
+      <div class="mt-10 max-w-3xl mx-auto">
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 items-end">
+          {pillars.map((p) => (
+            <div class="flex flex-col items-center">
+              <div class="w-full bg-navy text-white rounded-t-lg px-2 py-6 sm:py-10 flex items-center justify-center">
+                <span class="text-xs sm:text-sm font-heading font-bold leading-snug text-balance">{p}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div class="h-4 bg-red rounded-b-lg"></div>
+        <p class="mt-3 text-xs font-heading font-semibold uppercase tracking-widest text-ink/50">The Foundation</p>
       </div>
       <a href="/issues" class="btn-primary mt-8 inline-block" title="Five Core Priorities">Explore the Five Priorities &rarr;</a>
     </div>
