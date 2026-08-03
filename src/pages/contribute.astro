@@ -43,6 +43,7 @@ const schema = webPage({
         ) : (
           <a href={site.donateUrl} target="_blank" rel="noopener noreferrer" class="btn-accent w-full" title="Contribute securely via Stripe">Contribute via Stripe &rarr;</a>
         )}
+        <p class="mt-4 text-xs text-ink/60">Paid for by {site.legal.paidForBy}.</p>
       </div>
     </div>
   </section>

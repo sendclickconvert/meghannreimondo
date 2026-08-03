@@ -39,7 +39,7 @@ export const site = {
     communityPhoto: "/images/woodstock-cleanup-volunteers", // .webp/.jpg — homepage community band
     groupPhoto: "/images/community-lunch-volunteers", // .webp/.jpg — smaller inline placement (bio)
   },
-  donateUrl: "TODO", // [STAGING] Stripe Payment Link — account confirmed, link pending
+  donateUrl: "https://donate.stripe.com/5kQ6oIcm1aNIeWu8rB0oM00", // [STAGING] Stripe Payment Link — account confirmed, link pending
   url: "https://meghannreimondo.com",
   DEMO_MODE: true,
 } as const;
