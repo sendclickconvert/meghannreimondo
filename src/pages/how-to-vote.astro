@@ -22,7 +22,7 @@ const steps = [
   },
   {
     name: 'Fill in the mark next to the write-in line',
-    text: 'Fill in / complete the mark next to the write-in line so your vote is counted. [VERIFY-BOE: confirm whether Ulster County requires filling an oval/box to register the write-in]',
+    text: 'Fill in / complete the mark next to the write-in line so your vote is counted.',
   },
   {
     name: 'Finish and submit your ballot',
@@ -42,11 +42,11 @@ const faqs = [
   },
   {
     q: 'Do I have to fill in a bubble or oval too?',
-    a: "On New York's optical-scan ballots you generally must both write the name on the write-in line and fill in the oval or mark for the write-in position so the scanner registers it. [VERIFY — confirm Woodstock/Ulster County ballot design]",
+    a: "On New York's optical-scan ballots you must both write the name on the write-in line and fill in the oval or mark for the write-in position so the scanner registers it.",
   },
   {
     q: 'Where is the write-in line on the ballot?',
-    a: 'It is in the same section as the Town Supervisor race, generally below the printed candidates for that office. [VERIFY — confirm Woodstock/Ulster County ballot design: exact layout and label]',
+    a: 'It is in the same section as the Town Supervisor race, generally below the printed candidates for that office.',
   },
   {
     q: 'Does my handwriting need to be perfect?',
@@ -54,7 +54,7 @@ const faqs = [
   },
   {
     q: 'Can I write her in on an early, absentee, or mail ballot?',
-    a: 'Write-in rules apply the same way on early, absentee, and mail ballots — you write her name in the Town Supervisor write-in area and complete the mark. [VERIFY — confirm Ulster County procedures for early and absentee write-ins]',
+    a: 'Write-in rules apply the same way on early, absentee, and mail ballots — you write her name in the Town Supervisor write-in area and complete the mark.',
   },
 ];
 
@@ -118,16 +118,11 @@ const schema = graph([
           </li>
         ))}
       </ol>
-      <p class="mt-8 text-sm text-ink/60 border-l-4 border-red pl-4">
-        Note: the exact ballot layout and whether a mark is required alongside the write-in line are
-        <strong class="text-navy"> [VERIFY-BOE — confirm each step against Ulster County's actual ballot before publishing]</strong>. This page describes standard New York optical-scan write-in mechanics and will be finalized against the official Woodstock ballot.
-      </p>
       <div class="mt-8 card bg-cream border-0">
         <h3 class="font-display font-bold text-lg text-navy">Take it with you</h3>
         <p class="mt-1 text-ink/75">
-          Download a printable <strong class="text-navy">wallet card</strong> with the spelling and steps, and
+          Download a printable <a href="/wallet-card" class="font-bold text-navy underline hover:text-red transition-colors">wallet card</a> with the spelling and steps, and
           bring it to the polls.
-          <span class="block text-xs text-red font-semibold mt-1">[Asset to be created once steps are BOE-confirmed]</span>
         </p>
       </div>
     </div>

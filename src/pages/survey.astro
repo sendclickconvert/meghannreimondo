@@ -46,10 +46,7 @@ const formReady = INTEGRATIONS.formWebhook !== '';
   <section class="bg-white">
     <div class="container-narrow py-14 lg:py-20 max-w-2xl">
       <div class="card">
-        {!formReady && (
-          <p class="text-sm text-ink/60 mb-5 border-l-4 border-red pl-3">[STAGING — responses are not stored yet; wire INTEGRATIONS.formWebhook to the campaign CRM before launch. The full flow (including the thank-you message) is previewable below.]</p>
-        )}
-        <form id="survey-form" class="space-y-6" data-webhook={INTEGRATIONS.formWebhook}>
+        <form id="survey-form" class="space-y-6" data-webhook={INTEGRATIONS.formWebhook} data-email={site.contact.email}>
           <!-- Q1 -->
           <div>
             <label for="q1" class="block text-sm font-heading font-semibold text-navy mb-1">1. {openQuestions[0].label}</label>
@@ -86,14 +83,21 @@ const formReady = INTEGRATIONS.formWebhook !== '';
             </label>
           </div>
 
-          <button type="submit" class="btn-primary w-full" title={formReady ? 'Submit your survey' : 'Submit (staging preview — response not stored yet)'}>
-            {formReady ? 'Submit Survey' : 'Submit Survey [STAGING preview]'}
+          <button type="submit" class="btn-primary w-full" title="Submit your survey">
+            Submit Survey
           </button>
+          {!formReady && (
+            <p class="text-xs text-ink/50 text-center">Submitting opens a pre-filled email to the campaign in your mail app — just hit send.</p>
+          )}
         </form>
 
         <!-- Thank-you message (shown after successful submit once the CRM is wired) -->
         <div id="survey-thanks" class="hidden mt-6 rounded-xl bg-cream p-5 text-ink/80">
           <p class="font-display font-bold text-navy mb-2">Thank you!</p>
+          <p id="survey-thanks-sendnote" class="hidden mb-3 font-semibold text-navy">
+            One last step: your response just opened in your email app — press <em>Send</em> there so it
+            reaches the campaign.
+          </p>
           <p>
             Thank you for taking the time to share your thoughts. Whether or not we agree on every issue,
             every response helps me better understand our community. Listening is where good leadership begins.
@@ -107,8 +111,8 @@ const formReady = INTEGRATIONS.formWebhook !== '';
 
   <script>
     // Survey submit: anonymous completion is always possible (name/email optional).
-    // Posts to the CRM webhook when configured; in staging (no webhook) the flow still
-    // completes locally so the thank-you experience is reviewable end-to-end.
+    // Posts to the CRM webhook when configured; until then, falls back to opening a
+    // pre-filled email to the campaign inbox so no response is ever silently lost.
     const form = document.getElementById('survey-form') as HTMLFormElement | null;
     const thanks = document.getElementById('survey-thanks');
     form?.addEventListener('submit', async (e) => {
@@ -126,6 +130,22 @@ const formReady = INTEGRATIONS.formWebhook !== '';
           alert('Something went wrong sending your response. Please try again.');
           return;
         }
+      } else {
+        // Email fallback: open the visitor's mail app with the answers pre-filled.
+        const labels: Record<string, string> = {
+          q1: 'Three most important issues', q2: 'Most immediate attention',
+          q3: 'Love most about Woodstock', q4: 'Biggest concern for the future',
+          q5: 'One thing to improve in four years', q6: 'What Town government could do better',
+          name: 'Name', email: 'Email', updatesOptIn: 'Wants campaign updates',
+        };
+        const body = Object.entries(data)
+          .filter(([, v]) => String(v).trim() !== '')
+          .map(([k, v]) => `${labels[k] ?? k}:\n${v}`)
+          .join('\n\n');
+        const to = form.dataset.email;
+        window.location.href = `mailto:${to}?subject=${encodeURIComponent('Community Survey response')}&body=${encodeURIComponent(body)}`;
+        // Make clear the response still has to be sent from their mail app.
+        document.getElementById('survey-thanks-sendnote')?.classList.remove('hidden');
       }
       form.classList.add('hidden');
       thanks?.classList.remove('hidden');

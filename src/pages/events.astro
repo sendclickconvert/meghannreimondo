@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import WriteInBlock from '../components/WriteInBlock.astro';
 import { site } from '../data/site';
-import { graph, webPage, eventNode, breadcrumb } from '../lib/schema';
+import { webPage, breadcrumb } from '../lib/schema'; // graph/eventNode re-added when event address+time are confirmed
 
 const path = '/events';
 
@@ -33,18 +33,15 @@ const bc = breadcrumb([
   { name: 'Events', path },
 ]);
 
-const schema = events.length
-  ? graph([
-      { '@type': 'WebPage', name: 'Events', url: `${site.url}${path}` },
-      ...events.map(eventNode),
-      bc,
-    ])
-  : webPage({
-      name: 'Events',
-      description: `Campaign events for ${site.candidate.name}.`,
-      path,
-      extraNodes: [bc],
-    });
+// NOTE: Event JSON-LD is intentionally NOT emitted for now — the listed events have no
+// confirmed venue address or start/end time yet, and incomplete Event markup is worse
+// than none. Re-enable `graph([...events.map(eventNode)])` once address + time are confirmed.
+const schema = webPage({
+  name: 'Events',
+  description: `Campaign events for ${site.candidate.name}.`,
+  path,
+  extraNodes: [bc],
+});
 ---
 
 <BaseLayout title="Events" description={`Campaign events for ${site.candidate.name}.`} schema={schema}>

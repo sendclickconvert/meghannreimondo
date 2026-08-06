@@ -47,23 +47,20 @@ const schema = webPage({
 
   <section class="bg-white">
     <div class="container-narrow py-14 lg:py-20 max-w-xl">
-      <div class="card">
-        <p class="text-sm text-ink/60 mb-5 border-l-4 border-red pl-3">[TODO — wire this form to the campaign CRM]</p>
-        <form class="space-y-4" onsubmit="return false;">
-          <div>
-            <label class="block text-sm font-heading font-semibold text-navy mb-1">Name</label>
-            <input type="text" class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm" placeholder="Your name" />
-          </div>
-          <div>
-            <label class="block text-sm font-heading font-semibold text-navy mb-1">Email</label>
-            <input type="email" class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm" placeholder="you@example.com" />
-          </div>
-          <div>
-            <label class="block text-sm font-heading font-semibold text-navy mb-1">How would you like to help?</label>
-            <textarea rows="3" class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm" placeholder="Canvassing, phone banking, hosting an event…"></textarea>
-          </div>
-          <button type="submit" class="btn-primary w-full" disabled title="[TODO — CRM not connected]">Sign Up to Volunteer [TODO]</button>
-        </form>
+      <div class="card text-center">
+        <p class="font-display font-bold text-lg text-navy">Ready to help?</p>
+        <p class="mt-2 text-ink/75">
+          Email the campaign and tell us how you'd like to pitch in — canvassing, phone banking, hosting a
+          lawn sign, or spreading the word.
+        </p>
+        <a
+          href={`mailto:${site.contact.email}?subject=${encodeURIComponent('I want to volunteer')}&body=${encodeURIComponent('Hi Meghann,\n\nI want to help the campaign. Here is how I can pitch in:\n\nName:\nHow I can help:')}`}
+          class="btn-primary mt-6 inline-block"
+          title="Email the campaign to volunteer"
+        >
+          Sign Up to Volunteer &rarr;
+        </a>
+        <p class="mt-3 text-xs text-ink/50">Opens a pre-filled email to {site.contact.email}</p>
       </div>
     </div>
   </section>
