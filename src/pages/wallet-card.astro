@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WalletCard from '../components/WalletCard.astro';
+import { site } from '../data/site';
+import { webPage, breadcrumb } from '../lib/schema';
+
+const path = '/wallet-card';
+const schema = webPage({
+  name: 'Printable Wallet Card',
+  description: `Print a wallet card with the exact spelling and write-in steps for ${site.candidate.name}.`,
+  path,
+  extraNodes: [breadcrumb([{ name: 'Home', path: '/' }, { name: 'Wallet Card', path }])],
+});
+---
+
+<BaseLayout title="Printable Wallet Card" description={`Print a wallet card with the exact spelling and write-in steps for ${site.candidate.name}.`} schema={schema}>
+  <section class="bg-navy text-white print:hidden">
+    <div class="container-narrow py-14 lg:py-20 text-center">
+      <p class="text-xs font-heading font-bold uppercase tracking-widest text-red mb-3">Take it to the polls</p>
+      <h1 class="text-4xl lg:text-5xl font-display font-extrabold text-white">Printable Wallet Card</h1>
+      <p class="mt-4 text-lg text-white/70 max-w-2xl mx-auto">
+        Print it, cut it out, fold it, and bring it with you on November 3 — the exact spelling and the three
+        write-in steps, right in your pocket.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="container-narrow py-14 lg:py-20 print:py-0">
+      <div class="max-w-2xl mx-auto">
+        <WalletCard print={true} />
+        <div class="mt-8 text-center print:hidden">
+          <button type="button" onclick="window.print()" class="btn-accent">Print / Save as PDF</button>
+          <p class="mt-3 text-sm text-ink/60">Use your browser's print dialog — choose "Save as PDF" to download.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:global>
+  @media print {
+    header, footer, .print\:hidden { display: none !important; }
+    .wallet-print-grid { display: grid; grid-template-columns: 1fr; gap: 0.5in; max-width: 3.37in; }
+    .wallet-card-print { width: 3.37in; height: 2.125in; box-shadow: none !important; break-inside: avoid; }
+  }
+</style>

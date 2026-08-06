@@ -60,7 +60,7 @@ const schema = webPage({
                 <p class="text-sm text-ink/60 font-heading">Letter of Endorsement{e.date ? ` · ${e.date}` : ''}</p>
                 {e.letter.map((p) => <p>{p}</p>)}
                 <p class="font-heading text-navy">
-                  <span class="font-semibold">{e.signoff}</span><br />
+                  {e.signoff && <><span class="font-semibold">{e.signoff}</span><br /></>}
                   <span class="font-semibold">{e.signature[0]}</span>
                   {e.signature.slice(1).map((line) => <><br /><span class="font-normal text-ink/70 text-sm">{line}</span></>)}
                 </p>

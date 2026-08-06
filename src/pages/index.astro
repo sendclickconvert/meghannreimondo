@@ -1,6 +1,7 @@
 ---
 // The five pillars (foundation graphic).
 const pillars = ['Fiscal Responsibility', 'Supporting Our Staff', 'Communication & Transparency', 'Infrastructure', 'Water'];
+import WalletCard from '../components/WalletCard.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import WriteInBlock from '../components/WriteInBlock.astro';
@@ -54,10 +55,10 @@ const questions = [
       </p>
       <!-- Foundation graphic: five pillars on a base -->
       <div class="mt-10 max-w-3xl mx-auto">
-        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 items-end">
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 items-stretch">
           {pillars.map((p) => (
-            <div class="flex flex-col items-center">
-              <div class="w-full bg-navy text-white rounded-t-lg px-2 py-6 sm:py-10 flex items-center justify-center">
+            <div class="flex flex-col items-center h-full">
+              <div class="w-full h-full min-h-[6rem] sm:min-h-[8rem] bg-navy text-white rounded-t-lg px-2 py-6 sm:py-10 flex items-center justify-center">
                 <span class="text-xs sm:text-sm font-heading font-bold leading-snug text-balance">{p}</span>
               </div>
             </div>
@@ -67,6 +68,21 @@ const questions = [
         <p class="mt-3 text-xs font-heading font-semibold uppercase tracking-widest text-ink/50">The Foundation</p>
       </div>
       <a href="/issues" class="btn-primary mt-8 inline-block" title="Five Core Priorities">Explore the Five Priorities &rarr;</a>
+    </div>
+  </section>
+
+  <!-- Wallet card — visual front & back + printable download -->
+  <section class="bg-cream">
+    <div class="container-wide py-14 lg:py-20 text-center">
+      <div class="section-divider mx-auto mb-5"></div>
+      <h2 class="text-3xl lg:text-4xl font-display font-extrabold text-navy text-balance">Keep the spelling in your pocket</h2>
+      <p class="mt-4 text-lg text-ink/75 max-w-2xl mx-auto">
+        A write-in vote only counts if the name is right. Take the wallet card with you on November 3.
+      </p>
+      <div class="mt-10 max-w-3xl mx-auto">
+        <WalletCard />
+      </div>
+      <a href="/wallet-card" class="btn-accent mt-8 inline-block" title="Printable wallet card">Download the printable wallet card &rarr;</a>
     </div>
   </section>
 
