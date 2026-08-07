@@ -9,7 +9,9 @@ const path = '/events';
 // Real events only. Each entry becomes an Event node (organizer = committee Org).
 const events: {
   name: string; startDate: string; endDate?: string;
+  time?: string;            // human-readable time string for display
   locationName: string; address?: string; url?: string;
+  details?: string;         // brief description shown on the card
 }[] = [
   {
     name: 'Volunteering at Volunteers Day',
@@ -22,6 +24,15 @@ const events: {
     startDate: '2026-08-16',
     locationName: 'Woodstock Awakening',
     url: 'https://woodstockawakening.org/',
+  },
+  {
+    name: 'Meet & Greet with Meghann',
+    startDate: '2026-09-19',
+    endDate: '2026-09-19',
+    time: '4:00 – 6:30 pm',
+    locationName: '27 Schoonmaker Lane',
+    address: '27 Schoonmaker Lane, Woodstock, NY 12498',
+    details: 'Appetizers, beer, and wine. Come meet Meghann and hear about her vision for Woodstock.',
   },
 ];
 
@@ -63,9 +74,10 @@ const schema = webPage({
         <div class="grid sm:grid-cols-2 gap-5">
           {events.map((e) => (
             <div class="card">
-              <p class="text-xs font-heading font-bold uppercase tracking-widest text-red">{fmtDate(e.startDate)}</p>
+              <p class="text-xs font-heading font-bold uppercase tracking-widest text-red">{fmtDate(e.startDate)}{e.time && <span class="normal-case tracking-normal"> · {e.time}</span>}</p>
               <h3 class="mt-2 font-display font-bold text-lg text-navy">{e.name}</h3>
-              <p class="mt-1 text-sm text-ink/70">{e.locationName}</p>
+              <p class="mt-1 text-sm text-ink/70">{e.address ?? e.locationName}</p>
+              {e.details && <p class="mt-2 text-sm text-ink/75">{e.details}</p>}
               {e.url && (
                 <a href={e.url} target="_blank" rel="noopener noreferrer" class="mt-3 inline-block font-heading font-bold text-sm text-navy hover:text-red underline transition-colors">
                   Event details &rarr;
