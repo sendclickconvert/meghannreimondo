@@ -12,8 +12,11 @@ export const site = {
     raceType: "write-in",
     electionDate: "2026-11-03",
   },
-  committee: { registeredName: "TODO", treasurer: "TODO" },
-  legal: { paidForBy: "TODO" }, // renders "Paid for by <registeredName>"; footer day one
+  // Committee name provided by the campaign in the /join work order (8 Aug 2026).
+  // Treasurer still unconfirmed → stays TODO. CONFIRM this is the legally REGISTERED
+  // committee name before launch (it renders in the site-wide "Paid for by" disclaimer + schema).
+  committee: { registeredName: "Friends of Meghann Reimondo", treasurer: "TODO" },
+  legal: { paidForBy: "Friends of Meghann Reimondo" }, // site-wide footer disclaimer
   contact: { email: "TODO", phone: "TODO" },
   domains: { primary: "meghannreimondo.com", legacy: "megforwoodstock.com" },
   social: { facebook: "TODO", instagram: "TODO" }, // sameAs targets
@@ -39,6 +42,12 @@ export const isTodo = (v: string | undefined | null): boolean =>
 // Vendor-neutral integration plumbing (used by /api/submit-form). Empty until wired.
 export const INTEGRATIONS = {
   formWebhook: '', // native fallback endpoint target for /api/submit-form
+  // /join opt-in form target. Leave '' to POST to the built-in /api/submit-form route
+  // (which returns success in demo). Drop the GHL webhook URL here to POST direct — no markup change.
+  optInEndpoint: '', // TODO — GHL opt-in webhook URL
+  // Exit-intent popup CTA target. The Community Survey page does NOT exist in the repo yet;
+  // build src/pages/survey.astro (or update this) before the popup goes live.
+  surveyPath: '/survey', // TODO — Community Survey page not yet built
 } as const;
 
 // Primary navigation — flat, 9 pages. Write-In page is the strategic spine (built first + fullest).

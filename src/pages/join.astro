@@ -1,0 +1,171 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site, INTEGRATIONS } from '../data/site';
+import { webPage, breadcrumb } from '../lib/schema';
+
+const path = '/join';
+// Configurable submit target: drop the GHL webhook URL into INTEGRATIONS.optInEndpoint
+// (site.ts) to POST direct; otherwise falls back to the built-in /api/submit-form route.
+const optInEndpoint = INTEGRATIONS.optInEndpoint || '/api/submit-form';
+
+const schema = webPage({
+  name: 'Write In Meghann Reimondo',
+  description: `Commit to writing in ${site.candidate.name} for ${site.candidate.office}.`,
+  path,
+  extraNodes: [breadcrumb([{ name: 'Home', path: '/' }, { name: 'Count Me In', path }])],
+});
+
+const inputCls =
+  'w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-navy focus:border-navy';
+const labelCls = 'block text-sm font-heading font-semibold text-navy mb-1';
+---
+
+<BaseLayout
+  title="Count Me In"
+  description={`Commit to writing in ${site.candidate.name} for ${site.candidate.office}.`}
+  schema={schema}
+  variant="landing"
+>
+  <section class="bg-cream">
+    <div class="container-narrow max-w-xl py-12 lg:py-16">
+      <div class="text-center mb-8">
+        <span class="section-divider mx-auto mb-4"></span>
+        <h1 class="text-3xl lg:text-4xl font-display font-extrabold text-navy text-balance">
+          YES — I'll Write In Meghann Reimondo
+        </h1>
+        <p class="mt-3 text-lg text-ink/70">Woodstock deserves leadership that listens. Count me in.</p>
+      </div>
+
+      <!-- Opt-in form -->
+      <div class="card" id="join-form-wrap">
+        <form id="join-form" class="space-y-4" novalidate data-endpoint={optInEndpoint}>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class={labelCls} for="firstName">First Name <span class="text-red">*</span></label>
+              <input class={inputCls} id="firstName" name="firstName" type="text" required autocomplete="given-name" />
+            </div>
+            <div>
+              <label class={labelCls} for="lastName">Last Name <span class="text-red">*</span></label>
+              <input class={inputCls} id="lastName" name="lastName" type="text" required autocomplete="family-name" />
+            </div>
+          </div>
+
+          <div>
+            <label class={labelCls} for="email">Email <span class="text-red">*</span></label>
+            <input class={inputCls} id="email" name="email" type="email" required autocomplete="email" />
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class={labelCls} for="phone">Phone <span class="text-ink/40 font-normal">(optional)</span></label>
+              <input class={inputCls} id="phone" name="phone" type="tel" autocomplete="tel" />
+            </div>
+            <div>
+              <label class={labelCls} for="neighborhood">Neighborhood <span class="text-ink/40 font-normal">(optional)</span></label>
+              <input class={inputCls} id="neighborhood" name="neighborhood" type="text" />
+            </div>
+          </div>
+
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input class="mt-1 h-4 w-4 shrink-0 accent-red" id="commit" name="commit" type="checkbox" required />
+            <span class="text-sm text-ink/80">
+              Yes, I plan to write in Meghann Reimondo for Town Supervisor. <span class="text-red">*</span>
+            </span>
+          </label>
+
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input class="mt-1 h-4 w-4 shrink-0 accent-red" id="sms" name="smsConsent" type="checkbox" />
+            <span class="text-xs text-ink/60">
+              Yes, I'd like to receive text updates from Friends of Meghann Reimondo. Msg &amp; data rates may apply.
+              Reply STOP to opt out, HELP for help.
+            </span>
+          </label>
+
+          <p id="join-error" class="text-sm font-semibold text-red hidden" role="alert" aria-live="assertive"></p>
+
+          <button type="submit" class="btn-accent w-full" id="join-submit">Count Me In</button>
+        </form>
+      </div>
+
+      <!-- Success state -->
+      <div class="card text-center hidden" id="join-success" role="status" aria-live="polite" tabindex="-1">
+        <span class="section-divider mx-auto mb-4"></span>
+        <h2 class="text-2xl font-display font-extrabold text-navy">Thank you — you're counted.</h2>
+        <p class="mt-2 text-ink/70">Now help us find one more YES.</p>
+
+        <div class="mt-6 flex flex-col sm:flex-row gap-2 justify-center">
+          <button type="button" class="btn-primary" id="share-btn">Share this page</button>
+          <button type="button" class="btn-secondary" id="copy-btn">Copy link</button>
+        </div>
+        <p id="copy-note" class="text-xs text-ink/50 mt-2 hidden">Link copied.</p>
+
+        <a href="/how-to-vote" class="inline-block mt-6 text-sm font-heading font-semibold text-navy underline hover:text-red">
+          How to write her in &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const form = document.getElementById('join-form');
+  const wrap = document.getElementById('join-form-wrap');
+  const success = document.getElementById('join-success');
+  const errEl = document.getElementById('join-error');
+  const submitBtn = document.getElementById('join-submit');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errEl.classList.add('hidden');
+
+    // Native validation covers required text/email + required commitment checkbox.
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    const fd = new FormData(form);
+    const payload = Object.fromEntries(fd.entries());
+    payload.commit = form.querySelector('#commit').checked;
+    payload.smsConsent = form.querySelector('#sms').checked;
+    payload.source = 'join-optin';
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting…';
+
+    try {
+      const res = await fetch(form.dataset.endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error('bad status');
+      wrap.classList.add('hidden');
+      success.classList.remove('hidden');
+      success.focus();
+    } catch {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Count Me In';
+      errEl.textContent = 'Something went wrong. Please try again.';
+      errEl.classList.remove('hidden');
+    }
+  });
+
+  // Share prompt (no data stored client-side).
+  const shareUrl = window.location.href;
+  const copyNote = document.getElementById('copy-note');
+  async function copyLink() {
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      copyNote?.classList.remove('hidden');
+    } catch {}
+  }
+  document.getElementById('share-btn')?.addEventListener('click', async () => {
+    if (navigator.share) {
+      try { await navigator.share({ title: document.title, url: shareUrl }); } catch {}
+    } else {
+      copyLink();
+    }
+  });
+  document.getElementById('copy-btn')?.addEventListener('click', copyLink);
+</script>

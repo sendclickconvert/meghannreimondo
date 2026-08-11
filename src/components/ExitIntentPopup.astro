@@ -1,0 +1,142 @@
+---
+// Site-wide exit-intent popup — nudges visitors to the Community Survey.
+// Rendered once via BaseLayout (default variant only; never on /join, and it
+// self-skips on /survey). Fires at most once per session (sessionStorage flag).
+// Accessible: role=dialog, aria-modal, focus trap, ESC to close, aria labels.
+import { INTEGRATIONS } from '../data/site';
+
+const surveyPath = INTEGRATIONS.surveyPath; // '/survey' (page not yet built — see site.ts)
+---
+
+<div
+  id="exit-popup"
+  class="fixed inset-0 z-[100] hidden items-center justify-center p-4"
+  aria-hidden="true"
+>
+  <!-- Backdrop -->
+  <div class="absolute inset-0 bg-navy/60 backdrop-blur-sm" data-exit-close></div>
+
+  <!-- Dialog -->
+  <div
+    class="relative w-full max-w-md bg-white rounded-xl shadow-soft border border-slate-200 p-6 sm:p-8 text-center animate-fade-up"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="exit-popup-title"
+    aria-describedby="exit-popup-desc"
+  >
+    <button
+      type="button"
+      class="absolute top-3 right-3 p-2 rounded-md text-ink/50 hover:text-ink hover:bg-cream transition-colors focus:outline-none focus:ring-2 focus:ring-navy"
+      aria-label="Close"
+      data-exit-close
+    >
+      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    <span class="section-divider mx-auto mb-4"></span>
+    <h2 id="exit-popup-title" class="text-2xl font-display font-extrabold text-navy">
+      Wait — did you take the Community Survey?
+    </h2>
+    <p id="exit-popup-desc" class="mt-3 text-ink/70">
+      Your voice helps shape this campaign. It takes two minutes.
+    </p>
+
+    <a href={surveyPath} class="btn-accent w-full mt-6" data-exit-convert>
+      Take the Survey
+    </a>
+  </div>
+</div>
+
+<script>
+  const popup = document.getElementById('exit-popup');
+  if (popup) {
+    const path = window.location.pathname.replace(/\/+$/, '');
+    const SKIP = path === '/join' || path === '/survey';
+    const KEY = 'mr_exit_popup'; // sessionStorage (NOT localStorage) — once per session
+    const alreadyDone = () => {
+      try { return sessionStorage.getItem(KEY) !== null; } catch { return false; }
+    };
+    const mark = () => { try { sessionStorage.setItem(KEY, '1'); } catch {} };
+
+    const dialog = popup.querySelector('[role="dialog"]') as HTMLElement | null;
+    let lastFocus: HTMLElement | null = null;
+    let armed = true;
+
+    const focusable = () =>
+      Array.from(
+        dialog?.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        ) ?? []
+      );
+
+    function onKeydown(e: KeyboardEvent) {
+      if (e.key === 'Escape') { close(); return; }
+      if (e.key !== 'Tab') return;
+      const items = focusable();
+      if (!items.length) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+
+    function open() {
+      if (!armed || alreadyDone() || SKIP) return;
+      armed = false;
+      mark();
+      teardownTriggers();
+      lastFocus = document.activeElement as HTMLElement;
+      popup!.classList.remove('hidden');
+      popup!.classList.add('flex');
+      popup!.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      document.addEventListener('keydown', onKeydown);
+      focusable()[0]?.focus();
+    }
+
+    function close() {
+      popup!.classList.add('hidden');
+      popup!.classList.remove('flex');
+      popup!.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      document.removeEventListener('keydown', onKeydown);
+      lastFocus?.focus();
+    }
+
+    popup.querySelectorAll('[data-exit-close]').forEach((el) =>
+      el.addEventListener('click', close)
+    );
+    // Taking the survey counts as done; let the link navigate.
+    popup.querySelector('[data-exit-convert]')?.addEventListener('click', () => mark());
+
+    // ---- Triggers ----
+    const desktopExit = (e: MouseEvent) => {
+      if (!e.relatedTarget && e.clientY <= 0) open();
+    };
+    let mobileTimer: number | undefined;
+    let lastY = window.scrollY;
+    const mobileScrollUp = () => {
+      const y = window.scrollY;
+      // fast upward scroll after having scrolled down a bit = exit signal
+      if (lastY - y > 24 && lastY > 400) open();
+      lastY = y;
+    };
+    function teardownTriggers() {
+      document.removeEventListener('mouseout', desktopExit);
+      window.removeEventListener('scroll', mobileScrollUp);
+      if (mobileTimer) clearTimeout(mobileTimer);
+    }
+
+    if (!SKIP && !alreadyDone()) {
+      const isTouch = window.matchMedia('(pointer: coarse)').matches;
+      if (isTouch) {
+        window.addEventListener('scroll', mobileScrollUp, { passive: true });
+        mobileTimer = window.setTimeout(open, 30000); // delay fallback (no true exit-intent on touch)
+      } else {
+        document.addEventListener('mouseout', desktopExit);
+      }
+    }
+  }
+</script>

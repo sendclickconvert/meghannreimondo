@@ -1,7 +1,8 @@
 ---
-import { site, DEMO_MODE } from '../data/site';
+import { site, DEMO_MODE, isTodo } from '../data/site';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import ExitIntentPopup from '../components/ExitIntentPopup.astro';
 import '../styles/global.css';
 
 export interface Props {
@@ -11,6 +12,9 @@ export interface Props {
   ogImage?: string;
   schema?: object;
   noIndex?: boolean;
+  // 'landing' strips chrome to a logo-only header + disclaimer-only footer and
+  // suppresses the site-wide exit-intent popup (single-purpose conversion pages).
+  variant?: 'default' | 'landing';
 }
 
 const {
@@ -20,7 +24,13 @@ const {
   ogImage = '/images/og-default.jpg',
   schema,
   noIndex = false,
+  variant = 'default',
 } = Astro.props;
+
+const isLanding = variant === 'landing';
+// Legal disclaimer — same source as the site-wide Footer.
+const paidForBy = isTodo(site.legal.paidForBy) ? '[COMMITTEE NAME — TODO]' : site.legal.paidForBy;
+const hasLogo = site.brand.logo && site.brand.logo !== 'TODO';
 
 const fullTitle =
   title === 'Home'
@@ -77,13 +87,40 @@ const robotsNoIndex = noIndex || DEMO_MODE;
   <slot name="head" />
 </head>
 <body class="min-h-screen flex flex-col antialiased">
-  <Header />
+  {isLanding ? (
+    <header class="bg-white border-b border-slate-200">
+      <div class="container-wide flex justify-center py-4">
+        <span class="flex items-center" aria-label={`${site.candidate.name} — Write-In for ${site.candidate.office}`}>
+          {hasLogo ? (
+            <img src={site.brand.logo} alt={`${site.candidate.name} — Write-In for ${site.candidate.office}`} class="h-14 w-auto" />
+          ) : (
+            <span class="font-display font-extrabold text-lg text-navy leading-none text-center">
+              {site.candidate.name}
+              <span class="block text-[10px] font-semibold text-red uppercase tracking-widest mt-0.5">{site.brand.tagline}</span>
+            </span>
+          )}
+        </span>
+      </div>
+    </header>
+  ) : (
+    <Header />
+  )}
 
   <main class="flex-1">
     <slot />
   </main>
 
-  <Footer />
+  {isLanding ? (
+    <footer class="bg-navy text-white/70">
+      <div class="container-wide py-6 text-center text-xs">
+        <p class="font-semibold text-white/80">Paid for by {paidForBy}</p>
+      </div>
+    </footer>
+  ) : (
+    <Footer />
+  )}
+
+  {!isLanding && <ExitIntentPopup />}
 
   <!-- Scroll animation observer -->
   <script>
