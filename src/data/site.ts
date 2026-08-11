@@ -154,7 +154,9 @@ export const ENDORSEMENTS = [
 ] as const;
 
 export const INTEGRATIONS = {
-  formWebhook: '', // external form endpoint (e.g. Formspree) — site is static, no server API
+  formWebhook: '',       // legacy survey fallback endpoint
+  optInEndpoint: '',     // GHL or other webhook for /join opt-in form — drop URL here when ready
+  surveyEndpoint: '',    // GHL or other webhook for /survey — drop URL here when ready
 } as const;
 
 // Primary navigation — flat, 9 pages. Write-In page is the strategic spine (built first + fullest).

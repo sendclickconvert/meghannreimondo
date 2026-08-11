@@ -1,0 +1,122 @@
+---
+// ExitIntentPopup — fires once per session; skips /join and /survey.
+// Desktop: mouse leaves toward top of viewport.
+// Mobile: scroll-up heuristic + 8-second delay.
+// Uses sessionStorage (NOT localStorage) so it resets each browser session.
+---
+
+<div
+  id="exit-popup-overlay"
+  class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="exit-popup-title"
+>
+  <div
+    id="exit-popup"
+    class="relative bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center"
+    tabindex="-1"
+  >
+    <!-- Close button -->
+    <button
+      id="exit-popup-close"
+      class="absolute top-4 right-4 text-ink/40 hover:text-ink transition-colors"
+      aria-label="Close"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+      </svg>
+    </button>
+
+    <!-- Content -->
+    <p class="text-xs font-heading font-bold uppercase tracking-widest text-red mb-3">Wait!</p>
+    <h2 id="exit-popup-title" class="text-2xl font-display font-extrabold text-navy text-balance">
+      Did you take the Community Survey?
+    </h2>
+    <p class="mt-3 text-ink/75">
+      Your voice helps shape this campaign. It takes two minutes.
+    </p>
+    <a href="/survey" class="btn-primary mt-6 inline-block" id="exit-popup-cta">
+      Take the Survey &rarr;
+    </a>
+    <p class="mt-4 text-xs text-ink/40">No thanks — <button id="exit-popup-dismiss" class="underline hover:text-ink transition-colors">dismiss</button></p>
+  </div>
+</div>
+
+<script>
+  (() => {
+    const SESSION_KEY = 'exit_popup_shown';
+    // Skip /join and /survey
+    const skip = ['/join', '/survey'];
+    const path = window.location.pathname.replace(/\/$/, '') || '/';
+    if (skip.some((s) => path === s || path.startsWith(s + '/'))) return;
+    // Already shown this session
+    if (sessionStorage.getItem(SESSION_KEY)) return;
+
+    const overlay = document.getElementById('exit-popup-overlay');
+    const popup = document.getElementById('exit-popup');
+    if (!overlay || !popup) return;
+
+    function show() {
+      if (sessionStorage.getItem(SESSION_KEY)) return;
+      sessionStorage.setItem(SESSION_KEY, '1');
+      overlay!.classList.remove('hidden');
+      // Focus trap: move focus into the popup
+      (popup as HTMLElement).focus();
+    }
+
+    function hide() {
+      overlay!.classList.add('hidden');
+    }
+
+    // Close controls
+    document.getElementById('exit-popup-close')?.addEventListener('click', hide);
+    document.getElementById('exit-popup-dismiss')?.addEventListener('click', hide);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) hide(); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !overlay.classList.contains('hidden')) hide();
+    });
+
+    // Focus trap inside modal
+    popup.addEventListener('keydown', (e) => {
+      if (e.key !== 'Tab') return;
+      const focusable = Array.from(popup.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      ));
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+      } else {
+        if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+
+    // Desktop: mouse leaves toward top
+    const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
+    document.addEventListener('mouseleave', (e) => {
+      if (isMobile()) return;
+      if ((e as MouseEvent).clientY < 10) show();
+    });
+
+    // Mobile: scroll-up heuristic (user reverses scroll direction) + 8-second delay fallback
+    let lastY = window.scrollY;
+    let mobileTriggered = false;
+    window.addEventListener('scroll', () => {
+      if (!isMobile() || mobileTriggered) return;
+      const current = window.scrollY;
+      if (current < lastY && lastY > 200) {
+        mobileTriggered = true;
+        show();
+      }
+      lastY = current;
+    }, { passive: true });
+
+    if (isMobile()) {
+      setTimeout(() => {
+        if (!sessionStorage.getItem(SESSION_KEY)) show();
+      }, 8000);
+    }
+  })();
+</script>

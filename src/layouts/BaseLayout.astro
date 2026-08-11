@@ -2,6 +2,7 @@
 import { site, DEMO_MODE } from '../data/site';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import ExitIntentPopup from '../components/ExitIntentPopup.astro';
 import '../styles/global.css';
 
 export interface Props {
@@ -11,6 +12,8 @@ export interface Props {
   ogImage?: string;
   schema?: object;
   noIndex?: boolean;
+  /** 'landing' = logo-only header, no nav, no exit popup (used by /join). */
+  variant?: 'default' | 'landing';
 }
 
 const {
@@ -20,6 +23,7 @@ const {
   ogImage = '/images/og-default.jpg',
   schema,
   noIndex = false,
+  variant = 'default',
 } = Astro.props;
 
 const fullTitle =
@@ -84,6 +88,8 @@ const robotsNoIndex = noIndex || DEMO_MODE;
   </main>
 
   <Footer />
+
+  {variant !== 'landing' && <ExitIntentPopup />}
 
   <!-- Scroll animation observer -->
   <script>
