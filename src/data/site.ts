@@ -45,9 +45,12 @@ export const INTEGRATIONS = {
   // /join opt-in form target. Leave '' to POST to the built-in /api/submit-form route
   // (which returns success in demo). Drop the GHL webhook URL here to POST direct — no markup change.
   optInEndpoint: '', // TODO — GHL opt-in webhook URL
-  // Exit-intent popup CTA target. The Community Survey page does NOT exist in the repo yet;
-  // build src/pages/survey.astro (or update this) before the popup goes live.
-  surveyPath: '/survey', // TODO — Community Survey page not yet built
+  // /survey Community Survey form target. Same pattern as optInEndpoint: leave '' to POST to
+  // the built-in /api/submit-form route (returns success in demo); drop the GHL webhook URL
+  // here to POST direct — no markup change.
+  surveyEndpoint: '', // TODO — GHL survey webhook URL
+  // Exit-intent popup CTA target → the Community Survey page (src/pages/survey.astro).
+  surveyPath: '/survey',
 } as const;
 
 // Primary navigation — flat, 9 pages. Write-In page is the strategic spine (built first + fullest).
