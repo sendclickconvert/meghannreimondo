@@ -63,5 +63,4 @@ outputType = "webview"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "cd /home/runner/workspace && npm run build && npx serve dist -l 5000 --no-clipboard"
-waitForPort = 5000
+args = "cd /home/runner/workspace && npm run build && HOST=0.0.0.0 PORT=5000 node server.mjs"
