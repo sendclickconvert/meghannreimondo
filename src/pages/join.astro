@@ -1,8 +1,8 @@
 ---
 // /join — single-purpose opt-in lander.
 // Minimal chrome: logo-only header, no nav, no exit popup, disclaimer-only footer.
-// Form posts to INTEGRATIONS.optInEndpoint; falls back to success state when unset.
-import { site, INTEGRATIONS } from '../data/site';
+// Form POSTs to /api/join (server proxy) — the GHL webhook URL stays server-side only.
+import { site } from '../data/site';
 import { webPage, breadcrumb } from '../lib/schema';
 import '../styles/global.css';
 
@@ -71,7 +71,6 @@ const fullTitle = `Count Me In | ${site.candidate.name}`;
             id="join-form"
             class="space-y-4"
             novalidate
-            data-endpoint={INTEGRATIONS.optInEndpoint}
           >
             <div class="grid sm:grid-cols-2 gap-4">
               <div>
@@ -259,20 +258,27 @@ const fullTitle = `Count Me In | ${site.candidate.name}`;
         return;
       }
 
-      const endpoint = (form as HTMLFormElement & { dataset: { endpoint?: string } }).dataset.endpoint;
-      if (endpoint) {
-        if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Submitting…'; }
-        try {
-          await fetch(endpoint, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ form: 'join-optin', ...data }),
-          });
-        } catch {
-          if (errorBox) { errorBox.textContent = 'Something went wrong. Please try again.'; errorBox.classList.remove('hidden'); }
-          if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Count Me In →'; }
-          return;
-        }
+      // Always POST to the server-side proxy — the GHL URL never appears in client HTML.
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Submitting…'; }
+      try {
+        const res = await fetch('/api/join', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            firstName:    data.firstName,
+            lastName:     data.lastName,
+            email:        data.email,
+            phone:        data.phone        ?? '',
+            neighborhood: data.neighborhood ?? '',
+            commitVote:   !!data.commitVote,
+            smsOptIn:     !!data.smsOptIn,
+          }),
+        });
+        if (!res.ok) throw new Error('server_error');
+      } catch {
+        if (errorBox) { errorBox.textContent = 'Something went wrong. Please try again.'; errorBox.classList.remove('hidden'); }
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Count Me In →'; }
+        return;
       }
 
       // Show thank-you
