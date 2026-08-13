@@ -151,6 +151,21 @@ export const ENDORSEMENTS = [
       'On November 3rd, join us by writing in Meghann Reimondo for Woodstock Town Supervisor in the write-in section of your ballot.',
     ],
   },
+  {
+    name: 'Karen Mines',
+    role: 'Grogkill, NY',
+    date: '',
+    pullQuote:
+      "Do not underestimate Meghann's dedication, intelligence and capacity to thrive in the role of Woodstock supervisor. She is the ideal person for this position.",
+    signoff: '',
+    signature: ['Karen Mines', 'Grogkill'],
+    letter: [
+      "One of the first things you notice when you meet Meghann Reimondo is her friendly disposition. But behind her genuine warmth is one of the smartest and most creative women I've ever known.",
+      "Meghann and I have been friends for nearly twenty years, and during that time I've marveled at how she's grown as a woman, mother, wife, member of the school board, and leader within our community. No matter what challenge life has thrown her way she's been able to find a path forward while staying true to her values, finding creative solutions with resourcefulness, honesty and grace.",
+      "Meghann is smart, genuine, loyal and unwavering in her dedication to serving every one in the community. Woodstock has been her home for decades and she's been the town clerk here for nearly a year. She understands how our beautiful town works and has innovative ideas about how to improve the quality of life and efficiency of our elected offices here.",
+      "Do not underestimate Meghann's dedication, intelligence and capacity to thrive in the role of Woodstock supervisor. She is the ideal person for this position and I throw my full support behind her candidacy.",
+    ],
+  },
 ] as const;
 
 export const INTEGRATIONS = {
