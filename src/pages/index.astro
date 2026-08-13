@@ -1,7 +1,6 @@
 ---
 // The five pillars (foundation graphic).
 const pillars = ['Fiscal Responsibility', 'Supporting Our Staff', 'Communication & Transparency', 'Infrastructure', 'Water'];
-import WalletCard from '../components/WalletCard.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import WriteInBlock from '../components/WriteInBlock.astro';
@@ -80,7 +79,14 @@ const questions = [
         A write-in vote only counts if the name is right. Take the wallet card with you on November 3.
       </p>
       <div class="mt-10 max-w-3xl mx-auto">
-        <WalletCard />
+        <img
+          src="/meghann-wallet-card.png"
+          alt="Meghann Reimondo write-in wallet card — front showing name and office, back showing the three write-in steps"
+          class="w-full rounded-xl shadow-soft border border-slate-200"
+          width="2450"
+          height="775"
+          loading="lazy"
+        />
       </div>
       <a href="/meghann-wallet-card.png" download="Meghann-Reimondo-Wallet-Card.png" class="btn-accent mt-8 inline-block" title="Download the wallet card">Download the wallet card &rarr;</a>
     </div>
