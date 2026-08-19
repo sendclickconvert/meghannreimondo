@@ -12,6 +12,8 @@ const events: {
   time?: string;            // human-readable time string for display
   locationName: string; address?: string; url?: string;
   details?: string;         // brief description shown on the card
+  dateLabel?: string;       // custom label for recurring or multi-date events
+  rsvp?: boolean;
 }[] = [
   {
     name: 'Volunteering at Volunteers Day',
@@ -27,6 +29,23 @@ const events: {
     url: 'https://woodstockawakening.org/',
   },
   {
+    name: 'Speaking at the Wittenberg Sportsmens Club',
+    startDate: '2026-09-02',
+    locationName: 'Wittenberg Sportsmens Club',
+    details: 'Speaking at the monthly members meeting.',
+    rsvp: true,
+  },
+  {
+    name: 'LISTENING WITH MEG LIVE',
+    startDate: '2026-09-11',
+    endDate: '2026-10-16',
+    dateLabel: 'Fridays · September 11 – October 16, 2026',
+    time: '5:00 – 7:00 pm',
+    locationName: 'Sonderbar, 54 Tinker Street',
+    details: 'Community conversations. No podium. Just listening. Stop by. Say hello. Ask a question. Share what’s on your mind.',
+    rsvp: true,
+  },
+  {
     name: 'Meet & Greet with Meghann',
     startDate: '2026-09-19',
     endDate: '2026-09-19',
@@ -34,11 +53,15 @@ const events: {
     locationName: '27 Schoonmaker Lane',
     address: '27 Schoonmaker Lane, Woodstock, NY 12498',
     details: 'Appetizers, beer, and wine. Come meet Meghann and hear about her vision for Woodstock.',
+    rsvp: true,
   },
 ];
 
 const fmtDate = (d: string) =>
   new Date(d + 'T00:00:00').toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+
+const rsvpHref = (eventName: string) =>
+  `mailto:${site.contact.email}?subject=${encodeURIComponent(`RSVP: ${eventName}`)}&body=${encodeURIComponent('Name(s):\nNumber attending:\n')}`;
 
 const bc = breadcrumb([
   { name: 'Home', path: '/' },
@@ -75,13 +98,18 @@ const schema = webPage({
         <div class="grid sm:grid-cols-2 gap-5">
           {events.map((e) => (
             <div class="card">
-              <p class="text-xs font-heading font-bold uppercase tracking-widest text-red">{fmtDate(e.startDate)}{e.time && <span class="normal-case tracking-normal"> · {e.time}</span>}</p>
+              <p class="text-xs font-heading font-bold uppercase tracking-widest text-red">{e.dateLabel ?? fmtDate(e.startDate)}{e.time && <span class="normal-case tracking-normal"> · {e.time}</span>}</p>
               <h3 class="mt-2 font-display font-bold text-lg text-navy">{e.name}</h3>
               <p class="mt-1 text-sm text-ink/70">{e.address ?? e.locationName}</p>
               {e.details && <p class="mt-2 text-sm text-ink/75">{e.details}</p>}
               {e.url && (
                 <a href={e.url} target="_blank" rel="noopener noreferrer" class="mt-3 inline-block font-heading font-bold text-sm text-navy hover:text-red underline transition-colors">
                   Event details &rarr;
+                </a>
+              )}
+              {e.rsvp && (
+                <a href={rsvpHref(e.name)} class="mt-3 ml-4 inline-block font-heading font-bold text-sm text-red hover:text-navy underline transition-colors">
+                  RSVP by email &rarr;
                 </a>
               )}
             </div>
