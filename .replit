@@ -35,9 +35,8 @@ externalPort = 80
 
 [deployment]
 run = ["node", "server.mjs"]
-deploymentTarget = "static"
+deploymentTarget = "autoscale"
 build = ["npm", "run", "build"]
-publicDir = "dist"
 
 [agent]
 expertMode = true
