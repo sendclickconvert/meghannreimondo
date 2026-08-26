@@ -26,10 +26,6 @@ pattern = "**/{*.js,*.jsx,*.ts,*.tsx,*.astro}"
 start = "typescript-language-server --stdio"
 
 [[ports]]
-localPort = 4321
-externalPort = 3000
-
-[[ports]]
 localPort = 5000
 externalPort = 80
 
@@ -63,3 +59,4 @@ outputType = "webview"
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "cd /home/runner/workspace && npm run build && HOST=0.0.0.0 PORT=5000 node server.mjs"
+waitForPort = 5000
