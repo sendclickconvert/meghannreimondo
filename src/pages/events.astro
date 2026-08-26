@@ -14,6 +14,7 @@ const events: {
   details?: string;         // brief description shown on the card
   dateLabel?: string;       // custom label for recurring or multi-date events
   rsvp?: boolean;
+  rsvpEmail?: string;       // override for events that RSVP to a different inbox than the campaign default
 }[] = [
   {
     name: 'Volunteering at Volunteers Day',
@@ -42,6 +43,14 @@ const events: {
     time: '5:00 – 7:00 pm',
     locationName: 'Sonderbar, 54 Tinker Street',
     details: 'Community conversations. No podium. Just listening. Stop by. Say hello. Ask a question. Share what\'s on your mind.',
+  },
+  {
+    name: 'Meet & Greet',
+    startDate: '2026-09-10',
+    time: '5:00 – 7:00 pm',
+    locationName: 'RSVP to receive the address',
+    rsvp: true,
+    rsvpEmail: 'dionogust@gmail.com',
   },
   {
     name: 'Meet & Greet',
@@ -79,8 +88,8 @@ const events: {
 const fmtDate = (d: string) =>
   new Date(d + 'T00:00:00').toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
 
-const rsvpHref = (eventName: string) =>
-  `mailto:${site.contact.email}?subject=${encodeURIComponent(`RSVP: ${eventName}`)}&body=${encodeURIComponent('Name(s):\nNumber attending:\n')}`;
+const rsvpHref = (eventName: string, rsvpEmail?: string) =>
+  `mailto:${rsvpEmail ?? site.contact.email}?subject=${encodeURIComponent(`RSVP: ${eventName}`)}&body=${encodeURIComponent('Name(s):\nNumber attending:\n')}`;
 
 const bc = breadcrumb([
   { name: 'Home', path: '/' },
@@ -127,7 +136,7 @@ const schema = webPage({
                 </a>
               )}
               {e.rsvp && (
-                <a href={rsvpHref(e.name)} class="mt-3 ml-4 inline-block font-heading font-bold text-sm text-red hover:text-navy underline transition-colors">
+                <a href={rsvpHref(e.name, e.rsvpEmail)} class="mt-3 ml-4 inline-block font-heading font-bold text-sm text-red hover:text-navy underline transition-colors">
                   RSVP by email &rarr;
                 </a>
               )}

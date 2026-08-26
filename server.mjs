@@ -11,6 +11,13 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 
+// ── Health check ─────────────────────────────────────────────────────────
+// Registered first, before compression/static middleware, so it responds
+// the instant the process is listening — no filesystem or render work.
+// Deploy/proxy healthchecks that hit / still work: this only short-circuits
+// requests to /health, everything else falls through unchanged below.
+app.get('/health', (_req, res) => res.status(200).send('ok'));
+
 app.use(compression({ threshold: 0 }));
 app.use(express.json());
 
