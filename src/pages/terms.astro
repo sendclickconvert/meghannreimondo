@@ -1,0 +1,153 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+import { webPage, breadcrumb } from '../lib/schema';
+
+const path = '/terms';
+const committee = site.committee?.registeredName ?? site.legal.paidForBy;
+const email = site.contact.email;
+const siteUrl = site.url;
+const effectiveDate = 'August 31, 2026';
+
+const schema = webPage({
+  name: 'Terms of Use',
+  description: `Terms of Use for the ${committee} campaign website.`,
+  path,
+  extraNodes: [breadcrumb([{ name: 'Home', path: '/' }, { name: 'Terms of Use', path }])],
+});
+---
+
+<BaseLayout title="Terms of Use" description={`Terms of Use for the ${committee} campaign website.`} schema={schema}>
+  <section class="bg-navy text-white">
+    <div class="container-narrow py-14 lg:py-20 text-center">
+      <p class="text-xs font-heading font-bold uppercase tracking-widest text-red mb-3">Legal</p>
+      <h1 class="text-4xl lg:text-5xl font-display font-extrabold text-white">Terms of Use</h1>
+      <p class="mt-4 text-white/60 text-sm">Effective date: {effectiveDate}</p>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="container-narrow py-14 lg:py-20 prose prose-navy max-w-none">
+
+      <h2>Acceptance of Terms</h2>
+      <p>
+        By accessing or using this website ({siteUrl}), you agree to be bound by these Terms of Use. If you
+        do not agree, please do not use this site. These Terms apply to all visitors, supporters, and others
+        who access or use the site.
+      </p>
+
+      <h2>About This Website</h2>
+      <p>
+        This website is operated by <strong>{committee}</strong> ("the Committee") in support of
+        Meghann Reimondo's write-in candidacy for Woodstock Town Supervisor, General Election, November 3,
+        2026. It is a political campaign site, not a government website.
+      </p>
+
+      <h2>Political Disclaimer</h2>
+      <p>
+        Paid for by {committee}. Not authorized by any candidate or candidate's committee other than
+        Meghann Reimondo for Town Supervisor. All political content on this site represents the views and
+        positions of the campaign only.
+      </p>
+
+      <h2>Use of This Site</h2>
+      <p>You agree to use this site only for lawful purposes. You agree not to:</p>
+      <ul>
+        <li>Use the site in any way that violates applicable federal, state, or local laws or regulations</li>
+        <li>Submit false, misleading, or fraudulent information through any form on this site</li>
+        <li>Attempt to gain unauthorized access to any portion of this site or its related systems</li>
+        <li>Interfere with or disrupt the operation of this site</li>
+        <li>Use automated tools to scrape, harvest, or collect data from this site without written permission</li>
+        <li>Impersonate the campaign, the candidate, the committee, or any other person or entity</li>
+      </ul>
+
+      <h2>Communications and Opt-In</h2>
+      <p>
+        When you submit your contact information through this site, you consent to receive campaign
+        communications by email and, where indicated, by text message (SMS). You may withdraw consent
+        at any time by replying STOP to any text message or emailing <a href={`mailto:${email}`}>{email}</a>.
+        See our <a href="/privacy-policy">Privacy Policy</a> for full details on SMS terms and data practices.
+      </p>
+
+      <h2>Contributions</h2>
+      <p>
+        Political contributions made through or referenced on this site are subject to New York State
+        campaign finance law. Contributions are not tax-deductible as charitable donations. Federal law
+        requires us to use our best efforts to collect and report the name, mailing address, occupation,
+        and employer of individuals whose contributions exceed $99 in a calendar year.
+      </p>
+      <p>
+        By making a contribution, you confirm that: (1) you are a U.S. citizen or lawfully admitted permanent
+        resident; (2) the contribution is made from your own funds and not on behalf of another person or
+        entity; (3) you are not a federal contractor; and (4) you are at least 18 years old.
+      </p>
+
+      <h2>Intellectual Property</h2>
+      <p>
+        All content on this site — including text, images, graphics, logos, and design — is owned by or
+        licensed to the Committee and protected by applicable copyright and trademark law. You may share
+        links to this site and share content for non-commercial, personal political expression, provided
+        you attribute it to the campaign. Commercial use or reproduction without written permission is
+        prohibited.
+      </p>
+
+      <h2>No Warranties</h2>
+      <p>
+        This site is provided "as is" and "as available" without warranties of any kind, express or implied,
+        including but not limited to warranties of merchantability, fitness for a particular purpose, or
+        non-infringement. The Committee does not warrant that the site will be error-free, uninterrupted,
+        or free of viruses or other harmful components.
+      </p>
+
+      <h2>Limitation of Liability</h2>
+      <p>
+        To the fullest extent permitted by law, the Committee, its officers, agents, and volunteers shall
+        not be liable for any indirect, incidental, special, consequential, or punitive damages arising out
+        of your access to or use of (or inability to use) this site, even if advised of the possibility of
+        such damages.
+      </p>
+
+      <h2>Third-Party Links</h2>
+      <p>
+        This site may contain links to third-party websites. These links are provided for convenience only.
+        The Committee does not control, endorse, or assume responsibility for the content or privacy practices
+        of any third-party site.
+      </p>
+
+      <h2>Governing Law</h2>
+      <p>
+        These Terms are governed by the laws of the State of New York, without regard to its conflict-of-law
+        provisions. Any dispute arising under these Terms shall be resolved in the courts of New York State.
+      </p>
+
+      <h2>Changes to These Terms</h2>
+      <p>
+        We reserve the right to update or modify these Terms at any time. Changes will be posted on this page
+        with an updated effective date. Your continued use of the site after changes are posted constitutes
+        your acceptance of the revised Terms.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Questions about these Terms? Email us at <a href={`mailto:${email}`}>{email}</a>.
+      </p>
+
+      <hr />
+      <p class="text-sm text-ink/50">
+        Paid for by {committee}. Not authorized by any candidate or candidate's committee other than
+        Meghann Reimondo for Town Supervisor.
+      </p>
+
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .prose h2 { @apply text-2xl font-display font-bold text-navy mt-10 mb-3; }
+  .prose h3 { @apply text-lg font-heading font-semibold text-navy mt-6 mb-2; }
+  .prose p  { @apply text-ink leading-relaxed mb-4; }
+  .prose ul { @apply list-disc pl-6 mb-4 space-y-1 text-ink; }
+  .prose a  { @apply text-red hover:underline; }
+  .prose hr { @apply border-ink/10 my-8; }
+  .prose strong { @apply font-semibold text-navy; }
+</style>

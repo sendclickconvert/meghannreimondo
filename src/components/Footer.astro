@@ -76,7 +76,11 @@ const phone = isTodo(site.contact.phone) ? null : site.contact.phone;
   <div class="border-t border-white/10">
     <div class="container-wide flex flex-col sm:flex-row items-center justify-between py-5 gap-3 text-xs text-white/50">
       <p class="font-semibold text-white/70">Paid for by {paidForBy}</p>
-      <p>&copy; {currentYear} {site.candidate.name}. All rights reserved.</p>
+      <div class="flex items-center gap-4">
+        <a href="/privacy-policy" class="hover:text-white transition-colors">Privacy Policy</a>
+        <a href="/terms" class="hover:text-white transition-colors">Terms of Use</a>
+        <p>&copy; {currentYear} {site.candidate.name}. All rights reserved.</p>
+      </div>
     </div>
   </div>
 </footer>
