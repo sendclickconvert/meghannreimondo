@@ -161,5 +161,57 @@ const schema = graph([
     </div>
   </section>
 
+  <!-- Voter Resources — Ulster County Board of Elections -->
+  <section id="voter-resources" class="bg-white border-t border-slate-200">
+    <div class="container-narrow py-14 lg:py-20">
+      <div class="flex items-start gap-4 mb-6">
+        <span class="shrink-0 mt-1 w-10 h-10 rounded-full bg-[#012566] flex items-center justify-center text-white text-lg">🏛</span>
+        <div>
+          <p class="text-xs font-heading font-bold uppercase tracking-widest text-[#D60F29] mb-1">Official County Resources</p>
+          <h2 class="text-2xl lg:text-3xl font-display font-extrabold text-[#012566] text-balance">
+            Voter Resources — Ulster County Board of Elections
+          </h2>
+        </div>
+      </div>
+
+      <p class="text-ink/80 leading-relaxed mb-8 max-w-2xl">
+        For where to vote, early voting, and absentee/mail ballots, visit the official Ulster County Board of Elections.
+        The links below are official county resources maintained by the Board of Elections — not campaign materials.
+      </p>
+
+      <div class="grid sm:grid-cols-2 gap-4">
+        {[
+          { label: 'Voter Info & Resources',           url: 'https://elections.ulstercountyny.gov/voter-resources/',    desc: 'General voter information and resources from the Board of Elections.' },
+          { label: 'Early Voting Information',          url: 'https://elections.ulstercountyny.gov/early-voting/',       desc: 'Dates, locations, and hours for early voting in Ulster County.' },
+          { label: 'Voting Instructions',               url: 'https://elections.ulstercountyny.gov/voting-instructions/', desc: 'Official instructions for casting your ballot.' },
+          { label: 'Request a Ballot (Absentee/Mail)',  url: 'https://elections.ulstercountyny.gov/request-a-ballot/',   desc: 'Apply for an absentee or mail-in ballot.' },
+          { label: 'Voter Info Lookup / Where to Vote', url: 'https://vic.ntsdata.com/home/ulster',                      desc: 'Look up your polling place and registration status.' },
+          { label: 'Board of Elections — Main Site',    url: 'https://elections.ulstercountyny.gov',                     desc: 'Ulster County Board of Elections official website.' },
+        ].map((link) => (
+          <a
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-start gap-3 p-4 rounded-xl border border-slate-200 hover:border-[#012566] hover:shadow-soft transition-all group"
+          >
+            <span class="shrink-0 mt-0.5 text-[#D60F29]">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+              </svg>
+            </span>
+            <div>
+              <p class="font-heading font-bold text-sm text-[#012566] group-hover:text-[#D60F29] transition-colors leading-tight">{link.label}</p>
+              <p class="mt-0.5 text-xs text-ink/60 leading-snug">{link.desc}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <p class="mt-6 text-xs text-ink/50 italic">
+        These links go to the official Ulster County Board of Elections website and are not affiliated with or controlled by this campaign.
+      </p>
+    </div>
+  </section>
+
   <WriteInBlock tone="navy" />
 </BaseLayout>
