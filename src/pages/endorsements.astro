@@ -76,5 +76,166 @@ const schema = webPage({
     </div>
   </section>
 
+  <!-- Endorsement submission form -->
+  <section class="bg-cream border-t border-slate-200">
+    <div class="container-narrow py-14 lg:py-20">
+      <div class="max-w-2xl mx-auto">
+        <p class="text-xs font-heading font-bold uppercase tracking-widest text-red mb-3">Add Your Voice</p>
+        <h2 class="text-2xl lg:text-3xl font-display font-extrabold text-navy mb-3">Submit an Endorsement</h2>
+        <p class="text-ink/75 mb-8">
+          Support Meghann? Share why. Submitted endorsements are reviewed by the campaign before they appear on the site.
+        </p>
+
+        <!-- Success state (hidden until submit) -->
+        <div id="endorse-success" class="hidden card bg-white border-l-4 border-red text-center py-10">
+          <p class="text-2xl mb-2">✅</p>
+          <p class="font-display font-bold text-lg text-navy">Thank you!</p>
+          <p class="mt-1 text-ink/75">Your endorsement has been received and will be reviewed by the campaign.</p>
+        </div>
+
+        <!-- Form -->
+        <form id="endorse-form" novalidate class="card bg-white space-y-5">
+
+          <div class="grid sm:grid-cols-2 gap-5">
+            <!-- Full Name -->
+            <div>
+              <label for="endorse-name" class="block text-sm font-heading font-semibold text-navy mb-1.5">
+                Full Name <span class="text-red">*</span>
+              </label>
+              <input
+                id="endorse-name"
+                name="fullName"
+                type="text"
+                required
+                autocomplete="name"
+                placeholder="Jane Smith"
+                class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:ring-2 focus:ring-navy/40 focus:border-navy transition"
+              />
+            </div>
+
+            <!-- Email -->
+            <div>
+              <label for="endorse-email" class="block text-sm font-heading font-semibold text-navy mb-1.5">
+                Email <span class="text-red">*</span>
+              </label>
+              <input
+                id="endorse-email"
+                name="email"
+                type="email"
+                required
+                autocomplete="email"
+                placeholder="jane@example.com"
+                class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:ring-2 focus:ring-navy/40 focus:border-navy transition"
+              />
+            </div>
+          </div>
+
+          <!-- Town / Neighborhood -->
+          <div>
+            <label for="endorse-neighborhood" class="block text-sm font-heading font-semibold text-navy mb-1.5">
+              Town / Neighborhood <span class="text-xs font-normal text-ink/50">(optional)</span>
+            </label>
+            <input
+              id="endorse-neighborhood"
+              name="neighborhood"
+              type="text"
+              autocomplete="address-level2"
+              placeholder="Woodstock, NY"
+              class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:ring-2 focus:ring-navy/40 focus:border-navy transition"
+            />
+          </div>
+
+          <!-- Endorsement text -->
+          <div>
+            <label for="endorse-text" class="block text-sm font-heading font-semibold text-navy mb-1.5">
+              Your Endorsement <span class="text-red">*</span>
+            </label>
+            <textarea
+              id="endorse-text"
+              name="endorsement"
+              required
+              rows="5"
+              placeholder="Share why you support Meghann…"
+              class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:ring-2 focus:ring-navy/40 focus:border-navy transition resize-y"
+            ></textarea>
+          </div>
+
+          <!-- Publish consent checkbox -->
+          <div class="flex items-start gap-3 p-4 rounded-lg bg-cream border border-slate-200">
+            <input
+              id="endorse-consent"
+              name="publishConsent"
+              type="checkbox"
+              required
+              class="mt-0.5 shrink-0 w-4 h-4 rounded border-slate-300 accent-[#012566] cursor-pointer"
+            />
+            <label for="endorse-consent" class="text-sm text-ink/80 leading-snug cursor-pointer">
+              <span class="font-semibold text-navy">I give the Meghann Reimondo campaign permission to publish this endorsement with my name.</span>
+              <span class="text-red ml-1">*</span>
+            </label>
+          </div>
+
+          <!-- Error message -->
+          <div id="endorse-error" class="hidden text-sm text-red font-semibold" role="alert"></div>
+
+          <button
+            type="submit"
+            id="endorse-submit"
+            class="btn-primary w-full text-base py-3"
+          >
+            Submit My Endorsement
+          </button>
+
+          <p class="text-xs text-ink/50 text-center leading-snug">
+            Your submission goes to the campaign for review only. It will not appear on this page unless the campaign approves and manually adds it.
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+
   <WriteInBlock tone="light" />
+
+<script>
+  const form = document.getElementById('endorse-form') as HTMLFormElement | null;
+  const successBox = document.getElementById('endorse-success');
+  const errorBox = document.getElementById('endorse-error');
+  const submitBtn = document.getElementById('endorse-submit') as HTMLButtonElement | null;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (errorBox) errorBox.classList.add('hidden');
+
+    const fullName    = (document.getElementById('endorse-name') as HTMLInputElement)?.value.trim();
+    const email       = (document.getElementById('endorse-email') as HTMLInputElement)?.value.trim();
+    const endorsement = (document.getElementById('endorse-text') as HTMLTextAreaElement)?.value.trim();
+    const consent     = (document.getElementById('endorse-consent') as HTMLInputElement)?.checked;
+    const neighborhood = (document.getElementById('endorse-neighborhood') as HTMLInputElement)?.value.trim();
+
+    if (!fullName || !email || !endorsement) {
+      if (errorBox) { errorBox.textContent = 'Please fill in your name, email, and endorsement.'; errorBox.classList.remove('hidden'); }
+      return;
+    }
+    if (!consent) {
+      if (errorBox) { errorBox.textContent = 'Please check the permission box to continue.'; errorBox.classList.remove('hidden'); }
+      return;
+    }
+
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Submitting…'; }
+
+    try {
+      const res = await fetch('/api/endorse', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fullName, email, neighborhood, endorsement, publishConsent: true }),
+      });
+      if (!res.ok) throw new Error('server_error');
+      form.classList.add('hidden');
+      successBox?.classList.remove('hidden');
+    } catch {
+      if (errorBox) { errorBox.textContent = 'Something went wrong. Please try again.'; errorBox.classList.remove('hidden'); }
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Submit My Endorsement'; }
+    }
+  });
+</script>
 </BaseLayout>

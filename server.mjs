@@ -66,6 +66,48 @@ app.post('/api/join', async (req, res) => {
   }
 });
 
+// ── /api/endorse ──────────────────────────────────────────────────────────
+// Receives endorsement form submissions for campaign review.
+// NEVER auto-publishes — payload is forwarded to the configured webhook only.
+// The campaign manually adds approved endorsements to site.ts.
+app.post('/api/endorse', async (req, res) => {
+  const webhookUrl = process.env.ENDORSEMENT_WEBHOOK_URL;
+
+  const body = req.body ?? {};
+  const payload = {
+    source:       'endorsement-form',
+    fullName:     String(body.fullName    ?? '').trim(),
+    email:        String(body.email       ?? '').trim(),
+    neighborhood: String(body.neighborhood ?? '').trim(),
+    endorsement:  String(body.endorsement ?? '').trim(),
+    publishConsent: body.publishConsent === true || body.publishConsent === 'on' || body.publishConsent === 'true',
+    submittedAt:  new Date().toISOString(),
+  };
+
+  console.log('[/api/endorse] submission received from', payload.email || '(no email)');
+
+  if (!webhookUrl) {
+    console.warn('[/api/endorse] ENDORSEMENT_WEBHOOK_URL not set — logged only, not forwarded.');
+    return res.json({ ok: true, skipped: true });
+  }
+
+  try {
+    const hookRes = await fetch(webhookUrl, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(payload),
+    });
+    if (!hookRes.ok) {
+      console.error('[/api/endorse] webhook returned', hookRes.status);
+      return res.status(502).json({ ok: false, error: 'upstream_error' });
+    }
+    return res.json({ ok: true });
+  } catch (err) {
+    console.error('[/api/endorse] fetch failed:', err.message);
+    return res.status(500).json({ ok: false, error: 'network_error' });
+  }
+});
+
 // ── Static files ───────────────────────────────────────────────────────────
 // Serve dist/ with long-cache for hashed assets, shorter for HTML/sitemap.
 app.use('/_astro', express.static(path.join(__dirname, 'dist/_astro'), {

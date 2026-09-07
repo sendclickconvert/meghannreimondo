@@ -169,7 +169,8 @@ export const ENDORSEMENTS = [
 ] as const;
 
 export const INTEGRATIONS = {
-  formWebhook: '',       // legacy survey fallback endpoint
+  formWebhook: '',          // legacy survey fallback endpoint
+  endorsementWebhook: '',   // webhook for endorsement submissions — drop URL here when ready
   optInEndpoint: '',     // GHL or other webhook for /join opt-in form — drop URL here when ready
   surveyEndpoint: '',    // GHL or other webhook for /survey — drop URL here when ready
 } as const;
