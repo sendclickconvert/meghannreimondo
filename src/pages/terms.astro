@@ -4,10 +4,10 @@ import { site } from '../data/site';
 import { webPage, breadcrumb } from '../lib/schema';
 
 const path = '/terms';
-const committee = site.committee?.registeredName ?? site.legal.paidForBy;
+const committee = 'Friends of Meghann Reimondo';
 const email = site.contact.email;
 const siteUrl = site.url;
-const effectiveDate = 'August 31, 2026';
+const effectiveDate = 'September 8, 2026';
 
 const schema = webPage({
   name: 'Terms of Use',
@@ -27,32 +27,32 @@ const schema = webPage({
   </section>
 
   <section class="bg-white">
-    <div class="container-wide py-14 lg:py-20 prose prose-navy max-w-none">
+    <div class="container-wide py-14 lg:py-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
-      <h2>Acceptance of Terms</h2>
-      <p>
-        By accessing or using this website ({siteUrl}), you agree to be bound by these Terms of Use. If you
-        do not agree, please do not use this site. These Terms apply to all visitors, supporters, and others
-        who access or use the site.
+      <h2 class="text-2xl font-display font-bold text-navy mt-2 mb-3">Acceptance of Terms</h2>
+      <p class="text-ink leading-relaxed mb-4">
+        By accessing or using this website (<a href={siteUrl} class="text-red hover:underline">{siteUrl}</a>), you agree to be bound by these Terms of Use. If you do not agree, please do not use this site. These Terms apply to all visitors, supporters, and others who access or use the site.
       </p>
 
-      <h2>About This Website</h2>
-      <p>
-        This website is operated by <strong>{committee}</strong> ("the Committee") in support of
-        Meghann Reimondo's write-in candidacy for Woodstock Town Supervisor, General Election, November 3,
-        2026. It is a political campaign site, not a government website.
+      <hr class="border-slate-200 my-8" />
+
+      <h2 class="text-2xl font-display font-bold text-navy mt-8 mb-3">About This Website</h2>
+      <p class="text-ink leading-relaxed mb-4">
+        This website is operated by <strong class="font-semibold text-navy">{committee}</strong> ("the Committee") in support of Meghann Reimondo's write-in candidacy for Woodstock Town Supervisor, General Election, November 3, 2026. It is a political campaign site, not a government website.
       </p>
 
-      <h2>Political Disclaimer</h2>
-      <p>
-        Paid for by {committee}. Not authorized by any candidate or candidate's committee other than
-        Meghann Reimondo for Town Supervisor. All political content on this site represents the views and
-        positions of the campaign only.
+      <hr class="border-slate-200 my-8" />
+
+      <h2 class="text-2xl font-display font-bold text-navy mt-8 mb-3">Political Disclaimer</h2>
+      <p class="text-ink leading-relaxed mb-4">
+        Paid for by {committee}. Not authorized by any candidate or candidate's committee other than Meghann Reimondo for Town Supervisor. All political content on this site represents the views and positions of the campaign only.
       </p>
 
-      <h2>Use of This Site</h2>
-      <p>You agree to use this site only for lawful purposes. You agree not to:</p>
-      <ul>
+      <hr class="border-slate-200 my-8" />
+
+      <h2 class="text-2xl font-display font-bold text-navy mt-8 mb-3">Use of This Site</h2>
+      <p class="text-ink leading-relaxed mb-3">You agree to use this site only for lawful purposes. You agree not to:</p>
+      <ul class="list-disc pl-6 mb-4 space-y-2 text-ink leading-relaxed">
         <li>Use the site in any way that violates applicable federal, state, or local laws or regulations</li>
         <li>Submit false, misleading, or fraudulent information through any form on this site</li>
         <li>Attempt to gain unauthorized access to any portion of this site or its related systems</li>
@@ -61,93 +61,100 @@ const schema = webPage({
         <li>Impersonate the campaign, the candidate, the committee, or any other person or entity</li>
       </ul>
 
-      <h2>Communications and Opt-In</h2>
-      <p>
-        When you submit your contact information through this site, you consent to receive campaign
-        communications by email and, where indicated, by text message (SMS). You may withdraw consent
-        at any time by replying STOP to any text message or emailing <a href={`mailto:${email}`}>{email}</a>.
-        See our <a href="/privacy-policy">Privacy Policy</a> for full details on SMS terms and data practices.
+      <hr class="border-slate-200 my-8" />
+
+      <h2 class="text-2xl font-display font-bold text-navy mt-8 mb-3">SMS / Text Message Communications</h2>
+      <p class="text-ink leading-relaxed mb-2 font-semibold text-navy">A2P 10DLC Opt-In Terms</p>
+      <p class="text-ink leading-relaxed mb-4">
+        When you submit your mobile phone number and provide SMS consent through this site, you agree to receive recurring automated text messages (SMS/MMS) from <strong class="font-semibold text-navy">{committee}</strong> via A2P 10DLC registered messaging. You confirm that:
+      </p>
+      <ul class="list-disc pl-6 mb-4 space-y-2 text-ink leading-relaxed">
+        <li>You are the wireless account holder or have the account holder's authorization for the number provided</li>
+        <li>You are at least 18 years of age</li>
+        <li>You consent to receive campaign-related SMS/MMS messages, which may be sent using an automatic telephone dialing system</li>
+        <li>Consent is not required as a condition of any purchase or participation</li>
+        <li>Message and data rates may apply</li>
+      </ul>
+      <p class="text-ink leading-relaxed mb-4">
+        To opt out of SMS at any time, reply <strong class="font-semibold">STOP</strong>. For help, reply <strong class="font-semibold">HELP</strong> or email <a href={`mailto:${email}`} class="text-red hover:underline">{email}</a>. Mobile opt-in data will not be shared with third parties for their own marketing purposes. See our <a href="/privacy-policy" class="text-red hover:underline">Privacy Policy</a> for full SMS data practices.
       </p>
 
-      <h2>Contributions</h2>
-      <p>
-        Political contributions made through or referenced on this site are subject to New York State
-        campaign finance law. Contributions are not tax-deductible as charitable donations. Federal law
-        requires us to use our best efforts to collect and report the name, mailing address, occupation,
-        and employer of individuals whose contributions exceed $99 in a calendar year.
-      </p>
-      <p>
-        By making a contribution, you confirm that: (1) you are a U.S. citizen or lawfully admitted permanent
-        resident; (2) the contribution is made from your own funds and not on behalf of another person or
-        entity; (3) you are not a federal contractor; and (4) you are at least 18 years old.
+      <hr class="border-slate-200 my-8" />
+
+      <h2 class="text-2xl font-display font-bold text-navy mt-8 mb-3">Email Communications</h2>
+      <p class="text-ink leading-relaxed mb-4">
+        When you submit your contact information through this site, you consent to receive campaign communications by email. You may unsubscribe from email at any time by following the unsubscribe link in any campaign email or by emailing <a href={`mailto:${email}`} class="text-red hover:underline">{email}</a>.
       </p>
 
-      <h2>Intellectual Property</h2>
-      <p>
-        All content on this site — including text, images, graphics, logos, and design — is owned by or
-        licensed to the Committee and protected by applicable copyright and trademark law. You may share
-        links to this site and share content for non-commercial, personal political expression, provided
-        you attribute it to the campaign. Commercial use or reproduction without written permission is
-        prohibited.
+      <hr class="border-slate-200 my-8" />
+
+      <h2 class="text-2xl font-display font-bold text-navy mt-8 mb-3">Contributions</h2>
+      <p class="text-ink leading-relaxed mb-4">
+        Political contributions made through or referenced on this site are subject to New York State campaign finance law. Contributions are not tax-deductible as charitable donations.
+      </p>
+      <p class="text-ink leading-relaxed mb-3">By making a contribution, you confirm that:</p>
+      <ul class="list-disc pl-6 mb-4 space-y-2 text-ink leading-relaxed">
+        <li>You are a U.S. citizen or lawfully admitted permanent resident</li>
+        <li>The contribution is made from your own funds and not on behalf of another person or entity</li>
+        <li>You are not a federal contractor</li>
+        <li>You are at least 18 years old</li>
+      </ul>
+
+      <hr class="border-slate-200 my-8" />
+
+      <h2 class="text-2xl font-display font-bold text-navy mt-8 mb-3">Intellectual Property</h2>
+      <p class="text-ink leading-relaxed mb-4">
+        All content on this site — including text, images, graphics, logos, and design — is owned by or licensed to the Committee and protected by applicable copyright and trademark law. You may share links to this site and share content for non-commercial, personal political expression, provided you attribute it to the campaign. Commercial use or reproduction without written permission is prohibited.
       </p>
 
-      <h2>No Warranties</h2>
-      <p>
-        This site is provided "as is" and "as available" without warranties of any kind, express or implied,
-        including but not limited to warranties of merchantability, fitness for a particular purpose, or
-        non-infringement. The Committee does not warrant that the site will be error-free, uninterrupted,
-        or free of viruses or other harmful components.
+      <hr class="border-slate-200 my-8" />
+
+      <h2 class="text-2xl font-display font-bold text-navy mt-8 mb-3">No Warranties</h2>
+      <p class="text-ink leading-relaxed mb-4">
+        This site is provided "as is" and "as available" without warranties of any kind, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement. The Committee does not warrant that the site will be error-free, uninterrupted, or free of viruses or other harmful components.
       </p>
 
-      <h2>Limitation of Liability</h2>
-      <p>
-        To the fullest extent permitted by law, the Committee, its officers, agents, and volunteers shall
-        not be liable for any indirect, incidental, special, consequential, or punitive damages arising out
-        of your access to or use of (or inability to use) this site, even if advised of the possibility of
-        such damages.
+      <hr class="border-slate-200 my-8" />
+
+      <h2 class="text-2xl font-display font-bold text-navy mt-8 mb-3">Limitation of Liability</h2>
+      <p class="text-ink leading-relaxed mb-4">
+        To the fullest extent permitted by law, the Committee, its officers, agents, and volunteers shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising out of your access to or use of (or inability to use) this site, even if advised of the possibility of such damages.
       </p>
 
-      <h2>Third-Party Links</h2>
-      <p>
-        This site may contain links to third-party websites. These links are provided for convenience only.
-        The Committee does not control, endorse, or assume responsibility for the content or privacy practices
-        of any third-party site.
+      <hr class="border-slate-200 my-8" />
+
+      <h2 class="text-2xl font-display font-bold text-navy mt-8 mb-3">Third-Party Links</h2>
+      <p class="text-ink leading-relaxed mb-4">
+        This site may contain links to third-party websites. These links are provided for convenience only. The Committee does not control, endorse, or assume responsibility for the content or privacy practices of any third-party site.
       </p>
 
-      <h2>Governing Law</h2>
-      <p>
-        These Terms are governed by the laws of the State of New York, without regard to its conflict-of-law
-        provisions. Any dispute arising under these Terms shall be resolved in the courts of New York State.
+      <hr class="border-slate-200 my-8" />
+
+      <h2 class="text-2xl font-display font-bold text-navy mt-8 mb-3">Governing Law</h2>
+      <p class="text-ink leading-relaxed mb-4">
+        These Terms are governed by the laws of the State of New York, without regard to its conflict-of-law provisions. Any dispute arising under these Terms shall be resolved in the courts of New York State.
       </p>
 
-      <h2>Changes to These Terms</h2>
-      <p>
-        We reserve the right to update or modify these Terms at any time. Changes will be posted on this page
-        with an updated effective date. Your continued use of the site after changes are posted constitutes
-        your acceptance of the revised Terms.
+      <hr class="border-slate-200 my-8" />
+
+      <h2 class="text-2xl font-display font-bold text-navy mt-8 mb-3">Changes to These Terms</h2>
+      <p class="text-ink leading-relaxed mb-4">
+        We reserve the right to update or modify these Terms at any time. Changes will be posted on this page with an updated effective date. Your continued use of the site after changes are posted constitutes your acceptance of the revised Terms.
       </p>
 
-      <h2>Contact</h2>
-      <p>
-        Questions about these Terms? Email us at <a href={`mailto:${email}`}>{email}</a>.
+      <hr class="border-slate-200 my-8" />
+
+      <h2 class="text-2xl font-display font-bold text-navy mt-8 mb-3">Contact</h2>
+      <p class="text-ink leading-relaxed mb-4">
+        Questions about these Terms? Email us at <a href={`mailto:${email}`} class="text-red hover:underline">{email}</a>.
       </p>
 
-      <hr />
-      <p class="text-sm text-ink/50">
-        Paid for by {committee}. Not authorized by any candidate or candidate's committee other than
-        Meghann Reimondo for Town Supervisor.
+      <hr class="border-slate-200 my-8" />
+
+      <p class="text-sm text-ink/50 italic">
+        Paid for by {committee}. Not authorized by any candidate or candidate's committee other than Meghann Reimondo for Town Supervisor.
       </p>
 
     </div>
   </section>
 </BaseLayout>
-
-<style>
-  .prose h2 { @apply text-2xl font-display font-bold text-navy mt-10 mb-3; }
-  .prose h3 { @apply text-lg font-heading font-semibold text-navy mt-6 mb-2; }
-  .prose p  { @apply text-ink leading-relaxed mb-4; }
-  .prose ul { @apply list-disc pl-6 mb-4 space-y-1 text-ink; }
-  .prose a  { @apply text-red hover:underline; }
-  .prose hr { @apply border-ink/10 my-8; }
-  .prose strong { @apply font-semibold text-navy; }
-</style>

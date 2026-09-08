@@ -4,10 +4,10 @@ import { site } from '../data/site';
 import { webPage, breadcrumb } from '../lib/schema';
 
 const path = '/privacy-policy';
-const committee = site.committee?.registeredName ?? site.legal.paidForBy;
+const committee = 'Friends of Meghann Reimondo';
 const email = site.contact.email;
 const siteUrl = site.url;
-const effectiveDate = 'August 31, 2026';
+const effectiveDate = 'September 8, 2026';
 
 const schema = webPage({
   name: 'Privacy Policy',
@@ -27,146 +27,150 @@ const schema = webPage({
   </section>
 
   <section class="bg-white">
-    <div class="container-wide py-14 lg:py-20 prose prose-navy max-w-none">
+    <div class="container-wide py-14 lg:py-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
-      <h2>Who We Are</h2>
-      <p>
-        This website ({siteUrl}) is operated by <strong>{committee}</strong> ("the Committee," "we," "us," or "our")
-        in support of Meghann Reimondo's write-in candidacy for Woodstock Town Supervisor, General Election,
-        November 3, 2026. This Privacy Policy explains how we collect, use, and protect information you provide
-        when you visit this site or communicate with our campaign.
+      <h2 class="text-2xl font-display font-bold text-navy mt-2 mb-3">Who We Are</h2>
+      <p class="text-ink leading-relaxed mb-4">
+        This website (<a href={siteUrl} class="text-red hover:underline">{siteUrl}</a>) is operated by <strong class="font-semibold text-navy">{committee}</strong> ("the Committee," "we," "us," or "our") in support of Meghann Reimondo's write-in candidacy for Woodstock Town Supervisor, General Election, November 3, 2026. This Privacy Policy explains how we collect, use, and protect information you provide when you visit this site or communicate with our campaign.
       </p>
 
-      <h2>Information We Collect</h2>
-      <h3>Information You Provide Directly</h3>
-      <p>When you use our opt-in form, RSVP by email, or contact us, we may collect:</p>
-      <ul>
+      <hr class="border-slate-200 my-8" />
+
+      <h2 class="text-2xl font-display font-bold text-navy mt-8 mb-3">Information We Collect</h2>
+
+      <h3 class="text-lg font-heading font-semibold text-navy mt-6 mb-2">Information You Provide Directly</h3>
+      <p class="text-ink leading-relaxed mb-3">When you use our opt-in form, RSVP by email, or contact us, we may collect:</p>
+      <ul class="list-disc pl-6 mb-4 space-y-1 text-ink leading-relaxed">
         <li>First and last name</li>
         <li>Email address</li>
-        <li>Phone number (mobile)</li>
+        <li>Mobile phone number</li>
         <li>Neighborhood or town</li>
         <li>Expressed preferences (e.g., volunteering interest, vote pledge)</li>
       </ul>
 
-      <h3>Information Collected Automatically</h3>
-      <p>
-        When you visit this site we may collect standard server log data, including your IP address, browser
-        type, pages visited, and referring URL. We do not use tracking pixels or behavioral advertising
-        networks on this website.
+      <h3 class="text-lg font-heading font-semibold text-navy mt-6 mb-2">Information Collected Automatically</h3>
+      <p class="text-ink leading-relaxed mb-4">
+        When you visit this site we may collect standard server log data, including your IP address, browser type, pages visited, and referring URL. We do not use tracking pixels or behavioral advertising networks on this website.
       </p>
 
-      <h2>How We Use Your Information</h2>
-      <p>We use the information you provide exclusively for campaign purposes, including:</p>
-      <ul>
+      <hr class="border-slate-200 my-8" />
+
+      <h2 class="text-2xl font-display font-bold text-navy mt-8 mb-3">How We Use Your Information</h2>
+      <p class="text-ink leading-relaxed mb-3">We use the information you provide exclusively for campaign purposes, including:</p>
+      <ul class="list-disc pl-6 mb-4 space-y-1 text-ink leading-relaxed">
         <li>Sending campaign updates, event invitations, and volunteer opportunities by email</li>
-        <li>Contacting you by phone or text message (SMS) if you have provided your mobile number and consented to SMS communications</li>
+        <li>Contacting you by phone or text message (SMS/MMS) if you have provided your mobile number and consented to SMS communications</li>
         <li>Recording and acknowledging RSVPs for campaign events</li>
         <li>Organizing volunteer activity and outreach</li>
         <li>Complying with applicable campaign finance reporting requirements</li>
       </ul>
-      <p>
-        We will not use your information for any commercial purpose, sell it to advertisers, or share it
-        with any third party for their own marketing.
+      <p class="text-ink leading-relaxed mb-4">
+        We will not use your information for any commercial purpose, sell it to advertisers, or share it with any third party for their own marketing.
       </p>
 
-      <h2>Text Message (SMS) Communications — TCPA &amp; CTIA Disclosure</h2>
-      <p>
-        By providing your mobile phone number and checking the SMS consent box on our opt-in form, you expressly
-        consent to receive recurring automated text messages from the Committee about the campaign, including
-        updates, events, and calls to action. Consent is not a condition of any purchase or participation.
-      </p>
-      <ul>
-        <li><strong>Message frequency:</strong> Message frequency varies based on campaign activity.</li>
-        <li><strong>Charges:</strong> Message and data rates may apply depending on your mobile carrier plan.</li>
-        <li>
-          <strong>To opt out:</strong> Reply <strong>STOP</strong> to any text message at any time. After opting
-          out you will receive one final confirmation message and no further texts from this campaign.
-        </li>
-        <li>
-          <strong>For help:</strong> Reply <strong>HELP</strong> to any text message or email us at {email}.
-        </li>
-        <li>
-          <strong>Carrier liability:</strong> Carriers are not liable for delayed or undelivered messages.
-        </li>
-        <li>
-          <strong>No third-party sharing for marketing:</strong> Mobile opt-in data and consent will not be
-          shared with any third party for their own marketing or promotional purposes.
-        </li>
-      </ul>
-      <p>
-        Our text messaging program is operated in compliance with the Telephone Consumer Protection Act (TCPA)
-        and the CTIA Messaging Principles and Best Practices. Supported carriers include AT&amp;T, T-Mobile,
-        Verizon, and most U.S. carriers.
+      <hr class="border-slate-200 my-8" />
+
+      <h2 class="text-2xl font-display font-bold text-navy mt-8 mb-3">Text Message (SMS/MMS) Communications</h2>
+      <p class="text-ink leading-relaxed mb-2 font-semibold text-navy">A2P 10DLC &amp; TCPA Disclosure</p>
+      <p class="text-ink leading-relaxed mb-4">
+        By providing your mobile phone number and checking the SMS consent box on our opt-in form, you expressly consent to receive recurring automated text messages (SMS/MMS) sent via A2P (Application-to-Person) 10DLC messaging from <strong class="font-semibold text-navy">{committee}</strong> about the campaign, including updates, events, and calls to action. Consent is not a condition of any purchase or participation.
       </p>
 
-      <h2>Third-Party Services</h2>
-      <p>
-        We use GoHighLevel (GHL) as our campaign CRM and communications platform to store supporter information
-        and send authorized messages. GoHighLevel processes data on our behalf under appropriate data processing
-        agreements. We do not authorize GoHighLevel or any other processor to use your information for their
-        own purposes.
+      <div class="bg-slate-50 border border-slate-200 rounded-xl p-6 mb-6 space-y-3">
+        <div class="flex gap-3">
+          <span class="font-semibold text-navy min-w-[160px]">Message frequency:</span>
+          <span class="text-ink">Varies based on campaign activity. You may receive multiple messages per week during peak campaign periods.</span>
+        </div>
+        <div class="flex gap-3">
+          <span class="font-semibold text-navy min-w-[160px]">Charges:</span>
+          <span class="text-ink">Message and data rates may apply depending on your mobile carrier plan.</span>
+        </div>
+        <div class="flex gap-3">
+          <span class="font-semibold text-navy min-w-[160px]">To opt out:</span>
+          <span class="text-ink">Reply <strong class="font-semibold">STOP</strong> to any text message at any time. You will receive one final confirmation and no further messages from this campaign.</span>
+        </div>
+        <div class="flex gap-3">
+          <span class="font-semibold text-navy min-w-[160px]">For help:</span>
+          <span class="text-ink">Reply <strong class="font-semibold">HELP</strong> to any text message, or email <a href={`mailto:${email}`} class="text-red hover:underline">{email}</a>.</span>
+        </div>
+        <div class="flex gap-3">
+          <span class="font-semibold text-navy min-w-[160px]">Carrier liability:</span>
+          <span class="text-ink">Carriers are not liable for delayed or undelivered messages.</span>
+        </div>
+        <div class="flex gap-3">
+          <span class="font-semibold text-navy min-w-[160px]">Data sharing:</span>
+          <span class="text-ink"><strong class="font-semibold">Mobile opt-in data and consent will not be shared with any third party for their own marketing or promotional purposes.</strong></span>
+        </div>
+      </div>
+
+      <p class="text-ink leading-relaxed mb-4">
+        Our text messaging program operates under a registered A2P 10DLC campaign in compliance with carrier requirements, the Telephone Consumer Protection Act (TCPA), and the CTIA Messaging Principles and Best Practices. Supported carriers include AT&amp;T, T-Mobile, Verizon, and other major U.S. carriers. By opting in you confirm you are the account holder or have the account holder's permission for the number provided.
       </p>
 
-      <h2>Data Retention</h2>
-      <p>
-        We retain supporter information for the duration of the campaign and for any period required by New York
-        State campaign finance law. After that period, we will securely delete or de-identify personal information
-        that is no longer needed.
+      <hr class="border-slate-200 my-8" />
+
+      <h2 class="text-2xl font-display font-bold text-navy mt-8 mb-3">Third-Party Services</h2>
+      <p class="text-ink leading-relaxed mb-4">
+        We use <strong class="font-semibold text-navy">GoHighLevel (GHL)</strong> as our campaign CRM and communications platform to store supporter information and send authorized messages. GoHighLevel processes data on our behalf under appropriate data processing agreements. We do not authorize GoHighLevel or any other processor to use your information for their own purposes.
       </p>
 
-      <h2>Your Rights</h2>
-      <p>You may contact us at any time to:</p>
-      <ul>
+      <hr class="border-slate-200 my-8" />
+
+      <h2 class="text-2xl font-display font-bold text-navy mt-8 mb-3">Data Retention</h2>
+      <p class="text-ink leading-relaxed mb-4">
+        We retain supporter information for the duration of the campaign and for any period required by New York State campaign finance law. After that period, we will securely delete or de-identify personal information that is no longer needed.
+      </p>
+
+      <hr class="border-slate-200 my-8" />
+
+      <h2 class="text-2xl font-display font-bold text-navy mt-8 mb-3">Your Rights</h2>
+      <p class="text-ink leading-relaxed mb-3">You may contact us at any time to:</p>
+      <ul class="list-disc pl-6 mb-4 space-y-1 text-ink leading-relaxed">
         <li>Request access to the personal information we hold about you</li>
         <li>Request correction of inaccurate information</li>
         <li>Request deletion of your information (subject to legal retention obligations)</li>
         <li>Opt out of email or SMS communications at any time</li>
       </ul>
-      <p>To exercise any of these rights, email us at <a href={`mailto:${email}`}>{email}</a>.</p>
-
-      <h2>Children's Privacy</h2>
-      <p>
-        This website is not directed to children under the age of 13. We do not knowingly collect personal
-        information from children under 13.
+      <p class="text-ink leading-relaxed mb-4">
+        To exercise any of these rights, email us at <a href={`mailto:${email}`} class="text-red hover:underline">{email}</a>.
       </p>
 
-      <h2>Links to Other Sites</h2>
-      <p>
-        This site may contain links to third-party websites (such as event pages or social media platforms).
-        We are not responsible for the privacy practices of those sites and encourage you to review their
-        privacy policies.
+      <hr class="border-slate-200 my-8" />
+
+      <h2 class="text-2xl font-display font-bold text-navy mt-8 mb-3">Children's Privacy</h2>
+      <p class="text-ink leading-relaxed mb-4">
+        This website is not directed to children under the age of 13. We do not knowingly collect personal information from children under 13.
       </p>
 
-      <h2>Changes to This Policy</h2>
-      <p>
-        We may update this Privacy Policy from time to time. Changes will be posted on this page with an
-        updated effective date. Continued use of this site after changes are posted constitutes your
-        acceptance of the revised policy.
+      <hr class="border-slate-200 my-8" />
+
+      <h2 class="text-2xl font-display font-bold text-navy mt-8 mb-3">Links to Other Sites</h2>
+      <p class="text-ink leading-relaxed mb-4">
+        This site may contain links to third-party websites (such as event pages or social media platforms). We are not responsible for the privacy practices of those sites and encourage you to review their privacy policies.
       </p>
 
-      <h2>Contact Us</h2>
-      <p>
-        If you have questions about this Privacy Policy or our data practices, please contact us at:<br />
-        <strong>{committee}</strong><br />
-        <a href={`mailto:${email}`}>{email}</a>
+      <hr class="border-slate-200 my-8" />
+
+      <h2 class="text-2xl font-display font-bold text-navy mt-8 mb-3">Changes to This Policy</h2>
+      <p class="text-ink leading-relaxed mb-4">
+        We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated effective date. Continued use of this site after changes are posted constitutes your acceptance of the revised policy.
       </p>
 
-      <hr />
-      <p class="text-sm text-ink/50">
-        Paid for by {committee}. Not authorized by any candidate or candidate's committee other than
-        Meghann Reimondo for Town Supervisor.
+      <hr class="border-slate-200 my-8" />
+
+      <h2 class="text-2xl font-display font-bold text-navy mt-8 mb-3">Contact Us</h2>
+      <p class="text-ink leading-relaxed mb-1">If you have questions about this Privacy Policy or our data practices, please contact us:</p>
+      <p class="text-ink leading-relaxed mb-4">
+        <strong class="font-semibold text-navy">{committee}</strong><br />
+        <a href={`mailto:${email}`} class="text-red hover:underline">{email}</a>
+      </p>
+
+      <hr class="border-slate-200 my-8" />
+
+      <p class="text-sm text-ink/50 italic">
+        Paid for by {committee}. Not authorized by any candidate or candidate's committee other than Meghann Reimondo for Town Supervisor.
       </p>
 
     </div>
   </section>
 </BaseLayout>
-
-<style>
-  .prose h2 { @apply text-2xl font-display font-bold text-navy mt-10 mb-3; }
-  .prose h3 { @apply text-lg font-heading font-semibold text-navy mt-6 mb-2; }
-  .prose p  { @apply text-ink leading-relaxed mb-4; }
-  .prose ul { @apply list-disc pl-6 mb-4 space-y-1 text-ink; }
-  .prose a  { @apply text-red hover:underline; }
-  .prose hr { @apply border-ink/10 my-8; }
-  .prose strong { @apply font-semibold text-navy; }
-</style>
