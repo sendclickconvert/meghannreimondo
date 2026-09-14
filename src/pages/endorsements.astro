@@ -160,6 +160,54 @@ const schema = webPage({
             ></textarea>
           </div>
 
+          <!-- Mobile Phone -->
+          <div>
+            <label for="phone" class="block text-sm font-heading font-semibold text-navy mb-1.5">
+              Mobile Phone <span class="text-xs font-normal text-ink/50">(optional)</span>
+            </label>
+            <input
+              id="phone"
+              name="phone"
+              type="tel"
+              autocomplete="tel"
+              inputmode="tel"
+              placeholder="(845) 555-0100"
+              class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:ring-2 focus:ring-navy/40 focus:border-navy transition"
+            />
+            <p id="phone-error" class="hidden mt-1 text-sm text-red font-semibold">Please enter a mobile number to receive text updates.</p>
+          </div>
+
+          <!-- SMS opt-in -->
+          <div class="flex items-start gap-3 p-4 rounded-lg bg-cream border border-slate-200">
+            <input
+              id="smsOptIn"
+              name="smsOptIn"
+              type="checkbox"
+              class="mt-0.5 shrink-0 w-4 h-4 rounded border-slate-300 accent-[#012566] cursor-pointer"
+            />
+            <div>
+              <label for="smsOptIn" class="text-sm text-ink/80 leading-snug cursor-pointer">
+                Yes — text me campaign updates. By checking this box I give my express written consent to receive recurring automated text messages (SMS/MMS) from Friends of Meghann Reimondo at the mobile number provided, including updates, events, and calls to action. Consent is not a condition of submitting this endorsement or of any purchase.
+              </label>
+              <p class="mt-2 text-xs text-ink/60 leading-snug">
+                Message frequency varies based on campaign activity; you may receive multiple messages per week during peak campaign periods. Message and data rates may apply. Reply STOP to opt out at any time. Reply HELP for help, or email <a href="mailto:meghann@meghannreimondo.com" class="underline hover:text-navy">meghann@meghannreimondo.com</a>. Carriers are not liable for delayed or undelivered messages. Mobile opt-in data and consent will not be shared with any third party for their own marketing or promotional purposes. See our <a href="/privacy-policy" class="underline hover:text-navy">Privacy Policy</a>.
+              </p>
+            </div>
+          </div>
+
+          <!-- Email opt-in -->
+          <div class="flex items-start gap-3 p-4 rounded-lg bg-cream border border-slate-200">
+            <input
+              id="emailOptIn"
+              name="emailOptIn"
+              type="checkbox"
+              class="mt-0.5 shrink-0 w-4 h-4 rounded border-slate-300 accent-[#012566] cursor-pointer"
+            />
+            <label for="emailOptIn" class="text-sm text-ink/80 leading-snug cursor-pointer">
+              Yes — email me campaign updates from Friends of Meghann Reimondo. You can unsubscribe at any time using the link in any email.
+            </label>
+          </div>
+
           <!-- Publish consent checkbox -->
           <div class="flex items-start gap-3 p-4 rounded-lg bg-cream border border-slate-200">
             <input
@@ -201,16 +249,25 @@ const schema = webPage({
   const successBox = document.getElementById('endorse-success');
   const errorBox = document.getElementById('endorse-error');
   const submitBtn = document.getElementById('endorse-submit') as HTMLButtonElement | null;
+  const phoneError = document.getElementById('phone-error');
+
+  function isValidUSPhone(val: string): boolean {
+    return /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4}$/.test(val.replace(/\s/g, ''));
+  }
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (errorBox) errorBox.classList.add('hidden');
+    if (phoneError) phoneError.classList.add('hidden');
 
-    const fullName    = (document.getElementById('endorse-name') as HTMLInputElement)?.value.trim();
-    const email       = (document.getElementById('endorse-email') as HTMLInputElement)?.value.trim();
-    const endorsement = (document.getElementById('endorse-text') as HTMLTextAreaElement)?.value.trim();
-    const consent     = (document.getElementById('endorse-consent') as HTMLInputElement)?.checked;
+    const fullName     = (document.getElementById('endorse-name') as HTMLInputElement)?.value.trim();
+    const email        = (document.getElementById('endorse-email') as HTMLInputElement)?.value.trim();
+    const endorsement  = (document.getElementById('endorse-text') as HTMLTextAreaElement)?.value.trim();
+    const consent      = (document.getElementById('endorse-consent') as HTMLInputElement)?.checked;
     const neighborhood = (document.getElementById('endorse-neighborhood') as HTMLInputElement)?.value.trim();
+    const phone        = (document.getElementById('phone') as HTMLInputElement)?.value.trim();
+    const smsOptIn     = (document.getElementById('smsOptIn') as HTMLInputElement)?.checked ?? false;
+    const emailOptIn   = (document.getElementById('emailOptIn') as HTMLInputElement)?.checked ?? false;
 
     if (!fullName || !email || !endorsement) {
       if (errorBox) { errorBox.textContent = 'Please fill in your name, email, and endorsement.'; errorBox.classList.remove('hidden'); }
@@ -221,13 +278,20 @@ const schema = webPage({
       return;
     }
 
+    // SMS consent requires a valid phone number
+    if (smsOptIn && (!phone || !isValidUSPhone(phone))) {
+      if (phoneError) phoneError.classList.remove('hidden');
+      document.getElementById('phone')?.focus();
+      return;
+    }
+
     if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Submitting…'; }
 
     try {
       const res = await fetch('/api/endorse', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ fullName, email, neighborhood, endorsement, publishConsent: true }),
+        body: JSON.stringify({ fullName, email, neighborhood, endorsement, publishConsent: true, phone, smsOptIn, emailOptIn }),
       });
       if (!res.ok) throw new Error('server_error');
       form.classList.add('hidden');
