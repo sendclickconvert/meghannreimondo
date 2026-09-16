@@ -17,7 +17,7 @@ export const site = {
   legal: { paidForBy: "Friends of Meghann Reimondo" },
   slogan: `The "write" choice for Town Supervisor`, // her pick — warm + teaches the mechanic
   // [STAGING] campaign inbox placeholder per staged copy v1 — set up this inbox before launch; never her business email.
-  contact: { email: "meghann@meghannreimondo.com", phone: "TODO" },
+  contact: { email: "meghann@meghannreimondo.com", phone: "845-684-9413" },
   domains: { primary: "meghannreimondo.com", legacy: "megforwoodstock.com" },
   social: {
     facebook: "https://www.facebook.com/profile.php?id=61588301973280",
