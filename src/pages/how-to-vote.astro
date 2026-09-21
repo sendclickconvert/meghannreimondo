@@ -118,21 +118,26 @@ const schema = graph([
           </li>
         ))}
       </ol>
-      <!-- Sample ballot visual aid -->
-      <figure class="mt-10 max-w-sm mx-auto sm:mx-0">
-        <picture>
-          <source srcset="/images/sample-ballot.webp" type="image/webp" />
-          <img
-            src="/images/sample-ballot.png"
-            alt="Sample ballot showing the write-in area for Town Supervisor at the bottom of the ballot."
-            class="rounded-xl shadow-soft border border-slate-200 w-full h-auto"
-            loading="lazy"
-            width="1024"
-            height="1536"
-          />
-        </picture>
+      <!-- Official sample ballot -->
+      <figure class="mt-10">
+        <p class="mb-3 text-sm font-heading font-bold text-navy uppercase tracking-widest">Official Sample Ballot — 2026 General Election</p>
+        <!-- Scrollable wrapper so the wide ballot doesn't break the layout on mobile -->
+        <div class="overflow-x-auto rounded-xl border border-slate-200 shadow-soft">
+          <picture>
+            <source srcset="/images/sample-ballot.webp" type="image/webp" />
+            <img
+              src="/images/sample-ballot.png"
+              alt="Official 2026 General Election sample ballot for Ulster County — the Town Supervisor write-in line is in the Supervisor column near the right side of the ballot."
+              class="w-full h-auto block"
+              style="min-width: 640px;"
+              loading="lazy"
+              width="3318"
+              height="1282"
+            />
+          </picture>
+        </div>
         <figcaption class="mt-3 text-sm text-ink/60 italic leading-snug">
-          Sample ballot for illustration only — the official November ballot may differ. We'll post the real one as soon as it's available.
+          Official Ulster County 2026 General Election sample ballot. Find the <strong class="text-navy not-italic">Supervisor</strong> column near the right side — the write-in line is at the very bottom of that column.
         </figcaption>
       </figure>
 
