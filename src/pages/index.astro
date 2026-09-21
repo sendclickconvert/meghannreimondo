@@ -44,15 +44,17 @@ const pillars = ['Fiscal Responsibility', 'Supporting Our Staff', 'Communication
     </div>
   </section>
 
-  <!-- 4. Full-width event photo -->
-  <div class="relative overflow-hidden" style="height: clamp(340px, 45vw, 600px);">
-    <img
-      src="/images/together-woodstock.png"
-      alt="Meghann Reimondo speaking at a Woodstock community event"
-      class="absolute inset-0 w-full h-full object-cover object-center"
-      loading="lazy"
-    />
-    <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+  <!-- 4. Full-width event photo — Meghann speaking at Woodstock Democratic Club -->
+  <div class="relative overflow-hidden" style="height: clamp(360px, 48vw, 640px);">
+    <picture class="absolute inset-0 w-full h-full">
+      <source media="(min-width: 768px)" srcset="/images/meghann-desk-desktop.png" />
+      <img
+        src="/images/meghann-desk-mobile.png"
+        alt="Meghann Reimondo speaking at a Woodstock community forum"
+        class="absolute inset-0 w-full h-full object-cover object-top"
+        loading="lazy"
+      />
+    </picture>
   </div>
 
   <!-- 5. Foundation section -->
@@ -81,7 +83,7 @@ const pillars = ['Fiscal Responsibility', 'Supporting Our Staff', 'Communication
       <a
         href="/issues"
         title="Five Core Priorities"
-        class="mt-8 inline-block px-6 py-3 font-heading font-bold text-sm text-navy border-2 border-navy rounded-lg hover:bg-navy hover:text-white transition-colors"
+        class="mt-8 inline-block px-6 py-3 font-heading font-bold text-sm text-white bg-navy border-2 border-navy rounded-lg hover:bg-navy/80 transition-colors"
       >
         Explore the 5 Priorities &rarr;
       </a>
@@ -147,9 +149,8 @@ const pillars = ['Fiscal Responsibility', 'Supporting Our Staff', 'Communication
       class="absolute inset-0 w-full h-full object-cover object-center"
       loading="lazy"
     />
-    <!-- Subtle gradient — lighter in center so photo reads bright, slight shadow on edges -->
-    <div class="absolute inset-0 bg-gradient-to-b from-black/25 via-black/10 to-black/45"></div>
-    <div class="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20"></div>
+    <!-- Navy/purple gradient rising from bottom — matches Lovable design -->
+    <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(1,37,102,0.72) 0%, rgba(1,37,102,0.35) 45%, rgba(1,37,102,0.08) 100%)"></div>
     <!-- Text -->
     <div class="relative z-10 text-center text-white px-6">
       <h2 class="text-4xl lg:text-6xl font-display font-extrabold drop-shadow-lg">We the people</h2>
