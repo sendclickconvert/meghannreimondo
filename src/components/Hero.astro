@@ -1,56 +1,61 @@
 ---
-// Campaign hero — split layout: copy on one side, foundation pyramid infographic on the other.
-// Per client (7/29/26) the pyramid replaces the campaign video here; the Vimeo URL stays in
-// site.media.heroVideo in case it's wanted elsewhere later.
+// Campaign hero — full-bleed photo of Meghann with headline overlay.
+// Desktop: hero-desktop.png  Mobile: hero-mobile.jpg
+// Redesigned to match Natane's design (Sep 2026).
 import { site } from '../data/site';
-const electionDate = new Date(site.candidate.electionDate + 'T00:00:00');
-const electionLabel = electionDate.toLocaleDateString('en-US', {
-  month: 'long', day: 'numeric', year: 'numeric',
-});
 ---
 
-<section class="relative overflow-hidden bg-white">
-  <div class="container-wide py-14 lg:py-20">
-    <div class="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-      <!-- Left: eyebrow + title + text + CTAs -->
-      <div>
-        <p class="inline-flex items-center gap-2 text-xs font-heading font-bold uppercase tracking-wider text-red bg-red/10 rounded-full px-3 py-1 mb-5">
-          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-          Write-In · General Election {electionLabel}
+<section class="relative overflow-hidden min-h-[560px] lg:min-h-[680px] flex items-end lg:items-center">
+
+  <!-- Background photo — desktop vs mobile via <picture> -->
+  <picture class="absolute inset-0 w-full h-full">
+    <source media="(min-width: 768px)" srcset="/images/hero-desktop.png" />
+    <img
+      src="/images/hero-mobile.jpg"
+      alt="Meghann Reimondo at a Woodstock community evening event"
+      class="absolute inset-0 w-full h-full object-cover object-top"
+      loading="eager"
+      fetchpriority="high"
+      width="1672" height="941"
+    />
+  </picture>
+
+  <!-- Gradient overlay: dark on left/bottom so text is readable, transparent on right -->
+  <div class="absolute inset-0 bg-gradient-to-r from-black/75 via-black/45 to-transparent"></div>
+  <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent lg:hidden"></div>
+
+  <!-- Content -->
+  <div class="relative z-10 container-wide py-14 lg:py-24 w-full">
+    <div class="max-w-xl lg:max-w-2xl">
+
+      <!-- Red accent bar + eyebrow -->
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-1 self-stretch bg-red rounded-full shrink-0"></div>
+        <p class="text-xs font-heading font-bold uppercase tracking-widest text-red">
+          Write-In Candidate for Woodstock
         </p>
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-display font-extrabold text-navy leading-tight text-balance">
-          You Love Woodstock. So&nbsp;Do&nbsp;I.
-        </h1>
-        <p class="mt-4 text-xl lg:text-2xl text-ink/75 italic text-balance">
-          Together we can build a stronger foundation for today and for generations to come.
-        </p>
-        <p class="mt-5 text-lg text-ink/80 max-w-xl">
-          <strong class="text-navy">{site.candidate.name} — the “write” choice for Town Supervisor.</strong><br />
-          This November, my name won't be printed on the ballot. You'll need to
-          <strong class="text-red">write it in</strong>.
-        </p>
-        <div class="mt-8 flex flex-wrap items-center gap-4">
-          <a href="/how-to-vote" class="btn-accent" title="How to write in Meghann Reimondo">How to Write Me In &rarr;</a>
-          <a href="/survey" class="inline-flex items-center gap-2 font-heading font-bold text-navy hover:text-red transition-colors underline" title="Take the Community Survey">
-            Take the Community Survey &rarr;
-          </a>
-        </div>
       </div>
 
-      <!-- Right: foundation pyramid infographic (per client 7/29/26 — replaces the campaign video here).
-           Native width 1198px; fluid, never upscaled past native. -->
-      <div class="mx-auto w-full max-w-[1198px]">
-        <picture>
-          <source srcset="/images/foundation-pyramid.webp" type="image/webp" />
-          <img
-            src="/images/foundation-pyramid.png"
-            alt="Pyramid diagram titled 'A Strong Foundation Builds Everything That Matters.' From the base up: Our Infrastructure — the foundation (roads, buildings, staff, systems and equipment, culture); Our People and Culture — support for dedicated staff and a respectful work culture; Open Door Leadership — accessible, listening leadership; Opportunity and Growth — responsible economic development, local businesses, recreation, and the arts; and at the top, Thriving Community — a safe, vibrant, connected community where everyone can live, work, and belong. Tagline: Strong Foundations. Smart Decisions. A Better Community for All."
-            class="w-full h-auto rounded-2xl shadow-soft border border-slate-200"
-            loading="eager"
-            width="1198" height="1313"
-          />
-        </picture>
+      <!-- Headline -->
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-display font-extrabold text-white leading-tight text-balance">
+        Meghann Reimondo —<br class="hidden sm:block" />
+        the <span class="text-red italic">"write"</span> choice for<br />
+        Town Supervisor
+      </h1>
+
+      <!-- Subhead -->
+      <p class="mt-5 text-lg lg:text-xl text-white/80 max-w-lg leading-relaxed">
+        Together we can build a stronger foundation for today and for generations to come.
+      </p>
+
+      <!-- CTAs -->
+      <div class="mt-8 flex flex-wrap items-center gap-4">
+        <a href="/how-to-vote" class="btn-accent" title="How to write in Meghann Reimondo">How to Write Me In &rarr;</a>
+        <a href="/survey" class="inline-flex items-center gap-2 font-heading font-bold text-white hover:text-red transition-colors underline underline-offset-2" title="Take the Community Survey">
+          Take the Community Survey &rarr;
+        </a>
       </div>
+
     </div>
   </div>
 </section>
