@@ -143,11 +143,10 @@ const pillars = ['Fiscal Responsibility', 'Supporting Our Staff', 'Communication
     </div>
   </section>
 
-  <!-- 8. We the people — full-width photo (high-res desktop WebP) -->
-  <div class="relative overflow-hidden flex items-center justify-center" style="aspect-ratio: 1672 / 941; min-height: 460px;">
+  <!-- 8. We the people — full-width photo (high-res desktop WebP on all sizes) -->
+  <div class="relative overflow-hidden flex items-center justify-center min-h-[420px] lg:min-h-[560px]">
     <picture class="absolute inset-0 w-full h-full">
-      <source media="(min-width: 768px)" srcset="/images/people-desktop.webp" type="image/webp" />
-      <source srcset="/images/people-mobile.webp" type="image/webp" />
+      <source srcset="/images/people-desktop.webp" type="image/webp" />
       <img
         src="/images/people-mobile.jpg"
         alt="Woodstock community members — We the people"
