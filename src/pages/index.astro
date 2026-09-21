@@ -47,7 +47,9 @@ const pillars = ['Fiscal Responsibility', 'Supporting Our Staff', 'Communication
   <!-- 4. Full-width event photo — Meghann speaking at Woodstock Democratic Club -->
   <div class="relative overflow-hidden" style="height: clamp(360px, 48vw, 640px);">
     <picture class="absolute inset-0 w-full h-full">
+      <source media="(min-width: 768px)" srcset="/images/meghann-desk-desktop.webp" type="image/webp" />
       <source media="(min-width: 768px)" srcset="/images/meghann-desk-desktop.png" />
+      <source srcset="/images/meghann-desk-mobile.webp" type="image/webp" />
       <img
         src="/images/meghann-desk-mobile.png"
         alt="Meghann Reimondo speaking at a Woodstock community forum"
@@ -141,14 +143,19 @@ const pillars = ['Fiscal Responsibility', 'Supporting Our Staff', 'Communication
     </div>
   </section>
 
-  <!-- 8. We the people — full-width photo -->
-  <div class="relative overflow-hidden flex items-center justify-center" style="aspect-ratio: 475 / 421; min-height: 460px;">
-    <img
-      src="/images/people-mobile.jpg"
-      alt="Woodstock community members — We the people"
-      class="absolute inset-0 w-full h-full object-cover object-center"
-      loading="lazy"
-    />
+  <!-- 8. We the people — full-width photo (high-res desktop WebP) -->
+  <div class="relative overflow-hidden flex items-center justify-center" style="aspect-ratio: 1672 / 941; min-height: 460px;">
+    <picture class="absolute inset-0 w-full h-full">
+      <source media="(min-width: 768px)" srcset="/images/people-desktop.webp" type="image/webp" />
+      <source srcset="/images/people-mobile.webp" type="image/webp" />
+      <img
+        src="/images/people-mobile.jpg"
+        alt="Woodstock community members — We the people"
+        class="absolute inset-0 w-full h-full object-cover object-center"
+        loading="lazy"
+        width="1672" height="941"
+      />
+    </picture>
     <!-- Gradient: left+bottom navy/purple tint, transparent in center — matches Lovable -->
     <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(1,37,102,0.65) 0%, rgba(80,40,160,0.25) 40%, rgba(1,37,102,0.55) 100%)"></div>
     <!-- Text -->

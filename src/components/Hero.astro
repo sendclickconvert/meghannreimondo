@@ -9,7 +9,9 @@ import { site } from '../data/site';
 
   <!-- Background photo — desktop vs mobile via <picture> -->
   <picture class="absolute inset-0 w-full h-full">
+    <source media="(min-width: 768px)" srcset="/images/hero-desktop.webp" type="image/webp" />
     <source media="(min-width: 768px)" srcset="/images/hero-desktop.png" />
+    <source srcset="/images/hero-mobile.webp" type="image/webp" />
     <img
       src="/images/hero-mobile.jpg"
       alt="Meghann Reimondo at a Woodstock community evening event"
