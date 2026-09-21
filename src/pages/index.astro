@@ -69,11 +69,11 @@ const pillars = ['Fiscal Responsibility', 'Supporting Our Staff', 'Communication
         This campaign doesn't begin with a list of promises. It begins with a commitment to building a strong foundation — because everything else grows from there.
       </p>
 
-      <!-- Five pillars — flat row -->
+      <!-- Five pillars — 2-col on mobile, single row on sm+ -->
       <div class="mt-10 max-w-3xl mx-auto">
-        <div class="flex divide-x divide-white/30 rounded-t-lg overflow-hidden border border-navy/20">
-          {pillars.map((p) => (
-            <div class="flex-1 bg-navy text-white text-center text-xs sm:text-sm font-heading font-bold py-6 px-2 leading-snug flex items-center justify-center min-h-[5rem]">
+        <div class="grid grid-cols-2 sm:grid-cols-5 rounded-t-lg overflow-hidden border border-navy/20 gap-px bg-navy/20">
+          {pillars.map((p, i) => (
+            <div class={`bg-navy text-white text-center text-xs sm:text-sm font-heading font-bold py-6 px-2 leading-snug flex items-center justify-center min-h-[5rem]${i === 4 ? ' col-span-2 sm:col-span-1' : ''}`}>
               {p}
             </div>
           ))}
