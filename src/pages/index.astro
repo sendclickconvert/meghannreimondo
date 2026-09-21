@@ -1,21 +1,12 @@
 ---
-// The five pillars (foundation graphic).
-const pillars = ['Fiscal Responsibility', 'Supporting Our Staff', 'Communication & Transparency', 'Infrastructure', 'Water'];
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
-import WriteInBlock from '../components/WriteInBlock.astro';
 import { site } from '../data/site';
 import { homeGraph } from '../lib/schema';
 
 const schema = homeGraph();
 
-// Three questions — her structure (content pack v2).
-const questions = [
-  { q: 'Who is Meghann?', a: "A neighbor who's already serving Woodstock — and who understands how local government actually works.", href: '/about', cta: 'Meet Meghann →' },
-  { q: 'Why is she running?', a: 'Because Woodstock deserves leadership that listens, plans responsibly, supports its employees, and prepares the town for the future.', href: '/issues', cta: 'See her priorities →' },
-  { q: 'How can I help?', a: 'Volunteer, contribute, endorse, take the community survey — or just learn more.', href: '/volunteer', cta: 'Get involved →' },
-];
-
+const pillars = ['Fiscal Responsibility', 'Supporting Our Staff', 'Communication & Transparency', 'Infrastructure', 'Water'];
 ---
 
 <BaseLayout
@@ -23,109 +14,150 @@ const questions = [
   description={`${site.candidate.name} is a write-in candidate for ${site.candidate.office}. Learn how to write in her name so your vote counts.`}
   schema={schema}
 >
+
+  <!-- 1. Hero — full-bleed photo -->
   <Hero />
 
-  <!-- Primary write-in teaching block (the site's #1 job) -->
-  <WriteInBlock tone="navy" />
-
-  <!-- Three questions (her structure) -->
+  <!-- 2. Together section -->
   <section class="bg-white">
-    <div class="container-wide py-14 lg:py-20">
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {questions.map((l) => (
-          <a href={l.href} class="card group" title={l.q}>
-            <h3 class="font-display font-bold text-lg text-navy group-hover:text-red transition-colors">{l.q}</h3>
-            <p class="mt-2 text-sm text-ink/70">{l.a}</p>
-            <p class="mt-3 text-sm font-heading font-bold text-red">{l.cta}</p>
-          </a>
-        ))}
-      </div>
+    <div class="container-narrow py-14 lg:py-20 text-center">
+      <p class="text-xl lg:text-2xl font-display font-bold text-navy max-w-2xl mx-auto leading-snug">
+        Together we can build a stronger foundation for today and for generations. You Love Woodstock. So Do I.
+      </p>
+      <a href="/about" class="btn-primary mt-8 inline-block" title="Meet Meghann">Meet Meghann</a>
     </div>
   </section>
 
-  <!-- The Foundation -->
-  <section class="bg-cream">
-    <div class="container-narrow py-14 lg:py-20 text-center">
-      <div class="section-divider mx-auto mb-5"></div>
-      <h2 class="text-3xl lg:text-4xl font-display font-extrabold text-navy text-balance">A strong community begins with a strong foundation.</h2>
-      <p class="mt-4 text-lg text-ink/75 max-w-2xl mx-auto">
-        This campaign doesn't begin with a list of promises. It begins with a commitment to building a
-        strong foundation — because everything else grows from there.
+  <!-- 3. Write-in call to action (navy) -->
+  <section class="bg-navy text-white">
+    <div class="container-narrow py-14 lg:py-16 text-center">
+      <p class="text-lg lg:text-xl text-white/90 leading-relaxed">
+        This November, my name won't be printed on the ballot. You'll need to write it in.
       </p>
-      <!-- Foundation graphic: five pillars on a base -->
+      <p class="mt-3 text-lg lg:text-xl text-white/90 leading-relaxed">
+        This is a grassroots movement—each and every one of you matters.
+      </p>
+      <p class="mt-3 text-lg lg:text-xl text-white/90 leading-relaxed">
+        Please take action and vote the right choice on November 3rd.
+      </p>
+      <a href="/how-to-vote" class="btn-accent mt-8 inline-block" title="How to write in Meghann Reimondo">Write me in</a>
+    </div>
+  </section>
+
+  <!-- 4. Full-width event photo -->
+  <div class="relative overflow-hidden" style="height: clamp(340px, 45vw, 600px);">
+    <img
+      src="/images/together-woodstock.png"
+      alt="Meghann Reimondo speaking at a Woodstock community event"
+      class="absolute inset-0 w-full h-full object-cover object-center"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+  </div>
+
+  <!-- 5. Foundation section -->
+  <section class="bg-slate-100">
+    <div class="container-narrow py-14 lg:py-20 text-center">
+      <h2 class="text-3xl lg:text-5xl font-display font-extrabold text-navy leading-tight text-balance">
+        A strong community begins<br class="hidden sm:block" /> with a strong foundation.
+      </h2>
+      <p class="mt-5 text-base lg:text-lg text-ink/70 max-w-xl mx-auto">
+        This campaign doesn't begin with a list of promises. It begins with a commitment to building a strong foundation — because everything else grows from there.
+      </p>
+
+      <!-- Five pillars — flat row -->
       <div class="mt-10 max-w-3xl mx-auto">
-        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 items-stretch">
+        <div class="flex divide-x divide-white/30 rounded-t-lg overflow-hidden border border-navy/20">
           {pillars.map((p) => (
-            <div class="flex flex-col items-center h-full">
-              <div class="w-full h-full min-h-[6rem] sm:min-h-[8rem] bg-navy text-white rounded-t-lg px-2 py-6 sm:py-10 flex items-center justify-center">
-                <span class="text-xs sm:text-sm font-heading font-bold leading-snug text-balance">{p}</span>
-              </div>
+            <div class="flex-1 bg-navy text-white text-center text-xs sm:text-sm font-heading font-bold py-6 px-2 leading-snug flex items-center justify-center min-h-[5rem]">
+              {p}
             </div>
           ))}
         </div>
-        <div class="h-4 bg-red rounded-b-lg"></div>
+        <div class="h-3 bg-red rounded-b-sm"></div>
         <p class="mt-3 text-xs font-heading font-semibold uppercase tracking-widest text-ink/50">The Foundation</p>
       </div>
-      <a href="/issues" class="btn-primary mt-8 inline-block" title="Five Core Priorities">Explore the Five Priorities &rarr;</a>
+
+      <a
+        href="/issues"
+        title="Five Core Priorities"
+        class="mt-8 inline-block px-6 py-3 font-heading font-bold text-sm text-navy border-2 border-navy rounded-lg hover:bg-navy hover:text-white transition-colors"
+      >
+        Explore the 5 Priorities &rarr;
+      </a>
     </div>
   </section>
 
-  <!-- Wallet card — visual front & back + printable download -->
-  <section class="bg-cream">
-    <div class="container-wide py-14 lg:py-20 text-center">
-      <div class="section-divider mx-auto mb-5"></div>
-      <h2 class="text-3xl lg:text-4xl font-display font-extrabold text-navy text-balance">Keep the spelling in your pocket</h2>
-      <p class="mt-4 text-lg text-ink/75 max-w-2xl mx-auto">
-        A write-in vote only counts if the name is right. Take the wallet card with you on November 3.
-      </p>
-      <div class="mt-10 max-w-3xl mx-auto">
-        <img
-          src="/meghann-wallet-card.png"
-          alt="Meghann Reimondo write-in wallet card — front showing name and office, back showing the three write-in steps"
-          class="w-full rounded-xl shadow-soft border border-slate-200"
-          width="2450"
-          height="775"
-          loading="lazy"
-        />
-      </div>
-      <a href="/meghann-wallet-card.png" download="Meghann-Reimondo-Wallet-Card.png" class="btn-accent mt-8 inline-block" title="Download the wallet card">Download the wallet card &rarr;</a>
-    </div>
-  </section>
-
-  <!-- Community band — service photo -->
-  <section class="bg-white">
+  <!-- 6. Bio + pyramid two-column -->
+  <section class="bg-slate-100 border-t border-slate-200">
     <div class="container-wide py-14 lg:py-20">
-      <div class="grid lg:grid-cols-2 gap-10 items-center">
-        <picture>
-          <source srcset={`${site.media.communityPhoto}.webp`} type="image/webp" />
-          <img
-            src={`${site.media.communityPhoto}.jpg`}
-            alt="Meghann Reimondo with volunteers at a Woodstock community cleanup day"
-            class="rounded-2xl shadow-soft w-full h-auto"
-            loading="lazy"
-            width="1600" height="1200"
-          />
-        </picture>
-        <div>
-          <div class="section-divider mb-5"></div>
-          <h2 class="text-3xl lg:text-4xl font-display font-extrabold text-navy text-balance">Already showing up for Woodstock</h2>
-          <p class="mt-4 text-lg text-ink/75">
-            For nineteen years, Woodstock has been my home — where my husband Mike and I are raising our
-            two children, and where I've built a career, served on the school board, and worked every day
-            inside town government. This isn't a campaign against anyone. We're running <em>for</em> Woodstock.
+      <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+        <!-- Bio text -->
+        <div class="text-ink/80 leading-relaxed space-y-5 text-base lg:text-lg">
+          <p>
+            Community work has always been a part of my journey. Whether through my work, my volunteering, or the business I ran for eleven years, caring for the people around me has always been at the core of who I am.
           </p>
-          <a href="/about" class="inline-block mt-5 font-heading font-bold text-navy hover:text-red transition-colors underline" title="Meet Meghann">Read my story &rarr;</a>
+          <p>
+            That combination — hands-on experience inside the Comeau, and a professional life spent building budgets and systems — is exactly what I'd bring to the Supervisor's office.
+          </p>
+          <p class="font-display font-bold text-red text-xl italic">Meghann Reimondo</p>
+        </div>
+        <!-- Foundation pyramid -->
+        <div>
+          <picture>
+            <source srcset="/images/foundation-pyramid.webp" type="image/webp" />
+            <img
+              src="/images/foundation-pyramid.png"
+              alt="A Strong Foundation pyramid — five levels from infrastructure at the base to thriving community at the top"
+              class="w-full h-auto rounded-xl shadow-soft"
+              loading="lazy"
+              width="1198" height="1313"
+            />
+          </picture>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Survey invitation -->
+  <!-- 7. Your voice — three columns (navy) -->
   <section class="bg-navy text-white">
-    <div class="container-narrow py-14 lg:py-16 text-center">
-      <h2 class="text-2xl lg:text-3xl font-display font-extrabold text-balance">This campaign starts by listening.</h2>
-      <p class="mt-3 text-white/70 max-w-xl mx-auto">Tell me what matters most to you — the Community Survey takes just a few minutes, and you can respond anonymously.</p>
-      <a href="/survey" class="btn-accent mt-6 inline-block" title="Take the Community Survey">Take the Community Survey &rarr;</a>
+    <div class="container-wide py-14 lg:py-20">
+      <div class="grid sm:grid-cols-3 gap-8 text-center sm:text-left">
+        <div>
+          <p class="text-2xl lg:text-3xl font-display font-extrabold text-white">Your voice matters.</p>
+        </div>
+        <div>
+          <p class="text-2xl lg:text-3xl font-display font-extrabold text-white">Your voice counts.</p>
+        </div>
+        <div>
+          <p class="text-2xl lg:text-3xl font-display font-extrabold text-white">Your voice is heard.</p>
+        </div>
+      </div>
+      <div class="mt-10 text-center sm:text-left">
+        <a href="/how-to-vote" class="btn-accent inline-block" title="How to write in Meghann Reimondo">How to Write Me In</a>
+      </div>
     </div>
   </section>
+
+  <!-- 8. We the people — full-width photo -->
+  <div class="relative overflow-hidden flex items-center justify-center" style="min-height: clamp(380px, 50vw, 620px);">
+    <img
+      src="/images/people-mobile.jpg"
+      alt="Woodstock community members — We the people"
+      class="absolute inset-0 w-full h-full object-cover object-center"
+      loading="lazy"
+    />
+    <!-- Dark gradient overlay -->
+    <div class="absolute inset-0 bg-navy/60"></div>
+    <!-- Text -->
+    <div class="relative z-10 text-center text-white px-6">
+      <h2 class="text-4xl lg:text-6xl font-display font-extrabold">We the people</h2>
+      <p class="mt-3 text-lg lg:text-2xl font-display font-semibold text-white/90">Returning Woodstock to its grassroots</p>
+    </div>
+    <!-- Bottom caption -->
+    <p class="absolute bottom-5 inset-x-0 text-center text-xs font-heading text-white/60">
+      Write in Meghann Reimondo for Town Supervisor &middot; November 3, 2026
+    </p>
+  </div>
+
 </BaseLayout>
