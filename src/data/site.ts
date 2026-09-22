@@ -183,7 +183,7 @@ export const NAV_ITEMS = [
   { label: 'Priorities', href: '/issues' },
   { label: 'Community Survey', href: '/survey' },
   { label: 'Endorsements', href: '/endorsements' },
-  { label: 'Voter Resources', href: '/how-to-vote#voter-resources' },
+  { label: 'Voter Resources', href: '/how-to-vote' },
   { label: 'Events', href: '/events' },
   { label: 'Volunteer', href: '/volunteer' },
   { label: 'Contribute', href: '/contribute' },
