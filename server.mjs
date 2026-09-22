@@ -66,6 +66,46 @@ app.post('/api/join', async (req, res) => {
   }
 });
 
+// ── /api/volunteer ────────────────────────────────────────────────────────
+// Receives volunteer sign-up submissions and forwards to GHL.
+app.post('/api/volunteer', async (req, res) => {
+  const webhookUrl = process.env.GHL_OPTIN_WEBHOOK_URL;
+
+  if (!webhookUrl) {
+    console.warn('[/api/volunteer] GHL_OPTIN_WEBHOOK_URL not set; skipping forward.');
+    return res.json({ ok: true, skipped: true });
+  }
+
+  const body = req.body ?? {};
+
+  const payload = {
+    source:    'volunteer-form',
+    firstName: String(body.firstName ?? '').trim(),
+    lastName:  String(body.lastName  ?? '').trim(),
+    email:     String(body.email     ?? '').trim(),
+    phone:     String(body.phone     ?? '').trim(),
+    howHelp:   String(body.howHelp   ?? '').trim(),
+  };
+
+  try {
+    const ghlRes = await fetch(webhookUrl, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(payload),
+    });
+
+    if (!ghlRes.ok) {
+      console.error('[/api/volunteer] GHL returned', ghlRes.status);
+      return res.status(502).json({ ok: false, error: 'upstream_error' });
+    }
+
+    return res.json({ ok: true });
+  } catch (err) {
+    console.error('[/api/volunteer] fetch failed:', err.message);
+    return res.status(500).json({ ok: false, error: 'network_error' });
+  }
+});
+
 // ── /api/endorse ──────────────────────────────────────────────────────────
 // Receives endorsement form submissions for campaign review.
 // NEVER auto-publishes — payload is forwarded to the configured webhook only.

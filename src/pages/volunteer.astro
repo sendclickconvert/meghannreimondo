@@ -47,23 +47,108 @@ const schema = webPage({
 
   <section class="bg-white">
     <div class="container-narrow py-14 lg:py-20 max-w-xl">
-      <div class="card text-center">
-        <p class="font-display font-bold text-lg text-navy">Ready to help?</p>
-        <p class="mt-2 text-ink/75">
-          Email the campaign and tell us how you'd like to pitch in — canvassing, phone banking, hosting a
-          lawn sign, or spreading the word.
+
+      <!-- Volunteer sign-up form -->
+      <div id="vol-form-card" class="card">
+        <p class="font-display font-bold text-xl text-navy text-center">Ready to help?</p>
+        <p class="mt-2 text-ink/75 text-center">
+          Fill in your info and we'll be in touch about next steps.
         </p>
-        <a
-          href={`mailto:${site.contact.email}?subject=${encodeURIComponent('I want to volunteer')}&body=${encodeURIComponent('Hi Meghann,\n\nI want to help the campaign. Here is how I can pitch in:\n\nName:\nHow I can help:')}`}
-          class="btn-primary mt-6 inline-block"
-          title="Email the campaign to volunteer"
-        >
-          Sign Up to Volunteer &rarr;
-        </a>
-        <p class="mt-3 text-xs text-ink/50">Opens a pre-filled email to {site.contact.email}</p>
+
+        <form id="vol-form" class="mt-6 space-y-4" novalidate>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label for="vol-first" class="block text-sm font-medium text-ink mb-1">First name <span class="text-red">*</span></label>
+              <input id="vol-first" name="firstName" type="text" required autocomplete="given-name"
+                class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-navy" />
+            </div>
+            <div>
+              <label for="vol-last" class="block text-sm font-medium text-ink mb-1">Last name <span class="text-red">*</span></label>
+              <input id="vol-last" name="lastName" type="text" required autocomplete="family-name"
+                class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-navy" />
+            </div>
+          </div>
+
+          <div>
+            <label for="vol-email" class="block text-sm font-medium text-ink mb-1">Email <span class="text-red">*</span></label>
+            <input id="vol-email" name="email" type="email" required autocomplete="email"
+              class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-navy" />
+          </div>
+
+          <div>
+            <label for="vol-phone" class="block text-sm font-medium text-ink mb-1">Phone <span class="text-ink/40 font-normal">(optional)</span></label>
+            <input id="vol-phone" name="phone" type="tel" autocomplete="tel"
+              class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-navy" />
+          </div>
+
+          <div>
+            <label for="vol-how" class="block text-sm font-medium text-ink mb-1">How would you like to help? <span class="text-ink/40 font-normal">(optional)</span></label>
+            <textarea id="vol-how" name="howHelp" rows="3" placeholder="Canvassing, phone banking, lawn sign, spreading the word…"
+              class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-navy resize-none"></textarea>
+          </div>
+
+          <div id="vol-error" class="hidden rounded-lg bg-red/10 border border-red/30 text-red text-sm px-4 py-3"></div>
+
+          <button id="vol-submit" type="submit" class="btn-primary w-full">
+            Sign Up to Volunteer &rarr;
+          </button>
+        </form>
       </div>
+
+      <!-- Thank-you state -->
+      <div id="vol-thanks" class="hidden card text-center">
+        <div class="text-4xl mb-4">🙌</div>
+        <p class="font-display font-bold text-xl text-navy">You're in — thank you!</p>
+        <p class="mt-2 text-ink/75">We'll be in touch soon about how you can help.</p>
+        <a href="/" class="btn-primary mt-6 inline-block">Back to Home &rarr;</a>
+      </div>
+
     </div>
   </section>
+
+  <script>
+    const form      = document.getElementById('vol-form') as HTMLFormElement | null;
+    const errorBox  = document.getElementById('vol-error') as HTMLElement | null;
+    const submitBtn = document.getElementById('vol-submit') as HTMLButtonElement | null;
+    const formCard  = document.getElementById('vol-form-card');
+    const thanks    = document.getElementById('vol-thanks');
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (errorBox) errorBox.classList.add('hidden');
+
+      const data = Object.fromEntries(new FormData(form!).entries());
+      if (!data.firstName || !data.lastName || !data.email) {
+        if (errorBox) { errorBox.textContent = 'Please fill in your first name, last name, and email.'; errorBox.classList.remove('hidden'); }
+        return;
+      }
+
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Submitting…'; }
+
+      try {
+        const res = await fetch('/api/volunteer', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            firstName: data.firstName,
+            lastName:  data.lastName,
+            email:     data.email,
+            phone:     data.phone    ?? '',
+            howHelp:   data.howHelp  ?? '',
+          }),
+        });
+        if (!res.ok) throw new Error('server_error');
+      } catch {
+        if (errorBox) { errorBox.textContent = 'Something went wrong — please try again or email us directly at meghann@meghannreimondo.com.'; errorBox.classList.remove('hidden'); }
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Sign Up to Volunteer →'; }
+        return;
+      }
+
+      formCard?.classList.add('hidden');
+      thanks?.classList.remove('hidden');
+      thanks?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  </script>
 
   <WriteInBlock tone="light" />
 </BaseLayout>
