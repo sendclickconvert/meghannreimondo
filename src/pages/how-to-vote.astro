@@ -18,7 +18,7 @@ const steps = [
   },
   {
     name: 'Write in: MEGHANN REIMONDO',
-    text: 'On that write-in line, write the name Meghann Reimondo, spelled exactly: "Meghann" with a double n, then "Reimondo". A misspelled name can keep your vote from counting.',
+    text: 'On that write-in line, write Meghann Reimondo as clearly as you can. It does not have to be spelled perfectly. Election officials count a write-in when it\'s clear who the voter meant, so do your best and your vote counts.',
   },
   {
     name: 'Fill it in to make your vote count',
@@ -38,7 +38,7 @@ const faqs = [
   },
   {
     q: 'How do I spell her name correctly?',
-    a: 'Meghann Reimondo — "Meghann" is spelled with a double n (M-E-G-H-A-N-N) and "Reimondo" is spelled R-E-I-M-O-N-D-O. A misspelled name can cause your vote not to count, so spell it exactly.',
+    a: 'Meghann Reimondo — "Meghann" with a double n (M-E-G-H-A-N-N) and "Reimondo" (R-E-I-M-O-N-D-O). But you do not have to get it letter-perfect. Meghann confirmed with the Ulster County Board of Elections that a close spelling still counts, as long as it\'s clear you meant her. Write it as clearly as you can and don\'t worry about it.',
   },
   {
     q: 'Do I have to fill in a bubble or oval too?',
@@ -50,7 +50,11 @@ const faqs = [
   },
   {
     q: 'Does my handwriting need to be perfect?',
-    a: 'Write clearly enough that an election official can read the name — printing it is fine. As long as the intended candidate is clear and the name is spelled correctly, the write-in can be counted.',
+    a: 'No. Print it if that\'s easier to read. What matters is that an election official can tell who you meant — not perfect handwriting or perfect spelling.',
+  },
+  {
+    q: 'What if I spell her name wrong?',
+    a: 'Your vote still counts. A write-in is counted when the voter\'s intent is clear, so a small misspelling will not throw it out. Get as close as you can — that\'s all that\'s needed.',
   },
   {
     q: 'Can I write her in on an early, absentee, or mail ballot?',
@@ -75,7 +79,7 @@ const schema = graph([
 
 <BaseLayout
   title="How to Write In Meghann Reimondo"
-  description={`How to cast a valid write-in vote for ${site.candidate.name} for ${site.candidate.office} — spell her name exactly and complete the mark.`}
+  description={`How to cast a valid write-in vote for ${site.candidate.name} for ${site.candidate.office} — write her name and complete the mark.`}
   schema={schema}
 >
   <!-- Page header -->
@@ -95,11 +99,12 @@ const schema = graph([
   <!-- Correct-spelling callout (unmissable) -->
   <section class="bg-cream">
     <div class="container-narrow py-10 text-center">
-      <p class="text-sm font-heading font-bold uppercase tracking-widest text-red mb-2">Spell it exactly</p>
+      <p class="text-sm font-heading font-bold uppercase tracking-widest text-red mb-2">How to spell it</p>
       <p class="font-display font-extrabold text-3xl lg:text-4xl text-navy tracking-tight">Meghann Reimondo</p>
       <p class="mt-3 text-ink/70">
-        <strong class="text-navy">M-E-G-H-A-N-N</strong> — double n — <strong class="text-navy">R-E-I-M-O-N-D-O</strong>.
+        <strong class="text-navy">M-E-G-H-A-N-N</strong> — double n — <strong class="text-navy">R-E-I-M-O-N-D-O</strong>
       </p>
+      <p class="mt-2 text-sm text-ink/60">Close is good enough. It does not have to be perfect — what matters is that it's clear you meant Meghann.</p>
     </div>
   </section>
 

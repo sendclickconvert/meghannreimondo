@@ -6,7 +6,7 @@ import { webPage, breadcrumb } from '../lib/schema';
 const path = '/wallet-card';
 const schema = webPage({
   name: 'Printable Wallet Card',
-  description: `Print a wallet card with the exact spelling and write-in steps for ${site.candidate.name}.`,
+  description: `Print a wallet card with the spelling and write-in steps for ${site.candidate.name}.`,
   path,
   extraNodes: [breadcrumb([{ name: 'Home', path: '/' }, { name: 'Wallet Card', path }])],
 });
@@ -18,7 +18,7 @@ const schema = webPage({
       <p class="text-xs font-heading font-bold uppercase tracking-widest text-red mb-3">Take it to the polls</p>
       <h1 class="text-4xl lg:text-5xl font-display font-extrabold text-white">Printable Wallet Card</h1>
       <p class="mt-4 text-lg text-white/70 max-w-2xl mx-auto">
-        Print it, cut it out, fold it, and bring it with you on November 3 — the exact spelling and the three
+        Print it, cut it out, fold it, and bring it with you on November 3 — the spelling and the three
         write-in steps, right in your pocket.
       </p>
     </div>

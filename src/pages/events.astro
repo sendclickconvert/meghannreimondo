@@ -2,39 +2,22 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import WriteInBlock from '../components/WriteInBlock.astro';
 import { site } from '../data/site';
-import { webPage, breadcrumb } from '../lib/schema'; // graph/eventNode re-added when event address+time are confirmed
+import { webPage, breadcrumb } from '../lib/schema';
 
 const path = '/events';
 
-// Real events only. Each entry becomes an Event node (organizer = committee Org).
-const events: {
+type CampaignEvent = {
   name: string; startDate: string; endDate?: string;
-  time?: string;            // human-readable time string for display
+  time?: string;
   locationName: string; address?: string; url?: string;
-  details?: string;         // brief description shown on the card
-  dateLabel?: string;       // custom label for recurring or multi-date events
+  details?: string;
+  dateLabel?: string;
   rsvp?: boolean;
-  rsvpEmail?: string;       // override for events that RSVP to a different inbox than the campaign default
-}[] = [
-  {
-    name: 'Volunteering at Volunteers Day',
-    startDate: '2026-08-15',
-    locationName: 'Volunteers Day',
-    url: 'https://www.volunteersday.org/',
-  },
-  {
-    name: 'Stellarmuse table at Woodstock Awakening',
-    startDate: '2026-08-16',
-    time: '12:00 – 3:30 pm',
-    locationName: 'Woodstock Awakening',
-    url: 'https://woodstockawakening.org/',
-  },
-  {
-    name: 'Speaking at the Wittenberg Sportsmens Club',
-    startDate: '2026-09-02',
-    locationName: 'Wittenberg Sportsmens Club',
-    details: 'Speaking at the monthly members meeting.',
-  },
+  rsvpEmail?: string;
+};
+
+// ── Upcoming events ────────────────────────────────────────────────────────
+const upcoming: CampaignEvent[] = [
   {
     name: 'LISTENING WITH MEG LIVE',
     startDate: '2026-09-11',
@@ -44,70 +27,103 @@ const events: {
     locationName: 'Sonderbar, 54 Tinker Street',
     details: 'Community conversations. No podium. Just listening. Stop by. Say hello. Ask a question. Share what\'s on your mind.',
   },
-
   {
-    name: 'Meet & Greet',
-    startDate: '2026-09-17',
+    name: 'Meet & Greet with Meghann',
+    startDate: '2026-10-01',
     time: '5:00 – 7:00 pm',
-    locationName: '14 Neher Street, Woodstock, NY',
-    details: 'Appetizers & Answers. Please join us for an intimate gathering of neighbors in conversation. Learn more about where our town is from an insider and her vision for a path forward.',
+    locationName: '147 Ohayo Mountain Rd, Woodstock, NY',
+    details: 'Come meet Meghann, ask questions, and enjoy light snacks and drinks!',
     rsvp: true,
   },
   {
     name: 'Meet & Greet with Meghann',
-    startDate: '2026-09-19',
-    time: '10:00 am – 12:00 pm',
-    locationName: 'Woodstock, NY',
-    details: 'Hosted by Jeff Moran and Dion Ogust. Come meet Meghann, ask questions, and hear why they are excited about the opportunity to bring new leadership to Woodstock. Address provided upon RSVP.',
+    startDate: '2026-10-08',
+    time: '5:00 – 7:00 pm',
+    locationName: '3215 Route 212, Bearsville, NY 12409',
+    details: 'Bring a friend or two! There will be food and a nice opportunity to meet Meghann and some of your other Woodstock neighbors!',
     rsvp: true,
-    rsvpEmail: 'dionogust@gmail.com',
   },
+  {
+    name: 'An Evening with Meghann',
+    startDate: '2026-10-13',
+    time: '5:00 – 7:00 pm',
+    locationName: '17 Parker Lane, Woodstock, NY',
+    details: 'Hosted by Barbara Lowry. Please join your neighbors for an informative evening of questions, answers, and conversation with Meghann. Learn more about Meghann\'s vision for new, stronger leadership for Woodstock! Light refreshments and appetizers will be served.',
+    rsvp: true,
+    rsvpEmail: 'barbara@barbaralaurie.com',
+  },
+  {
+    name: 'Cider, Donuts & Conversation',
+    startDate: '2026-10-15',
+    time: '5:00 – 7:00 pm',
+    locationName: 'Lake Hill Firehouse · 4123 NY-212, Lake Hill, NY 12448',
+    details: 'Join us at the Lake Hill Firehouse for a fun, family-friendly evening! Come enjoy cider and donuts, pumpkin painting, games, treats, and good conversation. Bring the family, stop by for a little while, and enjoy some fall fun with neighbors and friends! Everyone is welcome.',
+    rsvp: true,
+  },
+];
+
+// ── Past events ────────────────────────────────────────────────────────────
+const past: CampaignEvent[] = [
   {
     name: 'Meet & Greet with Meghann',
     startDate: '2026-09-19',
     time: '4:00 – 6:30 pm',
     locationName: '27 Schoonmaker Lane, Woodstock, NY 12498',
     details: 'Appetizers, beer, and wine. Come meet Meghann and hear about her vision for Woodstock.',
-    rsvp: true,
+  },
+  {
+    name: 'Meet & Greet with Meghann',
+    startDate: '2026-09-19',
+    time: '10:00 am – 12:00 pm',
+    locationName: 'Woodstock, NY',
+    details: 'Hosted by Jeff Moran and Dion Ogust. Come meet Meghann, ask questions, and hear why they are excited about the opportunity to bring new leadership to Woodstock.',
   },
   {
     name: 'Meet & Greet',
-    startDate: '2026-10-01',
+    startDate: '2026-09-17',
     time: '5:00 – 7:00 pm',
-    locationName: '147 Ohayo Mountain Rd, Woodstock, NY',
-    rsvp: true,
+    locationName: '14 Neher Street, Woodstock, NY',
+    details: 'Appetizers & Answers. An intimate gathering of neighbors in conversation.',
   },
   {
-    name: 'Meet & Greet',
-    startDate: '2026-10-08',
-    time: '5:00 – 7:00 pm',
-    locationName: '3215 Route 212, Bearsville, NY 12409',
-    rsvp: true,
+    name: 'Speaking at the Wittenberg Sportsmens Club',
+    startDate: '2026-09-02',
+    locationName: 'Wittenberg Sportsmens Club',
+    details: 'Speaking at the monthly members meeting.',
   },
   {
-    name: 'Meet & Greet',
-    startDate: '2026-10-13',
-    time: '5:00 – 7:00 pm',
-    locationName: '17 Parker Lane, Woodstock, NY',
-    details: 'Light refreshments will be served.',
-    rsvp: true,
+    name: 'Stellarmuse table at Woodstock Awakening',
+    startDate: '2026-08-16',
+    time: '12:00 – 3:30 pm',
+    locationName: 'Woodstock Awakening',
+    url: 'https://woodstockawakening.org/',
+  },
+  {
+    name: 'Volunteering at Volunteers Day',
+    startDate: '2026-08-15',
+    locationName: 'Volunteers Day',
+    url: 'https://www.volunteersday.org/',
   },
 ];
 
 const fmtDate = (d: string) =>
   new Date(d + 'T00:00:00').toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
 
-const rsvpHref = (eventName: string, rsvpEmail?: string) =>
-  `mailto:${rsvpEmail ?? site.contact.email}?subject=${encodeURIComponent(`RSVP: ${eventName}`)}&body=${encodeURIComponent('Name(s):\nNumber attending:\n')}`;
+// RSVP mailto includes event name, date, and location so every submission is self-identified.
+const rsvpHref = (e: CampaignEvent) => {
+  const label = e.dateLabel ?? fmtDate(e.startDate);
+  const body = [
+    `Event: ${e.name}`,
+    `Date: ${label}${e.time ? ' · ' + e.time : ''}`,
+    `Location: ${e.locationName}`,
+    '',
+    'Name(s):',
+    'Number attending:',
+  ].join('\n');
+  return `mailto:${e.rsvpEmail ?? site.contact.email}?subject=${encodeURIComponent(`RSVP: ${e.name} – ${label}`)}&body=${encodeURIComponent(body)}`;
+};
 
-const bc = breadcrumb([
-  { name: 'Home', path: '/' },
-  { name: 'Events', path },
-]);
-
-// NOTE: Event JSON-LD is intentionally NOT emitted for now — the listed events have no
-// confirmed venue address or start/end time yet, and incomplete Event markup is worse
-// than none. Re-enable `graph([...events.map(eventNode)])` once address + time are confirmed.
+const bc = breadcrumb([{ name: 'Home', path: '/' }, { name: 'Events', path }]);
 const schema = webPage({
   name: 'Events',
   description: `Campaign events for ${site.candidate.name}.`,
@@ -124,35 +140,61 @@ const schema = webPage({
     </div>
   </section>
 
+  <!-- Upcoming events -->
   <section class="bg-white">
-    <div class="container-narrow py-14 lg:py-20">
-      {events.length === 0 ? (
-        <div class="card border-dashed border-2 border-red/40 text-center">
-          <p class="font-display font-bold text-lg text-navy">[TODO — no events posted]</p>
-          <p class="mt-2 text-ink/70">Upcoming campaign events will appear here once scheduled. No events are listed until they are real.</p>
-        </div>
-      ) : (
-        <div class="grid sm:grid-cols-2 gap-5">
-          {events.map((e) => (
-            <div class="card">
-              <p class="text-xs font-heading font-bold uppercase tracking-widest text-red">{e.dateLabel ?? fmtDate(e.startDate)}{e.time && <span class="normal-case tracking-normal"> · {e.time}</span>}</p>
-              <h3 class="mt-2 font-display font-bold text-lg text-navy">{e.name}</h3>
-              <p class="mt-1 text-sm text-ink/70">{e.address ?? e.locationName}</p>
-              {e.details && <p class="mt-2 text-sm text-ink/75">{e.details}</p>}
-              {e.url && (
-                <a href={e.url} target="_blank" rel="noopener noreferrer" class="mt-3 inline-block font-heading font-bold text-sm text-navy hover:text-red underline transition-colors">
-                  Event details &rarr;
-                </a>
-              )}
-              {e.rsvp && (
-                <a href={rsvpHref(e.name, e.rsvpEmail)} class="mt-3 ml-4 inline-block font-heading font-bold text-sm text-red hover:text-navy underline transition-colors">
-                  RSVP by email &rarr;
-                </a>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
+    <div class="container-narrow py-14 lg:py-16">
+      <h2 class="text-2xl font-display font-extrabold text-navy mb-6">Upcoming Events</h2>
+      <div class="grid sm:grid-cols-2 gap-5">
+        {upcoming.map((e) => (
+          <div class="card">
+            <p class="text-xs font-heading font-bold uppercase tracking-widest text-red">
+              {e.dateLabel ?? fmtDate(e.startDate)}
+              {e.time && <span class="normal-case tracking-normal"> · {e.time}</span>}
+            </p>
+            <h3 class="mt-2 font-display font-bold text-lg text-navy">{e.name}</h3>
+            <p class="mt-1 text-sm text-ink/70">{e.address ?? e.locationName}</p>
+            {e.details && <p class="mt-2 text-sm text-ink/75">{e.details}</p>}
+            {e.url && (
+              <a href={e.url} target="_blank" rel="noopener noreferrer"
+                class="mt-3 inline-block font-heading font-bold text-sm text-navy hover:text-red underline transition-colors">
+                Event details &rarr;
+              </a>
+            )}
+            {e.rsvp && (
+              <a href={rsvpHref(e)}
+                class="mt-3 ml-4 inline-block font-heading font-bold text-sm text-red hover:text-navy underline transition-colors">
+                RSVP by email &rarr;
+              </a>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Past events -->
+  <section class="bg-slate-50 border-t border-slate-200">
+    <div class="container-narrow py-12 lg:py-16">
+      <h2 class="text-xl font-display font-bold text-ink/50 mb-6">Past Events</h2>
+      <div class="grid sm:grid-cols-2 gap-4">
+        {past.map((e) => (
+          <div class="rounded-xl border border-slate-200 p-5 bg-white opacity-70">
+            <p class="text-xs font-heading font-bold uppercase tracking-widest text-slate-400">
+              {e.dateLabel ?? fmtDate(e.startDate)}
+              {e.time && <span class="normal-case tracking-normal"> · {e.time}</span>}
+            </p>
+            <h3 class="mt-2 font-display font-bold text-base text-slate-500">{e.name}</h3>
+            <p class="mt-1 text-sm text-slate-400">{e.address ?? e.locationName}</p>
+            {e.details && <p class="mt-1 text-sm text-slate-400">{e.details}</p>}
+            {e.url && (
+              <a href={e.url} target="_blank" rel="noopener noreferrer"
+                class="mt-2 inline-block font-heading font-bold text-sm text-slate-400 hover:text-navy underline transition-colors">
+                Event details &rarr;
+              </a>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 

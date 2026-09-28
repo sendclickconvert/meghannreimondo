@@ -24,7 +24,7 @@ const pillars = ['Fiscal Responsibility', 'Supporting Our Staff', 'Communication
       <p class="text-xl lg:text-2xl font-display font-bold text-navy max-w-2xl mx-auto leading-snug">
         Together we can build a stronger foundation for today and for generations. You Love Woodstock. So Do I.
       </p>
-      <a href="/about" class="btn-primary mt-8 inline-block" title="Meet Meghann">Meet Meghann</a>
+      <a href="/about" class="btn-accent mt-8 inline-block" title="Meet Meghann">Meet Meghann</a>
     </div>
   </section>
 
@@ -44,15 +44,15 @@ const pillars = ['Fiscal Responsibility', 'Supporting Our Staff', 'Communication
     </div>
   </section>
 
-  <!-- 4. Full-width event photo — Meghann speaking at Woodstock Democratic Club -->
-  <div class="relative overflow-hidden" style="height: clamp(360px, 48vw, 640px);">
+  <!-- 4. Full-width photo — Meghann at a house party -->
+  <div class="relative overflow-hidden" style="height: clamp(480px, 56vw, 680px);">
     <picture class="absolute inset-0 w-full h-full">
       <source media="(min-width: 768px)" srcset="/images/meghann-desk-desktop.webp" type="image/webp" />
       <source media="(min-width: 768px)" srcset="/images/meghann-desk-desktop.png" />
       <source srcset="/images/meghann-desk-mobile.webp" type="image/webp" />
       <img
         src="/images/meghann-desk-mobile.png"
-        alt="Meghann Reimondo speaking at a Woodstock community forum"
+        alt="Meghann Reimondo speaking with supporters at a Woodstock house party"
         class="absolute inset-0 w-full h-full object-cover object-top"
         loading="lazy"
       />
@@ -96,18 +96,8 @@ const pillars = ['Fiscal Responsibility', 'Supporting Our Staff', 'Communication
   <section class="bg-slate-100 border-t border-slate-200">
     <div class="container-wide py-14 lg:py-20">
       <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-        <!-- Bio text -->
-        <div class="text-ink/80 leading-relaxed space-y-5 text-base lg:text-lg">
-          <p>
-            Community work has always been a part of my journey. Whether through my work, my volunteering, or the business I ran for eleven years, caring for the people around me has always been at the core of who I am.
-          </p>
-          <p>
-            That combination — hands-on experience inside the Comeau, and a professional life spent building budgets and systems — is exactly what I'd bring to the Supervisor's office.
-          </p>
-          <p class="font-display font-bold text-red text-xl italic">Meghann Reimondo</p>
-        </div>
-        <!-- Foundation pyramid -->
-        <div>
+        <!-- Foundation pyramid — first on mobile, right column on desktop -->
+        <div class="order-1 lg:order-2">
           <picture>
             <source srcset="/images/foundation-pyramid.webp" type="image/webp" />
             <img
@@ -119,6 +109,16 @@ const pillars = ['Fiscal Responsibility', 'Supporting Our Staff', 'Communication
             />
           </picture>
         </div>
+        <!-- Bio text — below pyramid on mobile, left column on desktop -->
+        <div class="order-2 lg:order-1 text-ink/80 leading-relaxed space-y-5 text-base lg:text-lg text-center lg:text-left">
+          <p>
+            Community work has always been a part of my journey. Whether through my work, my volunteering, or the business I ran for eleven years, caring for the people around me has always been at the core of who I am.
+          </p>
+          <p>
+            That combination — hands-on experience inside the Comeau, and a professional life spent building budgets and systems — is exactly what I'd bring to the Supervisor's office.
+          </p>
+          <p class="font-display font-bold text-red text-xl italic">Meghann Reimondo</p>
+        </div>
       </div>
     </div>
   </section>
@@ -126,7 +126,7 @@ const pillars = ['Fiscal Responsibility', 'Supporting Our Staff', 'Communication
   <!-- 7. Your voice — three columns (navy) -->
   <section class="bg-navy text-white">
     <div class="container-wide py-14 lg:py-20">
-      <div class="grid sm:grid-cols-3 gap-8 text-center sm:text-left">
+      <div class="grid sm:grid-cols-3 gap-8 text-center">
         <div>
           <p class="text-2xl lg:text-3xl font-display font-extrabold text-white">Your voice matters.</p>
         </div>
@@ -137,14 +137,14 @@ const pillars = ['Fiscal Responsibility', 'Supporting Our Staff', 'Communication
           <p class="text-2xl lg:text-3xl font-display font-extrabold text-white">Your voice is heard.</p>
         </div>
       </div>
-      <div class="mt-10 text-center sm:text-left">
+      <div class="mt-10 text-center">
         <a href="/how-to-vote" class="btn-accent inline-block" title="How to write in Meghann Reimondo">How to Write Me In</a>
       </div>
     </div>
   </section>
 
-  <!-- 8. We the people — full-width photo (high-res desktop WebP on all sizes) -->
-  <div class="relative overflow-hidden flex items-center justify-center" style="min-height: clamp(560px, 56.3vw, 1000px);">
+  <!-- 8. We the people — 4:3 on mobile, natural landscape proportions on desktop -->
+  <div id="wtp-section" class="relative overflow-hidden flex items-center justify-center">
     <picture class="absolute inset-0 w-full h-full">
       <source srcset="/images/people-desktop.webp" type="image/webp" />
       <img
@@ -169,3 +169,16 @@ const pillars = ['Fiscal Responsibility', 'Supporting Our Staff', 'Communication
   </div>
 
 </BaseLayout>
+
+<style>
+  /* "We the people" — 4:3 on mobile, natural landscape height on desktop */
+  #wtp-section {
+    aspect-ratio: 4 / 3;
+  }
+  @media (min-width: 1024px) {
+    #wtp-section {
+      aspect-ratio: auto;
+      min-height: clamp(560px, 56.3vw, 1000px);
+    }
+  }
+</style>
