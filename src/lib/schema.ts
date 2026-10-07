@@ -26,6 +26,8 @@ function sameAs(): string[] {
     site.social.facebook,
     site.social.bluesky,
     site.social.nextdoor,
+    site.social.pinterest,
+    site.social.youtube,
   ].filter(
     (v) => !isTodo(v),
   ) as string[];

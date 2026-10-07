@@ -25,6 +25,8 @@ export const site = {
     nextdoor: "https://nextdoor.com/profile/01DcKkhRQjTmBCzZL/",
     bluesky: "https://bsky.app/profile/meghannreimondo.bsky.social",
     linkedin: "https://www.linkedin.com/in/meghann-reimondo-993b35a0/",
+    pinterest: "https://www.pinterest.com/megforwoodstock/",
+    youtube: "https://www.youtube.com/@MeghannReimondo",
   }, // sameAs targets
   brand: {
     navy: "#012566",
