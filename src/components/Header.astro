@@ -65,7 +65,7 @@ const electionLabel = electionDate.toLocaleDateString('en-US', {
 
         <!-- Desktop nav -->
         <div class="hidden lg:flex items-center gap-0.5">
-          {NAV_ITEMS.filter((i) => i.href !== '/how-to-vote' && !['Volunteer','Contribute','Contact'].includes(i.label)).map((item) => (
+          {NAV_ITEMS.filter((i) => i.href !== '/how-to-vote' && !['Volunteer','Contribute','Contact','Woodstock Vote Express'].includes(i.label)).map((item) => (
             <a
               href={item.href}
               title={item.label}
@@ -92,7 +92,7 @@ const electionLabel = electionDate.toLocaleDateString('en-US', {
               id="more-menu"
               class="hidden absolute right-0 top-full mt-1 w-48 bg-white rounded-xl shadow-lg border border-slate-200 py-1.5 z-50"
             >
-              {NAV_ITEMS.filter((i) => ['Volunteer','Contribute','Contact'].includes(i.label)).map((item) => (
+              {NAV_ITEMS.filter((i) => ['Volunteer','Contribute','Contact','Woodstock Vote Express'].includes(i.label)).map((item) => (
                 <a
                   href={item.href}
                   title={item.label}

@@ -1,0 +1,233 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+import { webPage, breadcrumb } from '../lib/schema';
+
+const path = '/vote-express';
+const schema = webPage({
+  name: 'Woodstock Vote Express',
+  description: 'Request a ride to the polls and home again on Election Day in Woodstock.',
+  path,
+  extraNodes: [breadcrumb([{ name: 'Home', path: '/' }, { name: 'Woodstock Vote Express', path }])],
+});
+---
+
+<BaseLayout
+  title="Woodstock Vote Express"
+  description="Request a ride to the polls and home again on Election Day. Open to every Woodstock voter, with no strings attached."
+  schema={schema}
+>
+  <section class="bg-navy text-white">
+    <div class="container-narrow py-14 lg:py-20 text-center">
+      <p class="text-xs font-heading font-bold uppercase tracking-widest text-red mb-3">Election Day · Tuesday, November 3</p>
+      <h1 class="text-4xl lg:text-6xl font-display font-extrabold text-white text-balance">Woodstock Vote Express</h1>
+      <p class="mt-5 text-lg lg:text-xl text-white/80 max-w-2xl mx-auto">
+        A neighbour-to-neighbour ride to the polls — and safely home again.
+      </p>
+      <p class="mt-4 text-sm lg:text-base text-white/65 max-w-2xl mx-auto">
+        This service is open to every voter, no matter who you choose to vote for. There are no political expectations and no strings attached.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-cream">
+    <div class="container-wide py-12 lg:py-16">
+      <div class="grid lg:grid-cols-[0.72fr_1.28fr] gap-8 lg:gap-12 items-start">
+        <aside class="lg:sticky lg:top-28">
+          <p class="text-xs font-heading font-bold uppercase tracking-widest text-red mb-3">Getting there together</p>
+          <h2 class="font-display font-extrabold text-3xl text-navy text-balance">Tell us what will make your trip work.</h2>
+          <p class="mt-4 leading-relaxed text-ink/75">
+            Share your pickup address, polling place, and the time that works best. A member of our team will call or email you to confirm your transportation arrangements.
+          </p>
+          <div class="mt-6 border-l-4 border-red bg-white/70 p-5">
+            <p class="font-display font-bold text-navy">Need help urgently?</p>
+            <p class="mt-1 text-sm text-ink/70">Call the campaign and we’ll do our best to help.</p>
+            <a class="mt-3 inline-flex font-heading font-bold text-navy underline underline-offset-4" href="tel:8455467924">845-546-7924</a>
+          </div>
+          <p class="mt-5 text-sm text-ink/60">Your information will be used to coordinate your ride request.</p>
+        </aside>
+
+        <div id="ride-form-card" class="card">
+          <div class="mb-6 border-b border-navy/10 pb-5">
+            <p class="font-display font-bold text-2xl text-navy">Request a ride</p>
+            <p class="mt-2 text-sm text-ink/65"><span class="text-red">*</span> Required fields</p>
+          </div>
+
+          <form id="ride-form" class="space-y-5" data-campaign-email={site.contact.email}>
+            <div>
+              <label for="ride-name" class="block text-sm font-medium text-ink mb-1">Full name <span class="text-red">*</span></label>
+              <input id="ride-name" name="fullName" type="text" required maxlength="200" autocomplete="name"
+                class="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-navy" />
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label for="ride-phone" class="block text-sm font-medium text-ink mb-1">Phone <span class="text-red">*</span></label>
+                <input id="ride-phone" name="phone" type="tel" required maxlength="80" autocomplete="tel"
+                  class="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-navy" />
+              </div>
+              <div>
+                <label for="ride-email" class="block text-sm font-medium text-ink mb-1">Email <span class="text-red">*</span></label>
+                <input id="ride-email" name="email" type="email" required maxlength="200" autocomplete="email"
+                  class="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-navy" />
+              </div>
+            </div>
+
+            <div>
+              <label for="ride-address" class="block text-sm font-medium text-ink mb-1">Pickup address in Woodstock <span class="text-red">*</span></label>
+              <input id="ride-address" name="pickupAddress" type="text" required maxlength="500" autocomplete="street-address"
+                placeholder="Street address and any helpful pickup details"
+                class="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-navy" />
+            </div>
+
+            <div>
+              <label for="ride-polling" class="block text-sm font-medium text-ink mb-1">Polling location <span class="text-red">*</span></label>
+              <select id="ride-polling" name="pollingLocation" required
+                class="w-full border border-slate-300 rounded-lg bg-white px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-navy">
+                <option value="" disabled selected>Select your polling location</option>
+                <option value="Woodstock Community Center, 56 Rock City Rd (districts 1, 4, 7, 8)">Woodstock Community Center, 56 Rock City Rd (districts 1, 4, 7, 8)</option>
+                <option value="Lake Hill Firehouse (district 2)">Lake Hill Firehouse (district 2)</option>
+                <option value="Zena Firehouse (districts 3, 6)">Zena Firehouse (districts 3, 6)</option>
+                <option value="Wittenberg Firehouse (districts 5, 9)">Wittenberg Firehouse (districts 5, 9)</option>
+                <option value="I'm not sure - please help me find it">I’m not sure — please help me find it</option>
+              </select>
+              <p class="mt-1.5 text-xs text-ink/55">Not sure where you vote? Choose the last option and we’ll help.</p>
+            </div>
+
+            <div>
+              <label for="ride-time" class="block text-sm font-medium text-ink mb-1">Preferred time window on Election Day <span class="text-red">*</span></label>
+              <select id="ride-time" name="timeWindow" required
+                class="w-full border border-slate-300 rounded-lg bg-white px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-navy">
+                <option value="" disabled selected>Select a time window</option>
+                <option value="6:00-9:00 am">6:00–9:00 am</option>
+                <option value="9:00 am-12:00 pm">9:00 am–12:00 pm</option>
+                <option value="12:00-3:00 pm">12:00–3:00 pm</option>
+                <option value="3:00-6:00 pm">3:00–6:00 pm</option>
+                <option value="6:00-9:00 pm">6:00–9:00 pm</option>
+                <option value="Flexible">Flexible</option>
+              </select>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label for="ride-home" class="block text-sm font-medium text-ink mb-1">Need a ride home as well?</label>
+                <select id="ride-home" name="rideHome"
+                  class="w-full border border-slate-300 rounded-lg bg-white px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-navy">
+                  <option value="true" selected>Yes</option>
+                  <option value="false">No</option>
+                </select>
+              </div>
+              <div>
+                <label for="ride-passengers" class="block text-sm font-medium text-ink mb-1">Number of passengers</label>
+                <input id="ride-passengers" name="passengers" type="number" min="1" step="1" value="1"
+                  class="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-navy" />
+              </div>
+            </div>
+
+            <div>
+              <label for="ride-accessibility" class="block text-sm font-medium text-ink mb-1">Accessibility or mobility needs <span class="text-ink/45 font-normal">(optional)</span></label>
+              <textarea id="ride-accessibility" name="accessibility" rows="2" maxlength="2000"
+                placeholder="For example: wheelchair, walker, or help walking"
+                class="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-navy resize-y"></textarea>
+            </div>
+
+            <div>
+              <label for="ride-details" class="block text-sm font-medium text-ink mb-1">Anything else we should know? <span class="text-ink/45 font-normal">(optional)</span></label>
+              <textarea id="ride-details" name="otherDetails" rows="3" maxlength="2000"
+                class="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-navy resize-y"></textarea>
+            </div>
+
+            <div id="ride-error" class="hidden rounded-lg bg-red/10 border border-red/30 text-ink text-sm px-4 py-3" role="alert" aria-live="assertive"></div>
+
+            <button id="ride-submit" type="submit" class="btn-primary w-full">
+              Request my ride
+            </button>
+            <p class="text-center text-xs text-ink/55">A team member will confirm your pickup by phone or email. We will not text you.</p>
+          </form>
+        </div>
+
+        <div id="ride-thanks" class="hidden card text-center lg:col-start-2">
+          <p class="text-xs font-heading font-bold uppercase tracking-widest text-red mb-3">Woodstock Vote Express</p>
+          <h2 class="font-display font-bold text-2xl text-navy">Your ride request is in.</h2>
+          <p class="mt-3 text-ink/75">Thanks - your ride request is in. A member of our team will call or email you to confirm your pickup.</p>
+          <p class="mt-5 text-sm text-ink/70">For anything urgent, call <a class="font-bold text-navy underline underline-offset-4" href="tel:8455467924">845-546-7924</a>.</p>
+          <a href="/" class="btn-primary mt-6 inline-block">Back to Home</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const form = document.getElementById('ride-form') as HTMLFormElement | null;
+    const errorBox = document.getElementById('ride-error') as HTMLElement | null;
+    const submitBtn = document.getElementById('ride-submit') as HTMLButtonElement | null;
+    const formCard = document.getElementById('ride-form-card');
+    const thanks = document.getElementById('ride-thanks');
+
+    form?.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!form || !form.reportValidity()) return;
+      if (errorBox) {
+        errorBox.replaceChildren();
+        errorBox.classList.add('hidden');
+      }
+
+      const values = new FormData(form);
+      const payload = {
+        fullName: String(values.get('fullName') ?? ''),
+        phone: String(values.get('phone') ?? ''),
+        email: String(values.get('email') ?? ''),
+        pickupAddress: String(values.get('pickupAddress') ?? ''),
+        pollingLocation: String(values.get('pollingLocation') ?? ''),
+        timeWindow: String(values.get('timeWindow') ?? ''),
+        rideHome: values.get('rideHome') === 'true',
+        passengers: Number(values.get('passengers') ?? 1),
+        accessibility: String(values.get('accessibility') ?? ''),
+        otherDetails: String(values.get('otherDetails') ?? ''),
+      };
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending request…';
+      }
+
+      try {
+        const response = await fetch('/api/ride', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        let result: { ok?: boolean } | null = null;
+        try {
+          result = await response.json();
+        } catch {
+          result = null;
+        }
+
+        if (!response.ok || result?.ok !== true) throw new Error('request_failed');
+
+        formCard?.classList.add('hidden');
+        thanks?.classList.remove('hidden');
+        thanks?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch {
+        if (errorBox) {
+          errorBox.append(document.createTextNode('We couldn’t send your request just now. Your details are still here — please try again, or '));
+          const mailLink = document.createElement('a');
+          mailLink.className = 'font-bold underline underline-offset-2';
+          mailLink.href = `mailto:${form?.dataset.campaignEmail ?? 'meghann@meghannreimondo.com'}?subject=${encodeURIComponent('Woodstock Vote Express ride request')}&body=${encodeURIComponent(
+            `Woodstock Vote Express ride request\n\nName: ${payload.fullName}\nPhone: ${payload.phone}\nEmail: ${payload.email}\nPickup address: ${payload.pickupAddress}\nPolling location: ${payload.pollingLocation}\nPreferred time: ${payload.timeWindow}\nRide home: ${payload.rideHome ? 'Yes' : 'No'}\nPassengers: ${payload.passengers}\nAccessibility or mobility needs: ${payload.accessibility}\nAnything else: ${payload.otherDetails}`
+          )}`;
+          mailLink.textContent = 'email the campaign instead';
+          errorBox.append(mailLink, document.createTextNode('.'));
+          errorBox.classList.remove('hidden');
+        }
+        errorBox?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Request my ride';
+        }
+      }
+    });
+  </script>
+</BaseLayout>

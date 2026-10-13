@@ -170,12 +170,8 @@ export const ENDORSEMENTS = [
   },
 ] as const;
 
-export const INTEGRATIONS = {
-  formWebhook: '',          // legacy survey fallback endpoint
-  endorsementWebhook: '',   // webhook for endorsement submissions — drop URL here when ready
-  optInEndpoint: '',     // GHL or other webhook for /join opt-in form — drop URL here when ready
-  surveyEndpoint: '',    // GHL or other webhook for /survey — drop URL here when ready
-} as const;
+// Forms use same-origin server routes, which write directly to the GHL API.
+// No client-side webhook configuration is used.
 
 // Primary navigation — flat, 9 pages. Write-In page is the strategic spine (built first + fullest).
 export const NAV_ITEMS = [
@@ -188,6 +184,7 @@ export const NAV_ITEMS = [
   { label: 'Voter Resources', href: '/how-to-vote' },
   { label: 'Events', href: '/events' },
   { label: 'Volunteer', href: '/volunteer' },
+  { label: 'Woodstock Vote Express', href: '/vote-express' },
   { label: 'Contribute', href: '/contribute' },
   { label: 'Contact', href: '/contact' },
 ] as const;
