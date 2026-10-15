@@ -40,8 +40,19 @@
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
+  /* Page body width. Was max-w-4xl (896px), which sat ~380px narrower than the
+     header and footer (container-wide, 1280px) and left the page looking hollow
+     on a desktop monitor. 6xl (1152px) lines the body up with the chrome and is
+     close to the Fob Father build (74rem / 1184px). */
   .container-narrow {
-    @apply max-w-4xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Long-form prose stays at a readable measure even though its container is
+     now wider — roughly 70 characters a line. Use on letter/bio copy, not on
+     cards, grids or hero sections. */
+  .prose-measure {
+    @apply max-w-[62ch];
   }
 
   /* ---- Buttons ---- */
