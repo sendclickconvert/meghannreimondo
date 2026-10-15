@@ -1,7 +1,7 @@
 ---
 // /join — single-purpose opt-in lander.
 // Minimal chrome: logo-only header, no nav, no exit popup, disclaimer-only footer.
-// Form POSTs to /api/join (server proxy) — the GHL webhook URL stays server-side only.
+// Form POSTs to /api/join; GHL API credentials stay server-side.
 import { site } from '../data/site';
 import { webPage, breadcrumb } from '../lib/schema';
 import '../styles/global.css';
@@ -68,6 +68,7 @@ const fullTitle = `Count Me In | ${site.candidate.name}`;
           <h2 class="font-display font-bold text-xl text-navy mb-6 text-center">I'm committing my vote</h2>
 
           <form
+            data-email={site.contact.email}
             id="join-form"
             class="space-y-4"
             novalidate
@@ -230,6 +231,7 @@ const fullTitle = `Count Me In | ${site.candidate.name}`;
   </footer>
 
   <script>
+    import { requireSaved, showSubmissionError } from '../lib/form-feedback';
     const form = document.getElementById('join-form') as HTMLFormElement | null;
     const thanks = document.getElementById('join-thanks');
     const errorBox = document.getElementById('join-error');
@@ -245,6 +247,7 @@ const fullTitle = `Count Me In | ${site.candidate.name}`;
 
     form?.addEventListener('submit', async (e) => {
       e.preventDefault();
+      if (!form.reportValidity()) return;
       if (errorBox) errorBox.classList.add('hidden');
 
       // Client-side validation
@@ -274,9 +277,9 @@ const fullTitle = `Count Me In | ${site.candidate.name}`;
             smsOptIn:     !!data.smsOptIn,
           }),
         });
-        if (!res.ok) throw new Error('server_error');
+        await requireSaved(res);
       } catch {
-        if (errorBox) { errorBox.textContent = 'Something went wrong. Please try again.'; errorBox.classList.remove('hidden'); }
+        showSubmissionError(errorBox, form.dataset.email || 'meghann@meghannreimondo.com', 'Join the campaign', JSON.stringify(data, null, 2));
         if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Count Me In →'; }
         return;
       }

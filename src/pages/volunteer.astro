@@ -55,7 +55,7 @@ const schema = webPage({
           Fill in your info and we'll be in touch about next steps.
         </p>
 
-        <form id="vol-form" class="mt-6 space-y-4" novalidate>
+        <form id="vol-form" class="mt-6 space-y-4" novalidate data-email={site.contact.email}>
           <div class="grid sm:grid-cols-2 gap-4">
             <div>
               <label for="vol-first" class="block text-sm font-medium text-ink mb-1">First name <span class="text-red">*</span></label>
@@ -107,6 +107,7 @@ const schema = webPage({
   </section>
 
   <script>
+    import { requireSaved, showSubmissionError } from '../lib/form-feedback';
     const form      = document.getElementById('vol-form') as HTMLFormElement | null;
     const errorBox  = document.getElementById('vol-error') as HTMLElement | null;
     const submitBtn = document.getElementById('vol-submit') as HTMLButtonElement | null;
@@ -115,6 +116,7 @@ const schema = webPage({
 
     form?.addEventListener('submit', async (e) => {
       e.preventDefault();
+      if (!form.reportValidity()) return;
       if (errorBox) errorBox.classList.add('hidden');
 
       const data = Object.fromEntries(new FormData(form!).entries());
@@ -137,9 +139,9 @@ const schema = webPage({
             howHelp:   data.howHelp  ?? '',
           }),
         });
-        if (!res.ok) throw new Error('server_error');
+        await requireSaved(res);
       } catch {
-        if (errorBox) { errorBox.textContent = 'Something went wrong — please try again or email us directly at meghann@meghannreimondo.com.'; errorBox.classList.remove('hidden'); }
+        showSubmissionError(errorBox, form.dataset.email || 'meghann@meghannreimondo.com', 'Volunteer sign-up', JSON.stringify(data, null, 2));
         if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Sign Up to Volunteer →'; }
         return;
       }

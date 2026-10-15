@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import WriteInBlock from '../components/WriteInBlock.astro';
-import { site, INTEGRATIONS } from '../data/site';
+import { site } from '../data/site';
 import { webPage, breadcrumb } from '../lib/schema';
 
 const path = '/survey';
@@ -27,8 +27,6 @@ const openQuestions = [
   { id: 'q6', label: 'Is there something Town government could do better?' },
 ];
 
-const endpoint = INTEGRATIONS.surveyEndpoint || INTEGRATIONS.formWebhook;
-const formReady = endpoint !== '';
 ---
 
 <BaseLayout title="Community Survey" description="Help shape Woodstock's future — tell Meghann what matters most to you." schema={schema}>
@@ -47,7 +45,7 @@ const formReady = endpoint !== '';
   <section class="bg-white">
     <div class="container-narrow py-14 lg:py-20 max-w-2xl">
       <div class="card">
-        <form id="survey-form" class="space-y-6" data-webhook={endpoint} data-email={site.contact.email}>
+        <form id="survey-form" class="space-y-6" data-email={site.contact.email}>
           <!-- Q1 -->
           <div>
             <label for="q1" class="block text-sm font-heading font-semibold text-navy mb-1">1. {openQuestions[0].label} <span class="text-red">*</span></label>
@@ -72,10 +70,11 @@ const formReady = endpoint !== '';
 
           <!-- Q7: optional contact + separate opt-in -->
           <div class="pt-4 border-t border-slate-200">
-            <p class="text-sm font-heading font-semibold text-navy mb-1">7. Stay updated <span class="font-normal text-ink/50">(optional — you can submit anonymously)</span></p>
+            <p class="text-sm font-heading font-semibold text-navy mb-1">7. Contact information</p>
+            <p class="text-sm text-ink/75">An email address is required to save your response. Campaign updates are optional.</p>
             <div class="grid sm:grid-cols-2 gap-3 mt-2">
-              <input type="text" name="name" placeholder="Name (optional)" class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm" />
-              <input type="email" name="email" placeholder="Email (optional)" class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm" />
+              <input type="text" name="name" maxlength="2000" aria-label="Name (optional)" placeholder="Name (optional)" class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm" />
+              <input type="email" name="email" required maxlength="2000" aria-label="Email (required)" placeholder="Email (required)" class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm" />
             </div>
             <!-- Email capture is OPT-IN ONLY: submitting the survey is never consent to be emailed. -->
             <label class="mt-3 flex items-start gap-2 text-sm text-ink/75">
@@ -87,18 +86,12 @@ const formReady = endpoint !== '';
           <button type="submit" class="btn-primary w-full" title="Submit your survey">
             Submit Survey
           </button>
-          {!formReady && (
-            <p class="text-xs text-ink/50 text-center">Submitting opens a pre-filled email to the campaign in your mail app — just hit send.</p>
-          )}
+          <div id="survey-error" class="hidden rounded-lg bg-red/10 border border-red/30 text-red text-sm px-4 py-3" role="alert"></div>
         </form>
 
         <!-- Thank-you message (shown after successful submit once the CRM is wired) -->
         <div id="survey-thanks" class="hidden mt-6 rounded-xl bg-cream p-5 text-ink/80">
           <p class="font-display font-bold text-navy mb-2">Thank you!</p>
-          <p id="survey-thanks-sendnote" class="hidden mb-3 font-semibold text-navy">
-            One last step: your response just opened in your email app — press <em>Send</em> there so it
-            reaches the campaign.
-          </p>
           <p>
             Thank you for taking the time to share your thoughts. Whether or not we agree on every issue,
             every response helps me better understand our community. Listening is where good leadership begins.
@@ -111,42 +104,29 @@ const formReady = endpoint !== '';
   <WriteInBlock tone="light" />
 
   <script>
-    // Survey submit: anonymous completion is always possible (name/email optional).
-    // Posts to the CRM webhook when configured; until then, falls back to opening a
-    // pre-filled email to the campaign inbox so no response is ever silently lost.
+    import { requireSaved, showSubmissionError } from '../lib/form-feedback';
     const form = document.getElementById('survey-form') as HTMLFormElement | null;
     const thanks = document.getElementById('survey-thanks');
+    const errorBox = document.getElementById('survey-error');
     form?.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const webhook = form.dataset.webhook;
+      if (!form.reportValidity()) return;
+      errorBox?.classList.add('hidden');
       const data = Object.fromEntries(new FormData(form).entries());
-      if (webhook) {
-        try {
-          await fetch(webhook, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ form: 'community-survey', ...data }),
-          });
-        } catch {
-          alert('Something went wrong sending your response. Please try again.');
-          return;
-        }
-      } else {
-        // Email fallback: open the visitor's mail app with the answers pre-filled.
-        const labels: Record<string, string> = {
-          q1: 'Three most important issues', q2: 'Most immediate attention',
-          q3: 'Love most about Woodstock', q4: 'Biggest concern for the future',
-          q5: 'One thing to improve in four years', q6: 'What Town government could do better',
-          name: 'Name', email: 'Email', updatesOptIn: 'Wants campaign updates',
-        };
-        const body = Object.entries(data)
-          .filter(([, v]) => String(v).trim() !== '')
-          .map(([k, v]) => `${labels[k] ?? k}:\n${v}`)
-          .join('\n\n');
-        const to = form.dataset.email;
-        window.location.href = `mailto:${to}?subject=${encodeURIComponent('Community Survey response')}&body=${encodeURIComponent(body)}`;
-        // Make clear the response still has to be sent from their mail app.
-        document.getElementById('survey-thanks-sendnote')?.classList.remove('hidden');
+      const button = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+      button.disabled = true;
+      button.textContent = 'Submitting…';
+      try {
+        const response = await fetch('/api/survey', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        await requireSaved(response);
+      } catch {
+        showSubmissionError(errorBox, form.dataset.email || 'meghann@meghannreimondo.com', 'Community Survey response', JSON.stringify(data, null, 2));
+        button.disabled = false;
+        button.textContent = 'Submit Survey';
+        return;
       }
       form.classList.add('hidden');
       thanks?.classList.remove('hidden');
