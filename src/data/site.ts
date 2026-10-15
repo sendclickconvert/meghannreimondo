@@ -168,6 +168,84 @@ export const ENDORSEMENTS = [
       "Do not underestimate Meghann's dedication, intelligence and capacity to thrive in the role of Woodstock supervisor. She is the ideal person for this position and I throw my full support behind her candidacy.",
     ],
   },
+  // ---- Added 15 Oct 2026, from Meghann's email "4 More Endoresements to Add Please".
+  // Nagele and Reynolds arrived as PDFs of their public Facebook posts; Rhea and
+  // Saletan were in the email body. Letters are verbatim.
+  {
+    name: 'Marcel Nagele',
+    role: '2026 Primary winner for Woodstock Town Council',
+    date: '',
+    pullQuote:
+      "I don't believe in voting for a particular candidate because they're likely to win according to a broken political process. I vote for the person I believe is most competent to lead. I believe that person is Meghann Reimondo.",
+    signoff: '',
+    signature: ['Marcel Nagele', '2026 Primary winner for Woodstock Town Council'],
+    letter: [
+      "As the election approaches, I'm endorsing Meghann Reimondo for Town Supervisor.",
+      "Meghann is someone I knew was rock solid when I first met her. As I've gotten to know her it's become increasingly clear to me she's exactly the person Woodstock needs to lead our community forward as Town Supervisor.",
+      'Meghann and her husband Michael, a lineman for the power company, have been married twenty-one years. Together, they’ve raised two children, a son Max, and a daughter Mira who has special needs. Meghann is proud to be a wife and mom that holds everything together.',
+      "What I've learned is Meghann began working at eight years of age doing cleanup at a beauty salon which has instilled a strong work ethic from a young age. In adulthood she managed forty-five employees, operated two businesses of her own, and did bookkeeping for several businesses which included payroll and medical billing. She's also worked for Partnership for Education in administrative roles. All of this prior to becoming 1st Deputy Town Clerk which for a time included all required responsibility of the Town Clerk. Meghann is passionate about managing people's resources, including that of her own family.",
+      "Meghann has always said yes to learning, and in the time I've come to know her, due to her vast knowledge of everything, this has become abundantly clear.",
+      "Not only does her experience as Deputy Town Clerk provide her with an amazing advantage toward becoming Town Supervisor, she has also managed her family's finances successfully. Since moving to Woodstock in 2007, Meghann and her husband built a beautiful home nine years ago and they've already paid off the mortgage. Other than a leased vehicle, they carry no debt and they pay their credit card balance in full each month. Together, they've worked diligently to create a safety net for Mira's well-being so after their passing Max will not be burdened with this responsibility. All of Meghann's personal financial responsibility is an example of how she'll manage the Town's finances once elected Town Supervisor.",
+      "When it comes to governing our town, Meghann recognizes a Supervisor can't know the answers to everything. A Supervisor is a role of leadership and truly competent leadership assembles the best people, supports them so they can do their job, takes advisement from them and makes informed decisions. It's not about knowing all the intricacies of every single issue, it's about collaboration and teamwork with competent people to move things forward in a positive direction.",
+      "Meghann's Platform is: fiscal responsibility; supporting our staff; communication and transparency; infrastructure; water and the environment.",
+      'I urge you to learn more about Meghann at www.meghannreimondo.com',
+      "I've been working with Meghann for many months. I've not met anyone I'm more aligned with on community matters. We each have our own distinct strengths, but we also have an amazing cross section of commonality that compliments us well and makes working together extremely easy. And we're both hard workers with extreme scrutiny for accountability, diligence, and accuracy. Oftentimes, in conversations, we defer to each other to allow the stronger of us on any topic to speak ahead of the other. This has been witnessed in Meghann's Meet and Greet's. We always listen to and explain the details to each other. Neither of us are afraid to say we're not up to speed on any topic, but our promise to our community is we always will be up to speed before passing decision. That's a type of leadership that can be difficult to find.",
+      "I don't believe in voting for a particular candidate because they're likely to win according to a broken political process. I vote for the person I believe is most competent to lead. I believe that person is Meghann Reimondo.",
+      "I'll be writing in Meghann Reimondo for Town Supervisor, and I'm urging you to do the same. This will allow Meghann and I to lead our community forward.",
+    ],
+  },
+  {
+    name: 'Joan Reynolds',
+    role: 'Bearsville, NY',
+    date: '',
+    pullQuote:
+      'A Town works when the people who help it run can do their jobs in a supportive, safe, and respectful environment.',
+    signoff: '',
+    signature: ['Joan Reynolds', 'Bearsville, NY'],
+    letter: [
+      "As the Town Supervisor's vote nears, I hear and read comments that our current Supervisor should be given time and support to do her job.",
+      'Ironically, the time, support and respect requested be afforded to Supervisor Anula Courtis are the very things lacking in her administrative decisions and her management of Town employees.',
+      'A few examples…',
+      'Union members have been waiting since January to have their salaries negotiated. There has been little talk and no resolution. Employees feel ignored and disrespected, and are without anticipated pay increases.',
+      "In March, The Highway Superintendent resigned out of frustration and an untenable work environment. His letter to Hudson Valley One described an administration unwilling to listen, obstructive, and uninformed; with a closed-door policy that made change unlikely. He was especially bothered by Anula's claim that he didn't understand his budget. He thought the reverse was true.",
+      "The Building Dept started the year understaffed. Under Anula's leadership it was not supported, but rather, undermined when one of the two Code Enforcement Officers resigned in April. He was not replaced for 5 months until September when the other Code Enforcement Officer finally resigned. He described a work environment much like the Highway Superintendent.",
+      'The Deputy Town Clerk performed all the duties of the Town Clerk and, by all accounts, was doing an excellent job. Instead of working with her, Anula chose to recruit and support a person to run against her in the Primary.',
+      'The resignations continue. Nine months is sufficient to evaluate leadership.',
+      'A Town works when the people who help it run can do their jobs in a supportive, safe, and respectful environment.',
+      'I will be WRITING IN Meghann Reimondo for Town Supervisor on November 3rd because I believe her management skills, leadership, and work ethic will best serve Woodstock and the people who work here.',
+    ],
+  },
+  {
+    name: 'Lois Saletan',
+    role: 'Shady, New York',
+    date: '',
+    pullQuote:
+      'Meghann is the real deal. She’s a smart, radiant person of the highest personal integrity, exceedingly competent, and has the full package of financial, organizational, and interpersonal skills needed to be an effective Town Supervisor.',
+    signoff: '',
+    signature: ['Lois Saletan', 'Shady, New York'],
+    letter: [
+      'Meghann is the real deal. She’s a smart, radiant person of the highest personal integrity, exceedingly competent, and has the full package of financial, organizational, and interpersonal skills needed to be an effective Town Supervisor.',
+      'She’s a great communicator and a proven public servant devoid of ego. She listens deeply to residents and connects them with the people and resources that can help them with their issues of concern. Spend a few minutes in a room with Meghann, and all these qualities in her become abundantly self-evident. Meghann is the leader we need NOW.',
+    ],
+  },
+  // NOTE: Dawn Rhea already appears above with an earlier letter. Meghann sent a
+  // SECOND letter from her on 15 Oct 2026; it is added here as its own entry.
+  // Ask her whether she wants both shown or this one to replace the first.
+  {
+    name: 'Dawn Rhea',
+    role: 'Account Clerk/Bookkeeper, Town of Woodstock',
+    date: '',
+    pullQuote:
+      'All you need to do is speak with Meghann to see her honesty, transparency, authentic resolve, and incorruptibility. I have total clarity and conviction in my choice.',
+    signoff: 'Sincerely,',
+    signature: ['Dawn Rhea', 'Account Clerk/Bookkeeper', 'Town of Woodstock'],
+    letter: [
+      'I am proud and honored to endorse Meghann Reimondo as Write In for the Town of Woodstock Supervisor. In my personal and professional opinion, she is without a doubt the best candidate for the job.',
+      "I have worked with Meghann since September 8th 2025, and she has proven her financial abilities, integrity, and dedication to the Town of Woodstock. Words cannot convey the amount of knowledge, hard work, and heart that Meghann has added to this town. She is not afraid to do the hard work, and if she doesn't have the answers, she will work diligently, ask questions, and consider all sides.",
+      'All you need to do is speak with Meghann to see her honesty, transparency, authentic resolve, and incorruptibility. I have total clarity and conviction in my choice.',
+      'I hope you will make the WRITE choice and Write in Meghann Reimondo for Town of Woodstock Supervisor!!',
+    ],
+  },
 ] as const;
 
 // Forms use same-origin server routes, which write directly to the GHL API.
