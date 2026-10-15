@@ -222,7 +222,7 @@ export const ENDORSEMENTS = [
     pullQuote:
       'Meghann is the real deal. She’s a smart, radiant person of the highest personal integrity, exceedingly competent, and has the full package of financial, organizational, and interpersonal skills needed to be an effective Town Supervisor.',
     signoff: '',
-    signature: ['Lois Saletan', 'Shady, New York'],
+    signature: ['Louie Saletan', 'Shady, New York'],
     letter: [
       'Meghann is the real deal. She’s a smart, radiant person of the highest personal integrity, exceedingly competent, and has the full package of financial, organizational, and interpersonal skills needed to be an effective Town Supervisor.',
       'She’s a great communicator and a proven public servant devoid of ego. She listens deeply to residents and connects them with the people and resources that can help them with their issues of concern. Spend a few minutes in a room with Meghann, and all these qualities in her become abundantly self-evident. Meghann is the leader we need NOW.',
