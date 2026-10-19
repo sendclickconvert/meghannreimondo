@@ -1,2 +1,3 @@
 - [Astro preview host blocking](astro-preview-hosts.md) — `astro preview` ignores vite preview.allowedHosts on Replit; serve `dist/` with `npx serve` instead.
 - [Ride-request contact policy](ride-contact-policy.md) — urgent ride-request calls must use the campaign line, never the candidate’s personal mobile.
+- [No campaign chatbot](campaign-chatbot-policy.md) — user removed chat due to abusive political messages; do not reintroduce it without an explicit request.
