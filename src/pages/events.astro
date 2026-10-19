@@ -16,8 +16,10 @@ type CampaignEvent = {
   rsvpEmail?: string;
 };
 
-// ── Upcoming events ────────────────────────────────────────────────────────
-const upcoming: CampaignEvent[] = [
+// ── Events ─────────────────────────────────────────────────────────────────
+// Add new events to either list; at build time anything dated before today moves to
+// Past Events automatically, so the page never shows a finished event as upcoming.
+const listedUpcoming: CampaignEvent[] = [
   {
     name: 'Meet & Greet with Meghann',
     startDate: '2026-10-01',
@@ -53,8 +55,7 @@ const upcoming: CampaignEvent[] = [
   },
 ];
 
-// ── Past events ────────────────────────────────────────────────────────────
-const past: CampaignEvent[] = [
+const listedPast: CampaignEvent[] = [
   {
     name: 'Meet & Greet with Meghann',
     startDate: '2026-09-19',
@@ -97,6 +98,16 @@ const past: CampaignEvent[] = [
   },
 ];
 
+// Today's date in Woodstock (America/New_York), as YYYY-MM-DD.
+const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York' }).format(new Date());
+const allEvents = [...listedUpcoming, ...listedPast];
+const upcoming = allEvents
+  .filter((e) => (e.endDate ?? e.startDate) >= today)
+  .sort((a, b) => a.startDate.localeCompare(b.startDate));
+const past = allEvents
+  .filter((e) => (e.endDate ?? e.startDate) < today)
+  .sort((a, b) => b.startDate.localeCompare(a.startDate));
+
 const fmtDate = (d: string) =>
   new Date(d + 'T00:00:00').toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
 
@@ -135,6 +146,9 @@ const schema = webPage({
   <section class="bg-white">
     <div class="container-narrow py-14 lg:py-16">
       <h2 class="text-2xl font-display font-extrabold text-navy mb-6">Upcoming Events</h2>
+      {upcoming.length === 0 && (
+        <p class="text-ink/75">No upcoming events are on the calendar right now. Check back soon.</p>
+      )}
       <div class="grid sm:grid-cols-2 gap-5">
         {upcoming.map((e) => (
           <div class="card">
