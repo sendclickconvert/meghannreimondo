@@ -91,6 +91,9 @@ test('CRM form contract: never acknowledge an unsaved contact', async (t) => {
             assert.ok(calls[1].body.body.includes(value));
           }
           assert.ok(calls[1].body.body.includes('Campaign updates opt-in: false'));
+          assert.ok(calls[1].body.body.startsWith('Survey response. Top priority: Water Quality.'));
+          assert.ok(calls[0].body.tags.includes('survey-priority-water-quality'));
+          assert.ok(!calls[0].body.tags.includes('survey-updates-optin'));
         }
         if (route === 'endorse') assert.ok(calls[1].body.body.includes('Publish consent: true'));
         if (route === 'ride') {
@@ -100,6 +103,22 @@ test('CRM form contract: never acknowledge an unsaved contact', async (t) => {
           }
         }
       }
+    });
+    await t.test('landing-page source tracking becomes tags and a note line', async () => {
+      const calls = [];
+      globalThis.fetch = async (target, options) => {
+        calls.push({ target, body: JSON.parse(options.body) });
+        return new Response(JSON.stringify({ contact: { id: 'saved-contact' } }));
+      };
+      const result = await post('join', { ...submission, utm_source: 'Facebook', utm_medium: 'social', utm_campaign: 'week1', page: '/vote' });
+      assert.equal(result.status, 200);
+      assert.ok(calls[0].body.tags.includes('src-facebook'));
+      assert.ok(calls[0].body.tags.includes('lp-vote'));
+      assert.ok(calls[1].body.body.includes('utm_source: Facebook | utm_medium: social | utm_campaign: week1'));
+      assert.ok(calls[1].body.body.includes('Page: /vote'));
+      const survey = await post('survey', { ...submission, updatesOptIn: true });
+      assert.equal(survey.status, 200);
+      assert.ok(calls[2].body.tags.includes('survey-updates-optin'));
     });
     await t.test('note failure does not undo a confirmed contact write', async () => {
       for (const throws of [false, true]) {

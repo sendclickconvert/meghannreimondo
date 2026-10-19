@@ -1,0 +1,220 @@
+---
+// /vote — the page every social post and ad points to.
+// One goal: get the visitor to write in Meghann Reimondo on Nov 3. Chat and phone answer questions;
+// the pledge form and the ride request capture the lead. Logo-only header, no nav, disclaimer footer.
+// The form POSTs to /api/join (GHL credentials stay server-side); utm_* and page are sent along so the CRM
+// can tell Facebook from Instagram from an ad.
+import { site } from '../data/site';
+import { webPage } from '../lib/schema';
+import '../styles/global.css';
+
+const path = '/vote';
+const schema = webPage({
+  name: 'Write In Meghann Reimondo',
+  description: `How to write in ${site.candidate.name} for ${site.candidate.office} on November 3, 2026.`,
+  path,
+});
+const canonicalUrl = new URL(path, site.url).href;
+const fullTitle = `Write In Meghann Reimondo | ${site.candidate.name}`;
+const phone = site.contact.phone;                       // 845-684-9413
+const tel = 'tel:+1' + phone.replace(/\D/g, '');
+const chatId = (site as any).chatWidgetId as string;    // GHL live-chat widget id; empty until the widget exists
+const steps = [
+  ['Find the race', 'On your ballot, find Woodstock Town Supervisor.'],
+  ['Find the write-in line', 'It is at the bottom of the Town Supervisor column.'],
+  ['Write it in', 'MEGHANN REIMONDO. As clearly as you can. Close is good enough.'],
+  ['Fill in the mark', 'So the scanner counts your vote.'],
+  ['Finish and submit', 'Same on early, absentee and mail ballots.'],
+];
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={`Her name is not on the ballot. Here is how to write in ${site.candidate.name} for Woodstock Town Supervisor on Tuesday, November 3, 2026.`} />
+  <link rel="canonical" href={canonicalUrl} />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Write in Meghann Reimondo for Woodstock Town Supervisor" />
+  <meta property="og:description" content="Her name is not on the ballot. It takes one extra step. Tuesday, November 3." />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:image" content={`${site.url}/images/og-default.jpg`} />
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+  {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
+</head>
+<body class="min-h-screen flex flex-col antialiased bg-cream">
+
+  <header class="bg-white border-b border-slate-100 py-3">
+    <div class="container-narrow flex justify-center">
+      <a href="/" aria-label="Meghann Reimondo for Woodstock Town Supervisor, home">
+        <img src={site.brand.logo} alt="Meghann Reimondo, write-in for Woodstock Town Supervisor" class="h-14 w-auto" width="56" height="56" />
+      </a>
+    </div>
+  </header>
+
+  <main class="flex-1">
+    <!-- Hero -->
+    <section class="bg-navy text-white">
+      <div class="container-narrow py-12 lg:py-16 text-center">
+        <p class="text-xs font-heading font-bold uppercase tracking-widest text-white mb-3">
+          <span class="inline-block rounded-full bg-red px-3 py-1">Tuesday, Nov 3</span>
+        </p>
+        <h1 class="text-3xl lg:text-5xl font-display font-extrabold text-white text-balance leading-tight">
+          Her name isn&rsquo;t on the ballot.<br class="hidden sm:block" /> Write in Meghann Reimondo.
+        </h1>
+        <p class="mt-4 text-lg text-white/90 max-w-xl mx-auto">
+          Woodstock Town Supervisor. It takes one extra step, and we&rsquo;ll walk you through it.
+        </p>
+        <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+          <button type="button" id="open-chat" class="inline-flex items-center justify-center rounded-md bg-red px-6 py-3 text-base font-heading font-bold text-white shadow-soft hover:brightness-110 transition">Ask a question in chat</button>
+          <a href={tel} class="inline-flex items-center justify-center rounded-md border-2 border-white px-6 py-3 text-base font-heading font-bold text-white hover:bg-white hover:text-navy transition-colors" data-call>
+            Call {phone}
+          </a>
+        </div>
+        <p class="mt-6 text-sm text-white/80">
+          Early voting <strong class="text-white">Oct 24 to Nov 1</strong> &middot; Election Day <strong class="text-white">Tue Nov 3, 6 am to 9 pm</strong>
+        </p>
+      </div>
+    </section>
+
+    <!-- How to write in -->
+    <section class="bg-white">
+      <div class="container-narrow py-12 lg:py-16 max-w-2xl">
+        <h2 class="font-display font-bold text-2xl text-navy text-center">How to write her in</h2>
+        <p class="mt-2 text-center text-ink/75">
+          Spelling: <strong class="text-navy whitespace-nowrap">M-E-G-H-A-N-N</strong> <strong class="text-navy whitespace-nowrap">R-E-I-M-O-N-D-O</strong> (double n). Meghann confirmed with the Ulster County Board of Elections that a close spelling still counts.
+        </p>
+        <ol class="mt-8 space-y-3">
+          {steps.map(([title, body], i) => (
+            <li class="flex gap-4 rounded-xl bg-cream p-4">
+              <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-navy font-heading font-extrabold text-white">{i + 1}</span>
+              <span><strong class="block text-navy">{title}</strong><span class="text-ink/80 text-sm">{body}</span></span>
+            </li>
+          ))}
+        </ol>
+        <div class="mt-6 flex flex-col sm:flex-row gap-3 justify-center text-center">
+          <a href="/wallet-card" class="btn-secondary px-5 py-3 text-sm">Get the wallet card</a>
+          <a href="/how-to-vote" class="font-heading font-bold text-sm text-navy underline self-center hover:text-red">Full step-by-step guide</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pledge -->
+    <section class="bg-cream">
+      <div class="container-narrow py-12 lg:py-16 max-w-lg">
+        <div class="card" id="pledge-card">
+          <h2 class="font-display font-bold text-xl text-navy mb-1 text-center">I&rsquo;ll write her in</h2>
+          <p class="text-sm text-ink/70 text-center mb-5">Tell us you&rsquo;re in. We&rsquo;ll send a reminder before Election Day.</p>
+          <form id="pledge-form" class="space-y-4" novalidate data-email={site.contact.email}>
+            <div>
+              <label for="firstName" class="block text-sm font-heading font-semibold text-navy mb-1">First name <span class="text-red">*</span></label>
+              <input type="text" id="firstName" name="firstName" required autocomplete="given-name" class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-navy/40" />
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-heading font-semibold text-navy mb-1">Email <span class="text-red">*</span></label>
+              <input type="email" id="email" name="email" required autocomplete="email" class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-navy/40" />
+            </div>
+            <div>
+              <label for="phone" class="block text-sm font-heading font-semibold text-navy mb-1">Phone <span class="text-ink/40 font-normal">(optional)</span></label>
+              <input type="tel" id="phone" name="phone" autocomplete="tel" class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-navy/40" />
+            </div>
+            <label class="flex items-start gap-3 cursor-pointer pt-1">
+              <input type="checkbox" id="commitVote" name="commitVote" required class="mt-0.5 shrink-0 accent-navy" />
+              <span class="text-sm text-ink/80 font-medium">Yes, I plan to write in Meghann Reimondo for Town Supervisor.</span>
+            </label>
+            <div id="pledge-error" class="hidden text-sm text-red font-semibold" role="alert"></div>
+            <button type="submit" class="btn-primary w-full text-base py-3" id="pledge-submit">Count me in &rarr;</button>
+            <p class="text-xs text-ink/50 text-center">Used only by the Friends of Meghann Reimondo campaign.</p>
+          </form>
+        </div>
+        <div id="pledge-thanks" class="hidden card text-center">
+          <h2 class="font-display font-extrabold text-2xl text-navy">You&rsquo;re counted.</h2>
+          <p class="mt-3 text-ink/75">Thank you. Now help us find one more neighbor. Share this page, or take the wallet card with you.</p>
+          <div class="mt-5 flex flex-col sm:flex-row gap-3 justify-center">
+            <a href="/wallet-card" class="btn-primary px-5 py-3 text-sm">Get the wallet card</a>
+            <a href="/vote-express" class="btn-secondary px-5 py-3 text-sm">Need a ride to the polls?</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ride + questions -->
+    <section class="bg-white">
+      <div class="container-narrow py-12 max-w-2xl grid gap-4 sm:grid-cols-2">
+        <a href="/vote-express" class="block rounded-xl border border-slate-200 p-5 hover:border-navy transition-colors">
+          <strong class="block text-navy font-heading">Need a ride to the polls?</strong>
+          <span class="text-sm text-ink/75">Woodstock Vote Express. Neighbors helping neighbors, open to every voter.</span>
+        </a>
+        <a href="https://elections.ulstercountyny.gov" rel="noopener" class="block rounded-xl border border-slate-200 p-5 hover:border-navy transition-colors">
+          <strong class="block text-navy font-heading">Where do I vote?</strong>
+          <span class="text-sm text-ink/75">Early voting sites and your polling place: Ulster County Board of Elections.</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-navy text-white/70 text-center text-xs py-6 px-4">
+    <p>Paid for by {site.legal.paidForBy}</p>
+  </footer>
+
+  {chatId && (
+    <script is:inline src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id={chatId}></script>
+  )}
+
+  <script>
+    import { requireSaved, showSubmissionError } from '../lib/form-feedback';
+
+    // Remember where the visitor came from (?utm_source=facebook...) for the whole visit.
+    const KEYS = ['utm_source', 'utm_medium', 'utm_campaign'];
+    let utm: Record<string, string> = {};
+    try { utm = JSON.parse(sessionStorage.getItem('mr_utm') || '{}'); } catch { /* ignore */ }
+    const q = new URLSearchParams(location.search);
+    let found = false;
+    for (const k of KEYS) { const v = q.get(k); if (v) { utm[k] = v.slice(0, 80); found = true; } }
+    if (found) { try { sessionStorage.setItem('mr_utm', JSON.stringify(utm)); } catch { /* ignore */ } }
+
+    // Chat button: open the GHL widget if it has loaded, otherwise tell them how else to reach us.
+    document.getElementById('open-chat')?.addEventListener('click', () => {
+      const w = (window as any).leadConnector?.chatWidget;
+      if (w?.openWidget) { w.openWidget(); return; }
+      const bubble = document.querySelector('chat-widget') as HTMLElement | null;
+      if (bubble) { bubble.scrollIntoView(); return; }
+      location.href = 'tel:+18456849413';
+    });
+
+    const form = document.getElementById('pledge-form') as HTMLFormElement | null;
+    const errorBox = document.getElementById('pledge-error');
+    const btn = document.getElementById('pledge-submit') as HTMLButtonElement | null;
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorBox?.classList.add('hidden');
+      const data = Object.fromEntries(new FormData(form).entries()) as Record<string, string>;
+      if (!data.firstName || !data.email || !data.commitVote) {
+        if (errorBox) { errorBox.textContent = 'Please add your first name and email, and tick the box.'; errorBox.classList.remove('hidden'); }
+        return;
+      }
+      if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+      try {
+        const res = await fetch('/api/join', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ firstName: data.firstName, email: data.email, phone: data.phone ?? '', commitVote: true, page: '/vote', ...utm }),
+        });
+        await requireSaved(res);
+      } catch {
+        showSubmissionError(errorBox, form.dataset.email || 'meghann@meghannreimondo.com', 'Write-in pledge', JSON.stringify(data, null, 2));
+        if (btn) { btn.disabled = false; btn.textContent = 'Count me in →'; }
+        return;
+      }
+      document.getElementById('pledge-card')?.classList.add('hidden');
+      document.getElementById('pledge-thanks')?.classList.remove('hidden');
+      document.getElementById('pledge-thanks')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  </script>
+</body>
+</html>
