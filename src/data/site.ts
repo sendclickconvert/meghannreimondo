@@ -41,7 +41,7 @@ export const site = {
     communityPhoto: "/images/woodstock-cleanup-volunteers", // .webp/.jpg — homepage community band
     groupPhoto: "/images/community-lunch-volunteers", // .webp/.jpg — smaller inline placement (bio)
   },
-  chatWidgetId: "6ad6336dd3ae3b035c988381", // GHL live-chat widget id for /vote (Settings, Chat Widget); the widget script only loads when this is set
+  chatWidgetId: "", // live chat is OFF (19 Oct 2026, Lamm incident); leave empty
   donateUrl: "https://donate.stripe.com/5kQ6oIcm1aNIeWu8rB0oM00", // [STAGING] Stripe Payment Link — account confirmed, link pending
   url: "https://meghannreimondo.com",
   DEMO_MODE: false, // LIVE — flipped 8/3 client change round (go-live approved)

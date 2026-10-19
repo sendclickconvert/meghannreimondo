@@ -1,6 +1,6 @@
 ---
 // /vote — the page every social post and ad points to.
-// One goal: get the visitor to write in Meghann Reimondo on Nov 3. Chat and phone answer questions;
+// One goal: get the visitor to write in Meghann Reimondo on Nov 3. The phone line answers questions;
 // the pledge form and the ride request capture the lead. Logo-only header, no nav, disclaimer footer.
 // The form POSTs to /api/join (GHL credentials stay server-side); utm_* and page are sent along so the CRM
 // can tell Facebook from Instagram from an ad.
@@ -18,7 +18,6 @@ const canonicalUrl = new URL(path, site.url).href;
 const fullTitle = `Write In Meghann Reimondo | ${site.candidate.name}`;
 const phone = site.contact.phone;                       // 845-684-9413
 const tel = 'tel:+1' + phone.replace(/\D/g, '');
-const chatId = (site as any).chatWidgetId as string;    // GHL live-chat widget id; empty until the widget exists
 const steps = [
   ['Find the race', 'On your ballot, find Woodstock Town Supervisor.'],
   ['Find the write-in line', 'It is at the bottom of the Town Supervisor column.'],
@@ -157,8 +156,8 @@ const steps = [
 
           <div class="card">
             <h2 class="font-display font-bold text-lg text-navy">Questions? We&rsquo;re here.</h2>
-            <div class="mt-4 grid gap-3 sm:grid-cols-2">
-              <button type="button" id="open-chat" class="inline-flex items-center justify-center rounded-md bg-red px-5 py-3 text-base font-heading font-bold text-white shadow-soft hover:brightness-110 transition">Ask a question in chat</button>
+            <p class="mt-2 text-sm text-ink/80">Call and leave a message. The campaign team will get back to you.</p>
+            <div class="mt-4">
               <a href={tel} class="inline-flex items-center justify-center rounded-md border-2 border-navy px-5 py-3 text-base font-heading font-bold text-navy hover:bg-navy hover:text-white transition-colors" data-call>Call {phone}</a>
             </div>
           </div>
@@ -172,10 +171,6 @@ const steps = [
     <p>Paid for by {site.legal.paidForBy}</p>
   </footer>
 
-  {chatId && (
-    <script is:inline src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id={chatId}></script>
-  )}
-
   <script>
     import { requireSaved, showSubmissionError } from '../lib/form-feedback';
 
@@ -187,15 +182,6 @@ const steps = [
     let found = false;
     for (const k of KEYS) { const v = q.get(k); if (v) { utm[k] = v.slice(0, 80); found = true; } }
     if (found) { try { sessionStorage.setItem('mr_utm', JSON.stringify(utm)); } catch { /* ignore */ } }
-
-    // Chat button: open the GHL widget if it has loaded, otherwise tell them how else to reach us.
-    document.getElementById('open-chat')?.addEventListener('click', () => {
-      const w = (window as any).leadConnector?.chatWidget;
-      if (w?.openWidget) { w.openWidget(); return; }
-      const bubble = document.querySelector('chat-widget') as HTMLElement | null;
-      if (bubble) { bubble.scrollIntoView(); return; }
-      location.href = 'tel:+18456849413';
-    });
 
     const form = document.getElementById('pledge-form') as HTMLFormElement | null;
     const errorBox = document.getElementById('pledge-error');
