@@ -1,6 +1,7 @@
 const GHL_API = 'https://services.leadconnectorhq.com';
 const text = (value) => typeof value === 'string' ? value.trim().slice(0, 2000) : '';
 const checked = (value) => value === true || value === 'on' || value === 'true';
+const slug = (value) => String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40);
 const failure = (code) => Object.assign(new Error(code), { code });
 
 // Do not log credentials, including when an upstream body echoes them.
@@ -95,6 +96,13 @@ export function registerForms(app) {
       if (!email && !phone) return res.status(400).json({ ok: false, error: 'contact_required' });
       const tags = ['website-lead', tag];
       const notes = [source, `Submitted: ${new Date().toISOString()}`];
+      // Where the visitor came from: ?utm_source=facebook on a social link becomes a src-facebook tag and a note line.
+      const utmSource = slug(fields.utm_source);
+      if (utmSource) tags.push('src-' + utmSource);
+      const utmLine = ['utm_source', 'utm_medium', 'utm_campaign'].map(k => (fields[k] ? `${k}: ${fields[k]}` : '')).filter(Boolean).join(' | ');
+      if (utmLine) notes.push(utmLine);
+      if (fields.page) notes.push(`Page: ${fields.page}`);
+      if (slug(fields.page) === 'vote') tags.push('lp-vote');
       if (kind === 'join') {
         if (checked(raw.commitVote)) tags.push('write-in-pledge');
         if (checked(raw.smsOptIn)) tags.push('sms-opt-in');
@@ -108,6 +116,9 @@ export function registerForms(app) {
         }
         for (const [key, question] of Object.entries(surveyQuestions)) notes.push(`${question}\n${fields[key]}`);
         notes.push(`Campaign updates opt-in: ${checked(raw.updatesOptIn)}`);
+        if (checked(raw.updatesOptIn)) tags.push('survey-updates-optin');
+        if (slug(fields.q2)) tags.push('survey-priority-' + slug(fields.q2));
+        notes.unshift(`Survey response. Top priority: ${fields.q2}. Updates opt-in: ${checked(raw.updatesOptIn) ? 'yes' : 'no'}.`);
       }
       if (kind === 'endorse') {
         if (!name || !fields.endorsement || !checked(raw.publishConsent)) {
