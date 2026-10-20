@@ -41,8 +41,8 @@ const faqs = [
     a: 'Meghann Reimondo — "Meghann" with a double n (M-E-G-H-A-N-N) and "Reimondo" (R-E-I-M-O-N-D-O). But you do not have to get it letter-perfect. Meghann confirmed with the Ulster County Board of Elections that a close spelling still counts, as long as it\'s clear you meant her. Write it as clearly as you can and don\'t worry about it.',
   },
   {
-    q: 'Do I have to fill in a bubble or oval too?',
-    a: "On New York's optical-scan ballots you must both write the name on the write-in line and fill in the oval or mark for the write-in position so the scanner registers it.",
+    q: 'Do I have to fill in the rectangle too?',
+    a: "On New York's optical-scan ballots you must both write the name on the write-in line and fill in the rectangle next to the write-in line so the scanner registers it.",
   },
   {
     q: 'Where is the write-in line on the ballot?',
@@ -158,7 +158,7 @@ const schema = graph([
         <p class="text-sm font-heading font-bold text-navy uppercase tracking-widest mb-1">Supervisor column — close-up</p>
         <p class="text-sm text-ink/70 mb-4">
           The <strong class="text-navy">Supervisor</strong> column is near the right side of the ballot.
-          <span class="inline-flex items-center gap-1 ml-1"><span class="inline-flex w-5 h-5 rounded-full bg-red text-white text-xs font-bold items-center justify-center">1</span> Fill in the bubble.</span>
+          <span class="inline-flex items-center gap-1 ml-1"><span class="inline-flex w-5 h-5 rounded-full bg-red text-white text-xs font-bold items-center justify-center">1</span> Fill in the rectangle.</span>
           <span class="inline-flex items-center gap-1 ml-1"><span class="inline-flex w-5 h-5 rounded-full bg-red text-white text-xs font-bold items-center justify-center">2</span> Write <strong class="text-navy">MEGHANN REIMONDO</strong> in the blank space below it.</span>
         </p>
         <div class="overflow-x-auto rounded-lg border border-slate-200 shadow-soft">
@@ -166,7 +166,7 @@ const schema = graph([
             <source srcset="/images/ballot-supervisor-zoom.webp" type="image/webp" />
             <img
               src="/images/ballot-supervisor-zoom.png"
-              alt="Close-up of the Supervisor column on the ballot: ① fill in the bubble, ② write Meghann Reimondo in the blank space below."
+              alt="Close-up of the Supervisor column on the ballot: ① fill in the rectangle, ② write Meghann Reimondo in the blank space below."
               class="w-full h-auto block"
               style="max-width: 640px;"
               loading="lazy"
