@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WriteInBlock from '../components/WriteInBlock.astro';
+import { site } from '../data/site';
+import { webPage, breadcrumb } from '../lib/schema';
+
+const path = '/videos';
+const CDN = 'https://assets.cdn.filesafe.space/3OJzYPv7YJ5CCmDukuVu/media/';
+
+type Clip = { title: string; blurb: string; file: string; from?: string };
+
+// Meghann's own videos, 26 Oct 2026 (she asked for them on the site as well as on social).
+// Files live in the campaign's GHL Media Storage (public CDN), so the repo carries no video weight.
+// The how-to video leads, then the issues, then the rest. `from` hides a clip until that
+// America/New_York date (Election Day video).
+const clips: Clip[] = [
+  { title: 'How to Write Me In', blurb: 'Step by step: find the Town Supervisor race, write in MEGHANN REIMONDO and fill in the rectangle.', file: '6ad67b4e88927761f540ea7c.mp4' },
+  { title: 'Election Day', blurb: 'Today is the day. Write me in for Town Supervisor.', file: '6adf134b9c1511d5b9d68312.mp4', from: '2026-11-03' },
+  { title: 'Public Safety', blurb: 'Safe sidewalks, accessible pathways and safe passage throughout Woodstock.', file: '6adf1214d542268bb439143f.mp4' },
+  { title: 'Zena Development', blurb: 'The proposed homes are in Ulster, but Woodstock’s environment, infrastructure and emergency services are affected.', file: '6adf13329c1511d5b9d6817b.mp4' },
+  { title: 'Fiscal Responsibility', blurb: 'Clear budgets in plain language and long-term planning.', file: '6adf11f4d542268bb4391155.mp4' },
+  { title: 'Water', blurb: 'Water quality, including PFAS, deserves careful attention.', file: '6adf14acc9d5b7168d8f600a.mp4' },
+  { title: 'Infrastructure', blurb: 'Buildings, roads, equipment and public spaces: protecting the investments we’ve already made.', file: '6ad67b633cacdd9117d34496.mp4' },
+  { title: 'Supporting Our Staff', blurb: 'Key positions shouldn’t sit vacant. Recruitment, retention and overdue union contracts.', file: '6adf14c5736386d0dcdbda2f.mp4' },
+  { title: 'Communication and Transparency', blurb: 'An open door, returned phone calls and clear explanations.', file: '6adf1545d542268bb43962c8.mp4' },
+  { title: 'What Leadership Means to Me', blurb: 'Listening, researching, supporting staff and remembering who you serve.', file: '6adf165e36aa4a07e8da7aa7.mp4' },
+  { title: 'Early Voting', blurb: 'Early voting runs Saturday, Oct 24 through Sunday, Nov 1.', file: '6ad75dfcc5c884efe3df3ebc.mp4' },
+  { title: 'Hi, I’m Meghann', blurb: 'Meet Meghann, in her own words.', file: '6ad67b44989628c77a89f38e.mp4' },
+  { title: 'Why I’m Running', blurb: 'Why Meghann is running for Woodstock Town Supervisor.', file: '6ad67b233b8fa9783e7311bd.mp4' },
+];
+
+const desc = `Watch short videos from ${site.candidate.name}: how to write her in, and where she stands on Woodstock's issues.`;
+const bc = breadcrumb([{ name: 'Home', path: '/' }, { name: 'Videos', path }]);
+const schema = webPage({ name: 'Videos', description: desc, path, extraNodes: [bc] });
+---
+
+<BaseLayout title="Videos" description={desc} schema={schema}>
+  <section class="bg-navy text-white">
+    <div class="container-narrow py-14 lg:py-20 text-center">
+      <p class="text-xs font-heading font-bold uppercase tracking-widest text-red mb-3">In her own words</p>
+      <h1 class="text-4xl lg:text-5xl font-display font-extrabold text-white">Videos</h1>
+      <p class="mt-4 text-white/80 max-w-xl mx-auto">
+        Short videos on how to write Meghann in and where she stands. Election Day is Tuesday, Nov 3.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="container-narrow py-14 lg:py-16">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {clips.map((c) => (
+          <article class="card flex flex-col" data-from={c.from} style={c.from ? 'display:none' : undefined}>
+            <video
+              class="w-full rounded-lg bg-navy aspect-[9/16] object-cover"
+              controls
+              playsinline
+              preload="metadata"
+              src={`${CDN}${c.file}#t=0.5`}
+              aria-label={c.title}
+            ></video>
+            <h2 class="mt-3 font-display font-bold text-lg text-navy">{c.title}</h2>
+            <p class="mt-1 text-sm text-ink/75">{c.blurb}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <WriteInBlock />
+</BaseLayout>
+
+<script is:inline>
+  // Show a clip once its start date (America/New_York) has arrived.
+  document.querySelectorAll('article[data-from]').forEach(function (el) {
+    var from = el.getAttribute('data-from');
+    if (!from) return;
+    var today = new Date().toLocaleDateString('en-CA', { timeZone: 'America/New_York' });
+    if (today >= from) el.style.display = '';
+  });
+</script>

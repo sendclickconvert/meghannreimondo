@@ -258,6 +258,7 @@ export const NAV_ITEMS = [
   { label: 'How to Write In', href: '/how-to-vote' },
   { label: 'Meet Meghann', href: '/about' },
   { label: 'Priorities', href: '/issues' },
+  { label: 'Videos', href: '/videos' },
   { label: 'Community Survey', href: '/survey' },
   { label: 'Endorsements', href: '/endorsements' },
   { label: 'Voter Resources', href: '/how-to-vote' },
